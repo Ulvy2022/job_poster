@@ -20,7 +20,7 @@ class UserController extends Controller
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->img = $request->img;
         $user->verify_code = $request->verify_code;
         $user->save();
@@ -40,7 +40,7 @@ class UserController extends Controller
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->img = $request->img;
         $user->verify_code = $request->verify_code;
         $user->update();
