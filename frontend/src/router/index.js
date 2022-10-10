@@ -8,8 +8,8 @@ const routes = [
     component: LoginForm,
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/home',
+    name: 'home',
     component: () => import('@/views/AboutView.vue'),
     meta: {
         requiresAuth:true,
