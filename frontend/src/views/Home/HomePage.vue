@@ -1,7 +1,12 @@
 <template>
-    <HomePage/>
+    <JobCategory/>
 </template>
 
 <script>
-    // import HomePage from '../../components/'
+import JobCategory from '../../components/Category/JobCategory.vue'
+export default {
+    components: {
+        JobCategory,
+    }
+}
 </script>

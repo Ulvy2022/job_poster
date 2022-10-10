@@ -116,7 +116,8 @@ export default {
                         this.isClickSigIn = !this.isClickSigIn
                     } else {
                         localStorage.setItem('userId',res.data.id)
-                        this.showInvalid = false
+                        this.showInvalid = false;
+                        this.$router.push('/home')
                     }
                 }).catch(() => {
                     this.isClickSigIn = !this.isClickSigIn

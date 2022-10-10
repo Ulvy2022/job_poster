@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('verify_code')->nullable();
             $table->string('google_id')->nullable();
-            $table->timestamps();
+            $table->date('created_at')->nullable();
+            $table->date('updated_at')->nullable();
+            // $table->timestamps();
         });
     }
 

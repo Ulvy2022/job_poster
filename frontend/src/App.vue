@@ -1,10 +1,11 @@
 <template>
   <navBar v-if="isShowMenuBar != null " />
+
   <router-view/>
 </template>
 
 <script>
-import navBar from './components/navBar/navBar.vue'
+import navBar from './components/navBar/navBar.vue';
 export default {
   components: {
     navBar,
