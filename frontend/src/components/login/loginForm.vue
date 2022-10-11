@@ -25,6 +25,7 @@
                     <div class="mb-6 ">
                         <input :type="type"
                             v-model="password"
+                            @keyup.enter="signIn()"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             placeholder="Password" />
                     </div>
@@ -90,28 +91,67 @@
         </div>
         <Register-Form v-if='is_show' @close_register="close_register">
             <div class="modal-mask">
-                <div class="modal-wrapper w-[42%]  absolute top-52 right-14">
-                   <form class="bg-gradient-to-r from-cyan-500 to-blue-500 shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
-                        <h1 class="mb-2 text-blue-800 fond-bold">REGISTER</h1>
-                        <div class="mb-2 flex ">
-                        <input class="shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="FirstName" v-model="firstName">
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="LastName"  v-model="lastName">
+                <div class="modal-wrapper w-[45%]  absolute top-44 right-14">
+                   <form class="bg-blue-500 shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
+                        <span class="text-light-600">GEGISTER</span>
+                        <div class="mb-2 flex w-full">
+                            <div class="flex flex-col w-full">
+                                <input type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
+
+                                <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                    Please enter your FirstName
+                                </p>
+                            </div>
+
+                            <div class="flex flex-col ml-2 w-full">
+                                <input type="text" placeholder="Last Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="lastName">
+
+                                <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                    Please enter LastName
+                                </p>
+                            </div>
+
                         </div>
 
-                        <select class="bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender">
-                            <option value="Gender" class="text-gray-200" disabled>Gender</option>
-                            <option value="Male" class="text-gray-700">Male</option>
-                            <option value="Female" class="text-gray-700">Female</option>
-                        </select>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"  type="text" placeholder="Phone Number"  v-model="phoneNumber">
+                        <div class="flex flex-col w-full">
+                            <select required class="peer bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender">
+                                <option value="Gender" class="text-gray-200" disabled>Gender</option>
+                                <option value="Male" class="text-gray-700">Male</option>
+                                <option value="Female" class="text-gray-700">Female</option>
+                            </select>  
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please choose your gendar
+                            </p>
+                        </div>
                         
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Email"  v-model="emailUser">
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password"  v-model="passwordUser">
+                        <div class="flex flex-col w-full">
+                            <input type="number" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your Phone Number
+                            </p>
+                        </div>
+                       
+                        <div class="flex flex-col w-full">
+                            <input  type="email" placeholder="Email" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your Email
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col w-full">
+                            <input required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password" v-model="passwordUser">
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your password
+                            </p>
+                        </div>
 
                         <div class="flex items-center justify-between">
-                        <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
-                            Register
-                        </button>
+                            <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                                Register
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -124,7 +164,7 @@
 
 <script>
 import axios from "axios"
-import registerForm from '../register/registerForm.vue';
+import registerForm from '../slot/generalSlot.vue';
 export default {
     components: {
         'Register-Form': registerForm
@@ -144,6 +184,7 @@ export default {
             emailUser: '',
             passwordUser: '',
             role: 'user',
+
         }
     },
     methods: {
@@ -152,7 +193,7 @@ export default {
         },
 
         register() {
-            if (!this.firstName.trim() =="" && !this.lastName.trim() == "" && !this.gender.trim() == "" && !this.phoneNumber.trim() == "" && !this.emailUser.trim() == "" && !this.passwordUser.trim() == ""){
+            if (!this.firstName.trim() == "" && !this.lastName.trim() == "" && !this.gender.trim() == "" && !this.phoneNumber == "" && !this.emailUser.trim() == "" && !this.passwordUser.trim() == ""){
                 let body = {
                     firstName:this.firstName,
                     lastName:this.lastName,
@@ -165,6 +206,7 @@ export default {
                 axios.post("http://127.0.0.1:8000/api/user/register", body)
                 this.is_show = false;
             }
+            
 
             this.firstName = "";
             this.lastName = "";
@@ -185,7 +227,9 @@ export default {
                         this.showInvalid = !this.showInvalid
                         this.isClickSigIn = !this.isClickSigIn
                     } else {
-                        this.showInvalid = !this.showInvalid
+                        localStorage.setItem('userId',res.data.id)
+                        this.showInvalid = false;
+                        this.$router.push('/home')
                     }
                 }).catch(() => {
                     this.isClickSigIn = !this.isClickSigIn
@@ -205,9 +249,9 @@ export default {
             if (this.password.trim() != '') {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid
-
             }
         },
+
         showPassword() {
             if (this.type == 'text') {
                 this.type='password'

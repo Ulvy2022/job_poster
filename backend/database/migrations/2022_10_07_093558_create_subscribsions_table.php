@@ -13,7 +13,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->onDelete("CASCADE");
             $table->integer('price');
-            $table->timestamps();
+            $table->date('created_at')->nullable();
+            $table->date('updated_at')->nullable();
         });
     }
 
