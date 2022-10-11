@@ -14,15 +14,16 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $user = new User();
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
+        $user->gender = $request->gender;
+        $user->role = 'user';
+        $user->phoneNumber = $request->phoneNumber;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->img = $request->img;
-        $user->verify_code = $request->verify_code;
         $user->save();
         return response()->json(['msg' => 'success']);
     }

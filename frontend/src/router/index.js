@@ -7,6 +7,8 @@ const routes = [
     name: 'login',
     component: LoginForm,
   },
+
+
   {
     path: '/about',
     name: 'about',

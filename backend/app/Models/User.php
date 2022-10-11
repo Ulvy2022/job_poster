@@ -17,4 +17,6 @@ class User extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+
+    protected $fillable=['firstName', 'lastName', 'gender', 'role','phoneNumber', 'email', 'password'];
 }
