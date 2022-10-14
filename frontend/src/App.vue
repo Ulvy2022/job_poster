@@ -1,5 +1,5 @@
 <template>
-  <navBar v-if="isShowMenuBar != null " />
+  <navBar v-if="isShowMenuBar != null" />
 
   <router-view/>
 </template>
@@ -40,7 +40,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
 }
-
 
 nav a.router-link-exact-active {
   color: #42b983;

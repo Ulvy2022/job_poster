@@ -32,7 +32,7 @@
 
                     <div class=" -mt-4 mb-2" v-if="isEmptyPassword">
                         <div class="flex">
-                            <span class="text-red-700">Password cannot be  empty</span>
+                            <span class="text-red-700">Password cannot be empty</span>
                         </div>
                     </div>
 
@@ -51,8 +51,6 @@
                             <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Remember
                                 me</label>
                         </div>
-
-
                         <button class="text-blue-600" @click="show_register">
                             Register
                         </button>
@@ -126,7 +124,7 @@
                         </div>
                         
                         <div class="flex flex-col w-full">
-                            <input type="number" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
+                            <input type="tel" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
 
                             <p class="invisible peer-invalid:visible text-red-700 font-light">
                                 Please enter your Phone Number
@@ -217,7 +215,6 @@ export default {
         },
 
         signIn() {
-            
             if (!this.email.trim() == '' && !this.password.trim() == '') {
                 this.isClickSigIn = !this.isClickSigIn
                 this.isEmptyEmail = false
