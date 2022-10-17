@@ -46,90 +46,12 @@
                     <label for="contact-email" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Contact Email</label>
                     <input v-model="contactEmail" type="email" id="contact-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email">
                 </div>
+
+                <div>
+                    <label for="company-name" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Company Name</label>
+                    <input v-model="companyName" type="text" id="company-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company Email">
                 </div>
-                
-                <!-- <label class="mb-4 font-semibold text-gray-900 dark:text-white">Subject Requirement</label>
-                <div class="flex flex-row w-full">
-                    <ul class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="vue-checkbox" type="checkbox" value="Vue Js" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="vue-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="react-checkbox" type="checkbox" value="React" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="react-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">React</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="angular-checkbox" type="checkbox" value="Angular" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="angular-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Angular</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="laravel-checkbox" type="checkbox" value="Laravel" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="laravel-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Laravel</label>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="html-checkbox" type="checkbox" value="HTML" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="html-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HTML</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="node-checkbox" type="checkbox" value="Node Js" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="node-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Node Js</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="c++-checkbox" type="checkbox" value="C++" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="c++-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">C++</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="c#-checkbox" type="checkbox" value="C#" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="c#-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">C#</label>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="tailwind-checkbox" type="checkbox" value="Tailwind" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="tailwind-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Tailwind</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="boostrap-checkbox" type="checkbox" value="Boostrap" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="boostrap-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Boostrap</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="english-checkbox" type="checkbox" value="English" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="english-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">English</label>
-                            </div>
-                        </li>
-                        <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
-                            <div class="flex items-center pl-3">
-                                <input name="subjects[]" id="mysql-checkbox" type="checkbox" value="mySQL" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                <label for="mysql-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">mySQL</label>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
-                
+                </div>
 
                 <div class="mb-6">
                     <label for="job-description" class="font-semibold block mb-2 text-sm text-gray-900 dark:text-gray-300">Job Description</label>
@@ -156,12 +78,11 @@ export default {
             jobLocation: '',
             jobType: '',
             jobClosedate: '',
-            // companyDetails: '',
+            companyName: '',
             salary: '',
             contactName: '',
             contactEmail: '',
             jobDescription: '',
-            // subjects: [],
             jobs: [],
         }
     },
@@ -184,11 +105,10 @@ export default {
                         job_location: this.jobLocation,
                         job_type: this.jobType,
                         job_closedate: this.jobClosedate,
-                        // company_details: this.companyDetails,
+                        company_name: this.companyName,
                         salary: this.salary,
                         contact_name: this.contactName,
                         contact_email: this.contactEmail,
-                        // subjects: this.subjects,
                         job_description: this.jobDescription,
                     }
                 )

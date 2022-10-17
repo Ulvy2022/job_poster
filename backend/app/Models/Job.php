@@ -18,16 +18,12 @@ class Job extends Model
         'job_location',
         'job_type',
         'job_closedate',
-        // 'company_details',
+        'company_name',
         'salary',
         'contact_name',
         'contact_email',
-        // 'subjects',
         'job_description',
-        
     ];
-
-    // protected $casts = [ 'shifts' => 'array' ];
 
     
 }
