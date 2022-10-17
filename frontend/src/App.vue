@@ -1,6 +1,5 @@
 <template>
   <navBar v-if="isShowMenuBar != null" />
-
   <router-view/>
 </template>
 

@@ -86,6 +86,7 @@
                     </a>
             </div>
         </div>
+
         <Register-Form v-if='is_show' @close_register="close_register">
             <div class="modal-mask">
                 <div class="modal-wrapper w-[45%]  absolute top-44 right-14">
@@ -204,7 +205,6 @@ export default {
                 this.is_show = false;
             }
             
-
             this.firstName = "";
             this.lastName = "";
             this.gender = "";
