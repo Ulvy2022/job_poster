@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginForm from '../views/login/LoginView.vue';
+import PostForm from '../views/PostView.vue';
 
 const routes = [
   {
@@ -7,6 +8,13 @@ const routes = [
     name: 'login',
     component: LoginForm,
   },
+
+  {
+    path: '/post',
+    name: 'post',
+    component: PostForm,
+  },
+
   {
     path: '/home',
     name: 'home',

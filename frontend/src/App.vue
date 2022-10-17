@@ -1,5 +1,5 @@
 <template>
-  <navBar v-if="isShowMenuBar != null " />
+  <navBar v-if="isShowMenuBar != null" />
 
   <router-view/>
 </template>
@@ -18,7 +18,6 @@ export default {
   methods: {
     showMenuBar() {
       this.isShowMenuBar = localStorage.getItem('userId');
-      console.log(this.isShowMenuBar);
       this.timeOut = setTimeout(() => {
         this.showMenuBar()
       }, 1000);
@@ -41,7 +40,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
 }
-
 
 nav a.router-link-exact-active {
   color: #42b983;

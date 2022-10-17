@@ -32,7 +32,7 @@
 
                     <div class=" -mt-4 mb-2" v-if="isEmptyPassword">
                         <div class="flex">
-                            <span class="text-red-700">Password cannot be  empty</span>
+                            <span class="text-red-700">Password cannot be empty</span>
                         </div>
                     </div>
 
@@ -50,9 +50,13 @@
                                 id="exampleCheck3" checked />
                             <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Show password</label>
                         </div>
+                        <button class="text-blue-600" @click="show_register">
+                            Register
+                        </button>
+
                         <a href="#!"
                             class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot
-                            password?</a>
+                        password?</a>
                     </div>
 
                     <!-- Submit button -->
@@ -82,6 +86,74 @@
                     </a>
             </div>
         </div>
+        <Register-Form v-if='is_show' @close_register="close_register">
+            <div class="modal-mask">
+                <div class="modal-wrapper w-[45%]  absolute top-44 right-14">
+                   <form class="bg-blue-500 shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
+                        <span class="text-light-600">GEGISTER</span>
+                        <div class="mb-2 flex w-full">
+                            <div class="flex flex-col w-full">
+                                <input type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
+
+                                <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                    Please enter your FirstName
+                                </p>
+                            </div>
+
+                            <div class="flex flex-col ml-2 w-full">
+                                <input type="text" placeholder="Last Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="lastName">
+
+                                <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                    Please enter LastName
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="flex flex-col w-full">
+                            <select required class="peer bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender">
+                                <option value="Gender" class="text-gray-200" disabled>Gender</option>
+                                <option value="Male" class="text-gray-700">Male</option>
+                                <option value="Female" class="text-gray-700">Female</option>
+                            </select>  
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please choose your gendar
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col w-full">
+                            <input type="tel" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your Phone Number
+                            </p>
+                        </div>
+                       
+                        <div class="flex flex-col w-full">
+                            <input  type="email" placeholder="Email" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
+
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your Email
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col w-full">
+                            <input required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password" v-model="passwordUser">
+                            <p class="invisible peer-invalid:visible text-red-700 font-light">
+                                Please enter your password
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </Register-Form>
     </div>
 </section>
 
@@ -89,9 +161,15 @@
 
 <script>
 import axios from "axios"
+import registerForm from '../slot/generalSlot.vue';
 export default {
+    components: {
+        'Register-Form': registerForm
+    },
+
     data() {
         return {
+            is_show: false,
             showInvalid:false,
             email: '',
             password: '',
@@ -100,11 +178,42 @@ export default {
             isInval: 'Invalid email address or password!',
             isEmptyEmail: false,
             isEmptyPassword: false,
+            emailUser: '',
+            passwordUser: '',
+            role: 'user',
+
         }
     },
     methods: {
-        signIn() {
+        show_register(){
+            this.is_show= true;
+        },
+
+        register() {
+            if (!this.firstName.trim() == "" && !this.lastName.trim() == "" && !this.gender.trim() == "" && !this.phoneNumber == "" && !this.emailUser.trim() == "" && !this.passwordUser.trim() == ""){
+                let body = {
+                    firstName:this.firstName,
+                    lastName:this.lastName,
+                    gender:this.gender,
+                    role: this.role,
+                    phoneNumber: this.phoneNumber,
+                    email: this.emailUser,
+                    password: this.passwordUser,
+                }
+                axios.post("http://127.0.0.1:8000/api/user/register", body)
+                this.is_show = false;
+            }
             
+
+            this.firstName = "";
+            this.lastName = "";
+            this.gender = "";
+            this.phoneNumber = "";
+            this.email = "";
+            this.password = ""
+        },
+
+        signIn() {
             if (!this.email.trim() == '' && !this.password.trim() == '') {
                 this.isClickSigIn = !this.isClickSigIn
                 this.isEmptyEmail = false
@@ -136,9 +245,9 @@ export default {
             if (this.password.trim() != '') {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid
-
             }
         },
+
         showPassword() {
             if (this.type == 'text') {
                 this.type='password'

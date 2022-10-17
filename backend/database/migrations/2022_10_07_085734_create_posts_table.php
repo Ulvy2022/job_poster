@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('duties');
             $table->string('requirements');
             $table->string('expiered')->default('No');
-            $table->timestamps();
+            $table->date('created_at')->nullable();
+            $table->date('updated_at')->nullable();
         });
     }
 

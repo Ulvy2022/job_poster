@@ -13,17 +13,15 @@ return new class extends Migration
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
+            $table->string('gender');
+            $table->string('role');
+            $table->string('phoneNumber');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('img')->nullable();
-            $table->string('verify_code')->nullable();
-            $table->string('google_id')->nullable();
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();
-            // $table->timestamps();
         });
     }
-
 
     public function down()
     {
