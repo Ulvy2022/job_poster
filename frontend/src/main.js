@@ -26,5 +26,6 @@ const gauthOption = {
 // Vue.use(GAuth, gauthOption)
 
 import './main.css';
+import 'tw-elements';
 
 createApp(App).use(router,GAuth, gauthOption).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
