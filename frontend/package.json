@@ -16,6 +16,7 @@
     "axios": "^1.1.2",
     "core-js": "^3.8.3",
     "daisyui": "^2.31.0",
+    "tw-elements": "^1.0.0-alpha12",
     "vue": "^3.2.13",
     "vue-google-oauth": "^1.0.5",
     "vue-google-oauth2": "^1.5.8",

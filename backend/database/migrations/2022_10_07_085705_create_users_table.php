@@ -14,10 +14,11 @@ return new class extends Migration
             $table->string('firstName');
             $table->string('lastName');
             $table->string('gender');
-            $table->string('role');
+            $table->string('role')->default('user');
             $table->string('phoneNumber');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('subscription')->default('free');
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();
         });

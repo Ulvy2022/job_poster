@@ -1,107 +1,54 @@
 <template>
-    <section class="text-gray-600 body-font bg w-full overflow-hidden">
-        <div class="container px-5 py-24 mx-auto">
-            <div class="-my-8 divide-y-2 divide-gray-100">
-                <div class="py-8 flex flex-wrap md:flex-nowrap">
-                    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                        <span class="font-semibold title-font text-gray-700">CATEGORY</span>
-                        <span class="text-sm text-gray-500">12 Jun 2019</span>
-                    </div>
-                    <div class="md:flex-grow">
-                        <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Woke master cleanse drinking vinegar
-                            salvia</h2>
-                        <p class="leading-relaxed">Dear my client! I would like to detail for you about my product. It is JOB POSTING PORTAL Service which is created for all of you to post job to find employers. Last but not leave, my service have different suggestion for all of you:</p>
-                        <div class=" ml-4 ">
-                            <ul class="list-disc marker:text-blue-500">
-                                <li>Trailer could post 1 job duration 15 days</li>
-                                <li>Siliver could post 3 jobs duration 15 days</li>
-                                <li>Gold could post 10 jobs duration 30 days</li>
-                                <li>Dimond could post unlimited jobs duration 30 days</li>
-                            </ul>
-                        </div>
-                        <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-
-                        <div class="cards pt-2 w-full flex">
-                            <div class="mr-5 w-full rounded bg-blue-100 transform transition duration-500 hover:scale-110">
-                                <router-link to="/post">
-                                    <div class="text-white text-center rounded bg-blue-600 p-1">TRAILER</div>
-                                        <div class="flex flex-row">
-                                            <div class="flex flex-col text-left p-5">
-                                            <span><span class="font-bold text-blue-600">1</span>  POST</span>
-                                            <span><span class="font-bold text-blue-600">15</span> DAYS</span>
-                                        </div>
-                                        <div class="w-[10%] h-9 rounded m-auto mr-5 p-2 bg-blue-500">
-                                            <span class="items-center text-white">1</span>
-                                        </div>
-                                    </div>
-                                </router-link>
-                            </div>
-
-                            <div class="mr-5 w-full rounded bg-blue-100 transform transition duration-500 hover:scale-110">
-                               <router-link to="/post">
-                                    <div class="text-white text-center rounded bg-blue-600 p-1">SILIVER</div>
-                                        <div class="flex flex-row">
-                                            <div class="flex flex-col text-left p-5">
-                                            <span><span class="font-bold text-blue-600">3</span>  POST</span>
-                                            <span><span class="font-bold text-blue-600">15</span> DAYS</span>
-                                        </div>
-                                        <div class="w-[10%] h-9 rounded m-auto mr-5 p-2 bg-blue-500">
-                                            <span class="items-center text-white">3</span>
-                                        </div>
-                                    </div>
-                                </router-link>
-                            </div>
-
-                            <div class="mr-5 w-full rounded bg-blue-100 transform transition duration-500 hover:scale-110">
-                                <router-link to="/post">
-                                    <div class="text-white text-center rounded bg-blue-600 p-1">GOLD</div>
-                                        <div class="flex flex-row">
-                                            <div class="flex flex-col text-left p-5">
-                                            <span><span class="font-bold text-blue-600">10</span>  POST</span>
-                                            <span><span class="font-bold text-blue-600">30</span> DAYS</span>
-                                        </div>
-                                        <div class="w-[10%] h-9 rounded m-auto mr-5 p-2 bg-blue-500">
-                                            <span class="items-center text-white">10</span>
-                                        </div>
-                                    </div>
-                                </router-link>
-                            </div>
-
-                            <div class="w-full rounded bg-blue-100 transform transition duration-500 hover:scale-110">
-                                <router-link to="/post">
-                                    <div class="text-white text-center rounded bg-blue-600 p-1">DIAMOND</div>
-                                        <div class="flex flex-row">
-                                            <div class="flex flex-col text-left p-5">
-                                            <span><span class="font-bold text-blue-600">UNLIMITED</span>  POST</span>
-                                            <span><span class="font-bold text-blue-600">30 DAYS</span> DAYS</span>
-                                        </div>
-                                        <div class="w-[10%] h-9 rounded m-auto mr-5 p-2 bg-blue-500">
-                                            <span class="items-center text-white">UL</span>
-                                        </div>
-                                    </div>
-                                </router-link>
-                            </div>
+    <div class="w-full mt-5 md:grid lg:flex gap-10">
+        <div class="lg:w-8/12 md:w-full">
+            <div class="w-full flex justify-start ">
+                <p class="w-2/4 text-2xl  ml-2">Latest Jobs</p>
+            </div>
+            <div class="flex w-full gap-10 items-center hover:bg-gray-100 cursor-pointer" id="card">
+                <div>
+                    <div class="avatar placeholder ml-2">
+                        <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
+                            <span class="text-3xl">L</span>
                         </div>
                     </div>
                 </div>
+                <div class="p-3  w-full">
+                    <p class="text-blue-500 text-xl lg:text-2xl text-ellipsis ">Learning and Development Manager</p>
+                    <p class="text-ellipsis mb-1 text-gray-500">Coffee Concepts (Cambodia) Limited</p>
+                    <div class="flex lg:gap-24 gap-7">
+                        <div class="flex gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-5 w-5" >
+                                <path
+                                    d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
+                            </svg>
+                            <p>5-Nov-2022</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-5 w-5">
+                                <path
+                                    d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
+                            </svg>
+                            <p>3 days</p>     
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
-    </section>
+                
 </template>
 
+<script>
+
+export default {
+  
+}
+</script>
+
 <style scoped>
-    /* .bg {
-        background-image: url('https://media.istockphoto.com/vectors/blue-simple-abstract-background-vector-id1185145090?b=1&k=20&m=1185145090&s=612x612&w=0&h=57rFQ1KPm0BoLn6kyz2bnd0b2vyHO2JBlrDDc1WFnz0=');
-        background-repeat: no-repeat;
-        background-size: cover;
-        width: 100%;
-        height: 100%;
-    } */
+#card{
+    border-top: 1px  black solid;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
 </style>
 
