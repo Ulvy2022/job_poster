@@ -50,13 +50,13 @@
                                 id="exampleCheck3" checked />
                             <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Show password</label>
                         </div>
-                        <button class="text-blue-600" @click="show_register">
+                        <!-- <button class="text-blue-600" @click="show_register">
                             Register
-                        </button>
+                        </button> -->
 
                         <a 
                              @click="forgotPassword"
-                            class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot
+                            class="cursor-pointer hover:underline hover:underline-offset-1 text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot
                         password?</a>
                     </div>
 
