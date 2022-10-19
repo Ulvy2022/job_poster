@@ -1,24 +1,25 @@
 <template>
-    <JobType />
-    <QuickLink />
-    <JobCategory />
+    <section>
+        <JobType />
+        <QuickLink />
+        <JobCategory />
+        <PostForm/>
+       
+    </section>
 </template>
 
 <script>
 import JobCategory from '../../components/Category/JobCategory.vue'
-import JobType from "../../components/JobType/JobType.vue"
+import JobType from '../../components/JobType/JobType.vue'
 import QuickLink from '../../components/QuickLink/QuickLink.vue'
+import PostForm from '../../components/postJob/PostForm.vue'
+
 export default {
     components: {
         JobCategory,
         JobType,
-        QuickLink
+        QuickLink,
+        PostForm
     },
-
-    // data() {
-    //     return {
-    //         jobInfo: { jobTitle: 'IT Support', companyName: "Coolbean", days :3,data:'22-Nov-2022'}
-    //     }
-    // }
 }
 </script>

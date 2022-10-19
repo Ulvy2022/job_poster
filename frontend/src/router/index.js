@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginForm from '../views/login/LoginView.vue';
-import PostForm from '../views/PostView.vue';
 
 const routes = [
   {
@@ -12,7 +11,7 @@ const routes = [
   {
     path: '/post',
     name: 'post',
-    component: PostForm,
+    component: () => import('@/components/postJob/PostForm.vue'),
   },
 
   {

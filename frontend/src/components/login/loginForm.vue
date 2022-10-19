@@ -89,13 +89,12 @@
 
         <Register-Form v-if='is_show' @close_register="close_register">
             <div class="modal-mask">
-                <div class="modal-wrapper w-[45%]  absolute top-44 right-14">
-                   <form class="bg-blue-500 shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
-                        <span class="text-light-600">GEGISTER</span>
+                <div class="modal-wrapper w-full top-24">
+                   <form class="bg-gray-100 shadow-2xl lg:w-[50%] w-full m-auto mt-32 rounded px-8 pt-6 pb-8 mb-4">
+                        <span class="text-light-600">REGISTER</span>
                         <div class="mb-2 flex w-full">
                             <div class="flex flex-col w-full">
                                 <input type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
-
                                 <p class="invisible peer-invalid:visible text-red-700 font-light">
                                     Please enter your FirstName
                                 </p>
