@@ -54,7 +54,8 @@
                             Register
                         </button>
 
-                        <a href="#!"
+                        <a 
+                             @click="forgotPassword"
                             class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot
                         password?</a>
                     </div>
@@ -81,7 +82,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper w-[45%]  absolute top-44 right-14">
                    <form class="bg-blue-500 shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
-                        <span class="text-light-600">GEGISTER</span>
+                        <span class="text-light-600">REGISTER</span>
                         <div class="mb-2 flex w-full">
                             <div class="flex flex-col w-full">
                                 <input type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
@@ -248,20 +249,9 @@ export default {
             }
         },
 
-        // signWithGoogle() {
-        //     googleSdkLoaded((google) => {
-        //         google.accounts.oauth2.initCodeClient({
-        //             client_id: '353283530301-lgl6jhjvg6cr3foc30607b3omfqs2ste.apps.googleusercontent.com',
-        //             scope: 'email profile openid',
-        //             callback: (response) => {
-        //                 console.log("Handle the response", response)
-        //             }
-        //         }).requestCode()
-        //         const userData = decodeCredential(google.credential)
-        //         console.log(userData);
-        //     })
-        // },
- 
+        forgotPassword() {
+            this.$router.push('/resetPsw');
+        }
     },
 
 }
