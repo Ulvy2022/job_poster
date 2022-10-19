@@ -21,6 +21,22 @@ const routes = [
     meta: {
         requiresAuth:true,
     }
+  },
+  {
+    path: '/job_detail',
+    name: 'job_detail',
+    component: () => import('@/views/jobView/jobView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  {
+    path: '/resetPsw',
+    name: 'resetPsw',
+    component: () => import('@/views/resetPassword/resetPswView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
   }
 ]; 
 

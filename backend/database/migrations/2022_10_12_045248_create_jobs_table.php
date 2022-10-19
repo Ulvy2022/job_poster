@@ -17,14 +17,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->string('job_title');
-            $table->string('job_location');
+            $table->string('company_location');
+            $table->string('company_address');
             $table->string('job_type');
-            $table->date('job_closedate');
+            $table->date('job_closedate')->nullable();
             $table->string('company_name');
             $table->integer('salary')->nullable();
             $table->string('contact_name');
             $table->string('contact_email');
             $table->string('job_description');
+            $table->string('job_requirement');
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();
         });

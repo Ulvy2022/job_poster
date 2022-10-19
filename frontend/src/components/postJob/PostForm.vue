@@ -120,7 +120,7 @@ export default {
         },
         createJob(){
             if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && !this.contactEmail.trim()=='' && !this.jobDescription.trim()==''){
-                axios.post('http://127.0.0.1:8000/api/user/postjob',
+                axios.post('http://127.0.0.1:8000/api/postjob',
                     {
                         user_id: this.userId,
                         job_title: this.jobTitle,

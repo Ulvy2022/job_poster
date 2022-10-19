@@ -13,11 +13,13 @@ return new class extends Migration
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('gender');
+            $table->string('gender')->nullable();
+            $table->string('verify_code')->nullable();
+            $table->string('img')->nullable();
             $table->string('role')->default('user');
-            $table->string('phoneNumber');
+            $table->string('phoneNumber')->nullable();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('subscription')->default('free');
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();
