@@ -19,7 +19,7 @@ class JobController extends Controller
         $job = new Job();
         $job->user_id = $request->user_id;
         $job->job_title = $request->job_title;
-        $job->job_location = $request->job_location;
+        $job->company_location = $request->company_location;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
         $job->company_name = $request->company_name;
@@ -27,6 +27,8 @@ class JobController extends Controller
         $job->contact_name = $request->contact_name;
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
+        $job->company_address = $request->company_address;
+        $job->job_requirement = $request->job_requirement;
         $job->save();
         return response()->json(['msg'=>'success']);
     }
@@ -34,7 +36,7 @@ class JobController extends Controller
 
     public function show($id)
     {
-        //
+        return Job::with(['user'])->where('id',$id)->get();
     }
 
 
@@ -54,7 +56,7 @@ class JobController extends Controller
         return response()->json(['msg'=>'updated']);
     }
 
- 
+
     public function destroy($id)
     {
         $job = Job::findOrFail($id);

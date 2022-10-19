@@ -15,17 +15,17 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 /* add icons to the library */
 library.add(faUserSecret);
 
-import GAuth from 'vue3-google-oauth2';
+import vue3GoogleLogin from 'vue3-google-login'
 
-const gauthOption = {
-    clientId: '138135484579-u8s9hma1lv9uje8rrmajv7otoeitp2ki.apps.googleusercontent.com',
-    scope: 'profile email',
-    prompt: 'consent',
-    fetch_basic_profile:false
-};
-// Vue.use(GAuth, gauthOption)
+// const gauthOption = {
+//     clientId: '138135484579-u8s9hma1lv9uje8rrmajv7otoeitp2ki.apps.googleusercontent.com',
+//     // scope: 'profile email',
+//     // prompt: 'consent',
+//     // fetch_basic_profile:false
+// };
+// // Vue.use(GAuth, gauthOption)
 
 import './main.css';
 
 
-createApp(App).use(router,GAuth, gauthOption).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
+createApp(App).use(router, vue3GoogleLogin, {clientId: '353283530301-lgl6jhjvg6cr3foc30607b3omfqs2ste.apps.googleusercontent.com'}).component('font-awesome-icon', FontAwesomeIcon).mount('#app');

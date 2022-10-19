@@ -4,6 +4,7 @@
 </template>
 
 <script>
+
 import navBar from './components/navBar/navBar.vue';
 export default {
   components: {
@@ -33,11 +34,13 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+}
+body {
+  font-family: "Roboto", sans-serif;
 }
 
 nav a.router-link-exact-active {

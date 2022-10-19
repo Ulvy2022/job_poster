@@ -22,7 +22,23 @@ const routes = [
     meta: {
         requiresAuth:true,
     }
-  }
+  },
+  {
+    path: '/job_detail',
+    name: 'job_detail',
+    component: () => import('@/views/jobView/jobView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  // {
+  //   path: '/job_detail',
+  //   name: 'job_detail',
+  //   component: () => import('@/views/jobView/jobView.vue'),
+  //   meta: {
+  //       requiresAuth:true,
+  //   }
+  // }
 ]; 
 
 

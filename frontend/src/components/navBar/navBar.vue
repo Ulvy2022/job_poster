@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar p-3 bg-blue-500">
+    <div class="navbar p-3 bg-blue-500 ">
         <div class="navbar-start">
             <div class="dropdown">
                 <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="navbar-center">
-            <a class="btn btn-ghost normal-case text-xl text-white ">Job Shop</a>
+            <a class="btn btn-ghost normal-case text-xl text-white ">Job Seeker</a>
         </div>
         <div class="navbar-end">
 
