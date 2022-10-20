@@ -9,6 +9,7 @@ use App\Http\Controllers\MailController;
 
 // For only get and post==================
 Route::apiResource('/user', UserController::class);
+Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);

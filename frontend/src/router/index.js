@@ -37,6 +37,22 @@ const routes = [
     meta: {
         requiresAuth:true,
     }
+  },
+  {
+    path: '/job_category',
+    name: 'job_category',
+    component: () => import('@/views/jobCategory/jobCategoryView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/views/userProfile/userProfileView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
   }
 ]; 
 
