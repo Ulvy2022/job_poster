@@ -158,7 +158,7 @@ import googLoginForm from "../google/googleLogin.vue"
 export default {
     components: {
         'Register-Form': registerForm,
-        googLoginForm
+        googLoginForm,
     },
 
     data() {

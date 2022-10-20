@@ -4,9 +4,8 @@
                 <li class="step step-primary">Input Email</li>
                 <li class="step " :class="{'step-primary':step2}">Input Verify Code</li>
                 <li class="step" :class="{'step-primary':step3}">Input new password</li>
-                <li class="step" :class="{'step-primary':step4}">Success reset password</li>
             </ul>
-            <div class="w-3/4">
+            <div class="lg:w-3/4">
                     <div class="w-full lg:flex justify-center ">
                         <p class="w-full lg:w-1/3  p-3 drop-shadow-lg shadow-lg text-blue-400 text-center rounded-lg mb-5">{{text}}</p>
                     </div>
@@ -38,9 +37,9 @@
                     </div>
                     <div class="w-full flex justify-center items-center mt-5" v-if="step2Form">
                         <button @click="checkVerifyCode" v-if="!ifClickSendCode"
-                            class="btn  sm:btn-sm btn-md md:ml-5 bg-gray-400">Verify Code</button>
+                            class="btn   sm:btn-sm md:btn-md lg:btn-md md:ml-5 bg-gray-400">Verify Code</button>
                         <button @click="checkVerifyCode" v-else
-                            class="btn loading  sm:btn-sm btn-md md:ml-5 bg-gray-400 outline-hidden">Verify Code</button>
+                            class="btn loading   sm:btn-sm md:btn-md lg:btn-md md:ml-5 bg-gray-400 outline-hidden">Verify Code</button>
                     </div>
 
                     <!-- step 3 -->
@@ -59,8 +58,8 @@
                         class="ml-5 lg:ml-16  absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm password</label>
                 </div>
                     <div class="w-full flex justify-center items-center mt-5"  v-if="step3Form">
-                        <button @click="resetNewPsw" v-if="!ifClickSendCode" class="btn  sm:btn-sm btn-md  md:ml-5 bg-gray-400">Submit</button>
-                        <button @click="resetNewPsw" v-else  class="btn loading  sm:btn-sm btn-md  md:ml-5 bg-gray-400 outline-hidden">Submit</button>
+                        <button @click="resetNewPsw" v-if="!ifClickSendCode" class="btn   sm:btn-sm md:btn-md lg:btn-md  md:ml-5 bg-gray-400">Submit</button>
+                        <button @click="resetNewPsw" v-else  class="btn loading sm:btn-sm md:btn-md lg:btn-md  md:ml-5 bg-gray-400 outline-hidden">Submit</button>
                     </div>
         </div>
     </div>

@@ -26,22 +26,31 @@ export default {
             googleTokenLogin({ clientId: '353283530301-lgl6jhjvg6cr3foc30607b3omfqs2ste.apps.googleusercontent.com' }).then((response) => {
                 var url = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token=' + response.access_token;
                 axios.get(url).then((res) => {
-                    console.log(res.data);
                     const userInfo = {
-                        firstName: res.data.given_name,
-                        lastName: res.data.family_name,
                         email: res.data.email, 
                         password: res.data.given_name+ res.data.family_name,
-                        img:res.data.picture
                     }
-                    axios.post("http://localhost:8000/api/user/",userInfo).then(() => {
-                        // this.$router.push("/home");  
-                    }).catch(() => {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Oops...',
-                            text: 'Look like your email is already in used!'
-                        })
+                    axios.post("http://localhost:8000/api/login/", userInfo).then((res) => {
+                        if (res.data.sms == 'Invaliid password') {
+                            Swal.fire({
+                                showCancelButton: true,
+                                confirmButtonText: 'Create account',
+                                icon: 'error',
+                                text: "You don't have account yet!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    Swal.fire('Saved!', '', 'success')
+                                } else if (result.isDenied) {
+                                    Swal.fire('Changes are not saved', '', 'info')
+                                }
+                            })
+                        } else {     
+                            this.$router.push("/home");  
+                            axios.get('http://localhost:8000/api/userBy/' + userInfo.email).then((res) => {
+                                localStorage.setItem("userId", res.data.id)
+                            })
+                        }
+
                     })
                 })
             })
