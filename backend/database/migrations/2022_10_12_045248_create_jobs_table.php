@@ -27,8 +27,9 @@ return new class extends Migration
             $table->string('contact_email');
             $table->string('job_description');
             $table->string('job_requirement');
-            $table->date('created_at')->nullable();
-            $table->date('updated_at')->nullable();
+            $table->date('post_at')->nullable();
+            $table->string('active')->default('No');
+            $table->timestamps();
         });
     }
 
