@@ -5,9 +5,9 @@
             <div class="lg:w-3/6 ">
                 <JobType />
                 <QuickLink />
-                <JobCategory />
-                <PostForm/>
             </div>
+            <JobCategory />
+            <PostForm/>
         </div>
     </div>
     </section>

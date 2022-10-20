@@ -83,7 +83,7 @@
                         <p class="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
 
-                    <googLoginForm/>
+                    <googLoginForm @create-account="is_show= true;" />
             </div>
         </div>
 
@@ -123,7 +123,7 @@
                         </div>
                         
                         <div class="flex flex-col w-full">
-                            <input  @change="checkInput(phoneNumber)" type="tel" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
+                            <input  @change="checkInput(phoneNumber)" placeholder="Phone Number"  class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
 
                             <p v-if='phoneNumber == "" ' class="text-red-700 font-light">
                                 Please enter your Phone Number

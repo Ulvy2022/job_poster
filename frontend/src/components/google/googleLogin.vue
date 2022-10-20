@@ -39,10 +39,8 @@ export default {
                                 text: "You don't have account yet!"
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    Swal.fire('Saved!', '', 'success')
-                                } else if (result.isDenied) {
-                                    Swal.fire('Changes are not saved', '', 'info')
-                                }
+                                    this.$emit('create-account', true);
+                                } 
                             })
                         } else {     
                             this.$router.push("/home");  
