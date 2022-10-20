@@ -1,20 +1,21 @@
 <template>
-  <navBar v-if="isShowMenuBar != null" />
+  <Navbar v-if="isShowMenuBar != null"/>
   <router-view/>
 </template>
 
 <script>
-
-import navBar from './components/navBar/navBar.vue';
+import Navbar from './components/navBar/navBar.vue';
 export default {
   components: {
-    navBar,
+    Navbar,
   },
-  data() {
+  data() { 
     return {
       isShowMenuBar: null,
+      isShowJob: false,
     }
   },
+
   methods: {
     showMenuBar() {
       this.isShowMenuBar = localStorage.getItem('userId');
@@ -25,7 +26,12 @@ export default {
         clearTimeout(this.timeOut);
       }
     }, 
+
+    showForm() {
+        this.isShowJob = true
+      }
   },
+
   mounted() {
     this.showMenuBar()
   }
