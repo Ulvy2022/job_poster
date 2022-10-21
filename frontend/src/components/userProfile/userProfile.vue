@@ -66,9 +66,9 @@
                                         <a class="text-blue-800 hover:underline hover:underline-offset-3" :href="'mailto:'+email">{{email}}</a>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2">
+                                <div class="grid grid-cols-2 items-center">
                                     <div class="px-4 py-2 font-semibold">Birthday</div>
-                                    <div class="px-4 py-2">....</div>
+                                    <div class="px-4 py-2 text-2xl">...</div>
                                 </div>
                             </div>
                         </div>

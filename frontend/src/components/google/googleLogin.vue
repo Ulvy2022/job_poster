@@ -43,7 +43,7 @@ export default {
                                 } 
                             })
                         } else {     
-                            this.$router.push("/home");  
+                            this.$router.push("/");  
                             axios.get('http://localhost:8000/api/userBy/' + userInfo.email).then((res) => {
                                 localStorage.setItem("userId", res.data.id);
                                 localStorage.setItem('token',response.access_token)

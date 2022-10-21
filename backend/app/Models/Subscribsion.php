@@ -12,4 +12,8 @@ class Subscribsion extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'features' => 'array',
+    ];
 }

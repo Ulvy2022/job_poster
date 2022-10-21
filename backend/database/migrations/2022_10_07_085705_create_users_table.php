@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->string('phoneNumber')->nullable();
             $table->string('email')->unique();
-            $table->string('password')->nullable();
+            $table->string('password');
             $table->string('subscription')->default('free');
             $table->date('created_at')->nullable();
             $table->date('updated_at')->nullable();

@@ -5,11 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SubscribsionController;
 use App\Http\Controllers\MailController;
 
 // For only get and post==================
 Route::apiResource('/user', UserController::class);
 Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
+
+// user subscription
+Route::apiResource('/subscription', SubscribsionController::class);
+
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);
