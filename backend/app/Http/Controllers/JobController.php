@@ -27,7 +27,6 @@ class JobController extends Controller
         $job->contact_name = $request->contact_name;
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
-        $job->company_address = $request->company_address;
         $job->job_requirement = $request->job_requirement;
         $job->save();
         return response()->json(['msg'=>'success']);
@@ -47,11 +46,12 @@ class JobController extends Controller
         $job->job_location = $request->job_location;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
-        $job->company_details = $request->company_name;
+        $job->company_name = $request->company_name;
         $job->salary = $request->salary;
         $job->contact_name = $request->contact_name;
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
+        $job->job_requirement = $request->job_requirement;
         $job->save();
         return response()->json(['msg'=>'updated']);
     }

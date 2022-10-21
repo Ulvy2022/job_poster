@@ -21,14 +21,15 @@
         <CreateForm>
             <div v-if='isShowCreate' @closeCreate="closeCreate" class="modal-mask ">
                 <div class="modal-wrapper w-full top-24">
-                    <div class="mt-8 lg:w-[40%] w-full h-[80%] p-3 bg-white rounded-lg m-auto">
+                    <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
                         <form @submit.prevent="">
-                            <h1 class="text-center mb-2 text-lg">CREATE JOB</h1>
+                            <h1 class="text-center text-blue-500 mb-2 text-lg">CREATE JOB</h1>
                             <div class="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
                                     <label for="job-title" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Job Title</label>
                                     <input v-model="jobTitle" type="text" id="job-title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Web Developer" required="">
                                 </div>
+
                                 <div>
                                     <label for="job-location" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Job Location</label>
                                     <input v-model="jobLocation" type="text" id="job-location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Phnom Penh" required="">
@@ -65,18 +66,26 @@
                                     <label for="company-name" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Company Name</label>
                                     <input v-model="companyName" type="text" id="company-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company Email">
                                 </div>
-                                </div>
+                                
 
-                                <div class="mb-6">
+                                <div class="mb-2">
                                     <label for="job-description" class="font-semibold block mb-2 text-sm text-gray-900 dark:text-gray-300">Job Description</label>
                                     <textarea v-model="jobDescription" name="" id="password" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Description" required="">
                                     </textarea>
                                 </div> 
 
-                                <div class="float-right">
+                                 <div class="mb-2">
+                                    <label for="job-requirement" class="font-semibold block mb-2 text-sm text-gray-900 dark:text-gray-300">Job Requirement</label>
+                                    <textarea v-model="jobRequirement" name="" id="password" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Requirement" required="">
+                                    </textarea>
+                                </div> 
+
+                                <div class="float-right ">
                                     <button @click="closeCreate" class="text-white bg-red-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancal</button>
-                                    <button @click="createJob" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-2">Submit</button>
+                                    <button @click="createJob" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:ml-2 md:mt-5">Submit</button>
                                 </div>
+                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -105,6 +114,7 @@ export default {
             contactName: '',
             contactEmail: '',
             jobDescription: '',
+            jobRequirement: '',
             jobs: [],
             isShowCreate: false,
         }
@@ -118,13 +128,16 @@ export default {
                 console.log(this.jobs)
             })
         },
+
         createJob(){
-            if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && !this.contactEmail.trim()=='' && !this.jobDescription.trim()==''){
-                axios.post('http://127.0.0.1:8000/api/postjob',
+            if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && 
+            !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
+            !this.contactEmail.trim()=='' && !this.jobDescription.trim()=='' && !this.jobRequirement.trim()==''){
+                axios.post('http://127.0.0.1:8000/api/postjob/',
                     {
                         user_id: this.userId,
                         job_title: this.jobTitle,
-                        job_location: this.jobLocation,
+                        company_location: this.jobLocation,
                         job_type: this.jobType,
                         job_closedate: this.jobClosedate,
                         company_name: this.companyName,
@@ -132,6 +145,7 @@ export default {
                         contact_name: this.contactName,
                         contact_email: this.contactEmail,
                         job_description: this.jobDescription,
+                        job_requirement: this.jobRequirement,
                     } 
                 )
                 .then((res)=>{
@@ -157,10 +171,7 @@ export default {
     mounted() {
         this.getJob()
     }
-
 }
 </script>
-
 <style>
-
 </style>

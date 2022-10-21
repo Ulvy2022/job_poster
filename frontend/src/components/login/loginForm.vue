@@ -79,8 +79,6 @@
                         <button class="hidden lg:block text-blue-600 cursor-pointer hover:underline hover:underline-offset-1 " @click="show_register">
                             Sign Up
                         </button>
-
-
                         <a 
                              @click="forgotPassword"
                             class="cursor-pointer hover:underline hover:underline-offset-1 text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out">Forgot
@@ -102,8 +100,6 @@
                     </p>
                     <button v-if="isClickSigIn" class="btn loading bg-blue-600 w-full">Sign In</button>
                 
-
-
                     <div
                         class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                         <p class="text-center font-semibold mx-4 mb-0">OR</p>
@@ -203,14 +199,13 @@ export default {
         return {
             is_show: false,
             showInvalid:false,
-            email: '',
-            password: '',
             type: 'text',
             isClickSigIn: false,
             isInval: 'Invalid email address or password!',
             isEmptyEmail: false,
             isEmptyPassword: false,
 
+            registerValidation: false,
             emailUser: ' ',
             passwordUser: '',
             role: 'user',
@@ -219,8 +214,17 @@ export default {
             gender: ' ',
             phoneNumber: ' ',
             isNoPass: false,
+            isFirstNameEmpty: false,
+            email: '',
+            password:''
+
+            // login: {
+            //     email: this.email,
+            //     password: this.password,
+            // },
 
 
+            // error: []
         }
     },
     methods: {
@@ -254,6 +258,16 @@ export default {
                 axios.post("http://127.0.0.1:8000/api/user", body)
                 this.is_show = false;
             }
+
+            // if (this.firstName.trim() == ""){
+            //     this.isFirstNameEmpty = false;
+            // }
+
+            // if (this.firstName.trim() != '') {
+            //     this.isFirstNameEmpty = false
+            //     this.registerValidation = !this.registerValidation
+
+            // }
             
             this.firstName = "";
             this.lastName = "";
@@ -268,7 +282,8 @@ export default {
                 this.isClickSigIn = !this.isClickSigIn
                 this.isEmptyEmail = false
                 this.isEmptyPassword = false
-                axios.post('http://localhost:8000/api/login/', { email: this.email, password: this.password }).then((res) => {
+                axios.post('http://localhost:8000/api/login/', 
+                {email: this.email, password: this.password }).then((res) => {
                     if (res.data.sms == 'Invaliid password') {
                         this.showInvalid = !this.showInvalid
                         this.isClickSigIn = !this.isClickSigIn
@@ -281,6 +296,7 @@ export default {
                     this.isClickSigIn = !this.isClickSigIn
                 })
             }
+
             if (this.email.trim() == '') {
                 this.isEmptyEmail  = true
             }
@@ -296,6 +312,19 @@ export default {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid
             }
+
+            // console.log(this.login)
+            // this.error = []
+            // for (const item in this.login){
+            //     if (this.login[item] === "" || this.login[item].length === 0){
+            //         this.error.push(item)
+            //     }
+
+            // }
+            // if (this.error.length === 0){
+            //     alert ("You have been logged in successfully")
+            // }
+            // console.warn(this.error);
         },
 
         showPassword() {

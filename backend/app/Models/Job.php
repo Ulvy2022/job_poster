@@ -15,7 +15,7 @@ class Job extends Model
 
     protected $fillable = [
         'job_title',
-        'job_location',
+        'company_location',
         'job_type',
         'job_closedate',
         'company_name',
@@ -23,7 +23,9 @@ class Job extends Model
         'contact_name',
         'contact_email',
         'job_description',
+        'job_requirement',
+        'expired_at',
+        'post_at',
+        'activate'
     ];
-
-    
 }
