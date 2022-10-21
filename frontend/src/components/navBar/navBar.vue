@@ -28,8 +28,8 @@
                 <div class="avatar flex justify-start items-center ">
                     <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2  mr-5">
                         <img v-if="img != null  " :src="img" />
-                        <img v-else-if="img == null && gender=='F' " src="../../assets/images/woman.png" />
-                        <img v-else-if="img == null && gender=='M' " src="../../assets/images/profile.png" />
+                        <img v-else-if="img == null && gender=='Female' " src="../../assets/images/woman.png" />
+                        <img v-else-if="img == null && gender=='Male' " src="../../assets/images/profile.png" />
                     </div>
                     <p class="text-white mr-5">{{userName}}</p>
                 </div>
