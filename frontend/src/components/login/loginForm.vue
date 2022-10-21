@@ -1,18 +1,35 @@
 <template>
-<section class="h-screen">
-    <div class="container px-6 py-12 h-full">
+<section class="h-screen bg-gray-200">
+    <div class="container px-6 py-12 h-full ">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
+            <!-- <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                     class="w-full" alt="Phone image" />
-            </div>
-            <div class="md:w-11/12 lg:w-5/12  lg:ml-20  ">
-                    <!-- Email input -->
-                    <div class="mb-6">
-                        <input type="text"
-                            v-model="email"
-                            class="form-control inline-block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Email address" />
+            </div> -->
+            <div class="w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
+                <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
+                    <!-- email  -->
+                    <!-- <div class="relative mb-2">
+                        <input id="email"
+                         v-model="email"
+                            class="w-full rounded px-3 border border-gray-300 pt-5 pb-2 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none"
+                            type="text" autofocus>
+                        <label for="email" class="label absolute mt-2 ml-3 leading-tighter text-gray-600 text-base cursor-text" >Email
+                        </label>
+                    </div> -->
+                    <!-- email -->
+                    <div class="relative mb-5">
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                        </div>
+                        <input type="text" id="email-address-icon"
+                          v-model="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Email">
                     </div>
 
                     <div class=" -mt-4 mb-2" v-if="isEmptyEmail">
@@ -20,15 +37,22 @@
                             <span class="text-red-700">Email cannot be empty</span>
                         </div>
                     </div>
-
-                    <!-- Password input -->
-                    <div class="mb-6 ">
-                        <input :type="type"
-                            v-model="password"
-                            @keyup.enter="signIn()"
-                            class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Password" />
+             
+                <!-- password -->
+                <div class="relative">
+                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-500"  viewBox="0 0 448 512">
+                            <path
+                                d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+                        </svg>
                     </div>
+                    <input :type="type" id="email-address-icon"
+                        v-model="password"
+                        @keyup.enter="signIn()"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Password">
+                </div>
+        
 
                     <div class=" -mt-4 mb-2" v-if="isEmptyPassword">
                         <div class="flex">
@@ -42,13 +66,15 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center mb-6">
-                        <div class="form-group form-check">
-                            <input type="checkbox"
-                                @click="showPassword()"
-                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                id="exampleCheck3" checked />
-                            <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Show password</label>
+                    <div class="flex justify-between items-center mb-6 mt-3">
+                  
+                        <div class="flex items-start" >
+                            <div class="flex items-center h-5" @click="showPassword()">
+                                <input id="remember"  type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="remember" class="text-gray-500 dark:text-gray-300">Show password</label>
+                            </div>
                         </div>
                         <button class="hidden lg:block text-blue-600 cursor-pointer hover:underline hover:underline-offset-1 " @click="show_register">
                             Sign Up
@@ -68,12 +94,12 @@
                         data-mdb-ripple="true" data-mdb-ripple-color="light">
                         Sign in
                     </button>
-                     <button type="submit" v-if="!isClickSigIn"
-                         @click="show_register()"
-                        class="lg:hidden mt-5 inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                        data-mdb-ripple="true" data-mdb-ripple-color="light">
-                        Sign Up
-                    </button>
+             
+                    <p class="text-sm font-light lg:hidden mt-3  text-gray-500 dark:text-gray-400"
+                     @click="show_register()">
+                        Don’t have an account yet? <a href="#"
+                            class="font-medium text-blue-500 hover:underline hover:underline-offset-2 dark:text-primary-500">Sign up</a>
+                    </p>
                     <button v-if="isClickSigIn" class="btn loading bg-blue-600 w-full">Sign In</button>
                 
 
@@ -149,6 +175,7 @@
                             <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
                                 Register
                             </button>
+                            <googLoginForm/>
                             <button @click='is_show=false' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
                                 Cancal
                             </button>
@@ -287,3 +314,29 @@ export default {
 }
 
 </script>
+
+
+<style scoped>
+.input {
+       transition: border 0.2s ease-in-out;
+       min-width: 280px
+   }
+
+   .input:focus+.label,
+   .input:active+.label,
+   .input.filled+.label {
+       font-size: .75rem;
+       transition: all 0.2s ease-out;
+       top: -0.9rem;
+       background-color: #fff;
+       color: #1a73e8;
+       padding: 0 5px 0 5px;
+       margin: 0 5px 0 5px;
+   }
+
+   .label {
+       transition: all 0.2s ease-out;
+       top: 0.1rem;
+       left: 0;
+   }
+</style>
