@@ -23,7 +23,6 @@ class UserController extends Controller
             'email'=> 'required|email|unique:users,email',
             'password' => 'required|min:8|unique:users,password',
         ]);
-
         $user = new User();
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
@@ -93,7 +92,6 @@ class UserController extends Controller
         return User::where('email', $email)->first();
     }
 
-
     public function resetPassword(Request $request,$id)
     {
         $user = User::findOrFail($id);
@@ -102,10 +100,8 @@ class UserController extends Controller
             $user->update();
             return response()->json(['msg' => 'password change success']);
         }
-
     }
-
-
+    
     public function getUserById($id)
     {
         return User::findOrFail($id);
@@ -114,6 +110,4 @@ class UserController extends Controller
     public function count() {
         return User::all()->count();
     }
-
-    
 }

@@ -75,7 +75,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/api/postjob/' + localStorage.getItem('jobId')).then((res) => {
+        axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
             this.jobDetails = res.data[0]
             // console.log(res.data);
         })

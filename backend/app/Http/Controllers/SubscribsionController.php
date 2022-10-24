@@ -8,15 +8,20 @@ use Illuminate\Http\Request;
 
 class SubscribsionController extends Controller
 {
-
     public function index()
     {
         return Subscribsion::all();
     }
-
-
     public function store(Request $request)
     {
+        // $validated = $request->validateWithBag('Subscribsion',[
+        //     'user_id'=>'required',
+        //     'price'=>'required',
+        //     'feature'=>'required',
+        //     'description'=>'required',
+        //     'plane_type'=>'required'
+        // ]);
+
         $subscribsion = new Subscribsion();
         $subscribsion->user_id = $request->user_id;
         $subscribsion->price = $request->price;
@@ -30,21 +35,17 @@ class SubscribsionController extends Controller
         $subscribsion->plane_type = $request->plane_type;
         $subscribsion->save();
         return response()->json(['msg' => 'success']);
-
     }
-
 
     public function show(Subscribsion $subscribsion)
     {
         //
     }
 
-
     public function update(Request $request, Subscribsion $subscribsion)
     {
         //
     }
-
 
     public function destroy(Subscribsion $subscribsion)
     {

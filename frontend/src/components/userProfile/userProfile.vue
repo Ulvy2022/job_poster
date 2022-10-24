@@ -97,7 +97,6 @@ export default {
             bd: '',
             email: '',
             address: '',
-
         }
     },
 

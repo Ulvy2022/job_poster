@@ -19,7 +19,6 @@ Route::apiResource('/subscription', SubscribsionController::class);
 
 Route::apiResource('/userPlane', UserPlaneController::class);
 
-
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);
 // Route::get('/auth/google',[GoogleAuthController::class,'redirect']);
@@ -27,6 +26,7 @@ Route::post('/logout', [LoginController::class , 'logout']);
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);
+Route::get('/jobposter/{id}', [JobsPosterController::class, 'getJobById']);
 
 // update verify code
 Route::put('/verifyCode', [UserController::class , 'verifyCode']);

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
 
@@ -75,12 +73,15 @@ class JobsPosterController extends Controller
         $job->save();
         return response()->json(['msg'=>'updated']);
     }
-
-
     public function destroy($id)
     {
         $job = JobsPoster::findOrFail($id);
         $job->delete();
         return response()->json(['msg'=>'deleted']);
+    }
+
+    public function getJobById($id)
+    {
+        return JobsPoster::findOrFail($id);
     }
 }
