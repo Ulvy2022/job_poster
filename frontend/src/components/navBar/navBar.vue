@@ -15,7 +15,9 @@
                     <router-link to="/job_category">
                         <li><a>Job category</a></li>
                     </router-link>
-                    <li><a>Company List</a></li>
+                    <router-link to="/companyList">
+                        <li><a>Company List</a></li>
+                    </router-link>
                     <li><a>Job Location</a></li>
                     <router-link to="/subscribe">
                         <li><a>Subscribe Plan</a></li>

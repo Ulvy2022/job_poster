@@ -15,42 +15,42 @@ class SubscriptionSeeder extends Seeder
                     "price" => 0,
                     "features" => [
                         "f1" => "Post 1 job for 15 days",
-                        "f2" => "Post 3 jobs for 15 days",
-                        "f3" => "Post 10 jobs for 15 days",
-                        "f4" => "Unlimited post for 30 days"
+                        "f2" => "Your post will be dispear in 5 days",
+                        "f3" => "Duration 1 months",
+                        "f4" => "Free 1 moths"
                     ],
                     "plane_type" => "Trailer",
-                    "description" => "Best option for urgent hiring employees",
+                    "description" => "Best option for your testing our application",
                 ],
                 [
                     "price" => 50,
                     "features" => [
-                        "f1" => "Post 1 job for 15 days",
-                        "f2" => "Post 3 jobs for 15 days",
-                        "f3" => "Post 10 jobs for 15 days",
-                        "f4" => "Unlimited post for 30 days"
+                        "f1" => "Post 1 job for 5 days",
+                        "f2" => "Your post will be dispear in 4 months",
+                        "f3" => "Duration 4 months",
+                        "f4" => "Free 1 moths"
                     ],
                     "plane_type" => "Silver",
-                    "description" => "Best option for urgent hiring employees",
+                    "description" => "Best option for not urgent hiring employees",
                 ],
                 [
                     "price" => 100,
                     "features" => [
-                        "f1" => "Post 1 job for 15 days",
-                        "f2" => "Post 3 jobs for 15 days",
-                        "f3" => "Post 10 jobs for 15 days",
-                        "f4" => "Unlimited post for 30 days"
+                        "f1" => "Post 1 job for 2 days",
+                        "f2" => "Your post will be dispear in 8 months",
+                        "f3" => "Duration 8 months",
+                        "f4" => "Free 2 moths"
                     ],
                     "plane_type" => "Gold",
                     "description" => "Best option for urgent hiring employees",
                 ],
                 [
-                    "price" => 200,
+                    "price" => 150,
                     "features" => [
-                        "f1" => "Post 1 job for 15 days",
-                        "f2" => "Post 3 jobs for 15 days",
-                        "f3" => "Post 10 jobs for 15 days",
-                        "f4" => "Unlimited post for 30 days"
+                        "f1" => "Unlimited post for 30 days",
+                        "f2" => "Your post will be dispear in 9 months",
+                        "f3" => "Duration 10 months",
+                        "f4" => "Free 4 moths"
                     ],
                     "plane_type" => "Diamond",
                     "description" => "Best option for urgent hiring employees",
