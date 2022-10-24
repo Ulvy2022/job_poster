@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Job;
+use App\Models\Jobposter;
 
-class JobController extends Controller
+class JobposterController extends Controller
 {
 
     public function index()
     {
-        return Job::get();
+        return Jobposter::get();
     }
-
 
     public function store(Request $request)
     {
-        $job = new Job();
+        $validated = $request->validateWithBag('Jobposter', [
+            'user_id' => 'required',
+            'job_title' => 'required|min:5|max:30|',
+            'company_location' => 'required|min:5|max:50|',
+            'job_type'=>'required|min:2|max:20',
+            'company_name'=>'required|min:5|max:30',
+            'contact_name'=>'required|min:2|max:20',
+            'contact_email'=> 'required|email|unique:jobs,contact_email',
+            'job_description'=>'required|min:10|max:500',
+            'job_requirement'=>'required|min:10|max:500',
+        ]);
+
+        $job = new Jobposter();
         $job->user_id = $request->user_id;
         $job->job_title = $request->job_title;
         $job->company_location = $request->company_location;
@@ -32,18 +43,27 @@ class JobController extends Controller
         return response()->json(['msg'=>'success']);
     }
 
-
     public function show($id)
     {
-        return Job::with(['user'])->where('id',$id)->get();
+        return Jobposter::with(['user'])->where('id',$id)->get();
     }
-
 
     public function update(Request $request, $id)
     {
-        $job = Job::findOrFail($id);
+        $validated = $request->validateWithBag('Jobposter', [
+            'user_id' => 'required',
+            'job_title' => 'required|min:5|max:30|',
+            'company_location' => 'required|min:5|max:50|',
+            'job_type'=>'required|min:2|max:20',
+            'company_name'=>'required|min:5|max:30',
+            'contact_name'=>'required|min:2|max:20',
+            'contact_email'=> 'required|email|unique:jobs,contact_email',
+            'job_description'=>'required|min:10|max:500',
+            'job_requirement'=>'required|min:10|max:500',
+        ]);
+        $job = Jobposter::findOrFail($id);
         $job->job_title = $request->job_title;
-        $job->job_location = $request->job_location;
+        $job->company_location = $request->company_location;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
         $job->company_name = $request->company_name;
@@ -59,7 +79,7 @@ class JobController extends Controller
 
     public function destroy($id)
     {
-        $job = Job::findOrFail($id);
+        $job = Jobposter::findOrFail($id);
         $job->delete();
         return response()->json(['msg'=>'deleted']);
     }

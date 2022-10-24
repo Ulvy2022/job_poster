@@ -9,38 +9,38 @@
             <div class="md:w-11/12 lg:w-5/12  lg:ml-20  ">
                     <!-- Email input -->
                     <div class="mb-6">
-                        <input type="text"
+                        <input type="email"
                             v-model="email"
                             class="form-control inline-block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Email address" />
+                            placeholder="Email address"/>
                     </div>
 
-                    <div class=" -mt-4 mb-2" v-if="isEmptyEmail">
+                    <div class="mb-mt-4 mb-2">
                         <div class="flex">
-                            <span class="text-red-700">Email cannot be empty</span>
+                            <span v-if="isEmptyEmail" class="text-red-700">Email cannot be empty</span>
                         </div>
                     </div>
 
                     <!-- Password input -->
                     <div class="mb-6 ">
-                        <input :type="type"
+                        <input type="password"
                             v-model="password"
                             @keyup.enter="signIn()"
                             class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             placeholder="Password" />
                     </div>
 
-                    <div class=" -mt-4 mb-2" v-if="isEmptyPassword">
-                        <div class="flex">
+                    <div class=" -mt-4 mb-2">
+                        <div class="flex" v-if="isEmptyPassword">
                             <span class="text-red-700">Password cannot be empty</span>
                         </div>
                     </div>
 
-                    <div class=" -mt-4 mb-2" v-if="showInvalid">
+                    <!-- <div class=" -mt-4 mb-2" v-if="showInvalid">
                         <div class="flex">
                             <span class="text-red-700">{{isInval}}</span>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="flex justify-between items-center mb-6">
                         <div class="form-group form-check">
@@ -270,17 +270,19 @@ export default {
                 })
             }
 
-            if (this.email.trim() == '') {
+            if (this.email == '') {
                 this.isEmptyEmail  = true
             }
+            
             if (this.password.trim() == '') {
                 this.isEmptyPassword = true
             }
+         
             if (this.email.trim() != '') {
                 this.isEmptyEmail = false
                 this.showInvalid = !this.showInvalid
-
             }
+
             if (this.password.trim() != '') {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid

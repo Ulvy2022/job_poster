@@ -8,22 +8,24 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Model
 {
     use HasApiTokens, HasFactory;
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
+  
     public function subscribsion()
     {
         return $this->hasMany(Subscription::class);
     }
 
-    public function jobs()
+    public function jobposter()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Jobposter::class);
     }
 
-    
-
-    protected $fillable=['firstName', 'lastName', 'gender', 'role','phoneNumber', 'email', 'password'];
+    protected $fillable=[
+        'firstName', 
+        'lastName', 
+        'gender', 
+        'role',
+        'phoneNumber', 
+        'email', 
+        'password'
+    ];
 }

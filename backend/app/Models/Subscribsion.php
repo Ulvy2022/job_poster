@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Subscribsion extends Model
 {
     use HasFactory;
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

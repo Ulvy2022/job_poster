@@ -1,8 +1,8 @@
 <template>
   <section>
     <div>
+        <button @click='showCreate' class="btn bg-blue-500 border-none mt-3">Post Job</button>
         <div class="mt-3 w-[80%] m-auto">
-            <button @click='showCreate' class="btn bg-blue-500 border-none mb-3">Post Job</button>
             <h2 class="mb-2">All Customers</h2>
             <div class="border border-blue-500 mt-1 rounded p-2 flex" v-for='job of jobs' :key='job'>
                 <div class="w-full">
@@ -80,9 +80,9 @@
                                     </textarea>
                                 </div> 
 
-                                <div class="float-right ">
+                                <div class="float-right grid lg:cols-2">
                                     <button @click="closeCreate" class="text-white bg-red-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancal</button>
-                                    <button @click="createJob" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 lg:ml-2 md:mt-5">Submit</button>
+                                    <button @click="createJob" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:mt-2">Submit</button>
                                 </div>
                             </div>
                             

@@ -5,17 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class UserController extends Controller
 {
-
     public function index()
     {
         return User::all();
     }
 
-
     public function store(Request $request)
-    {
+    {   
+        $validated = $request->validateWithBag('User',[
+            'firstName' => 'required|unique:users,firstName|max:20|min:2',
+            'lastName' =>'required|max:20|min:2',
+            'gender' => 'required|max:6|min:1',
+            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
+            'email'=> 'required|email|unique:users,email',
+            'password' => 'required|min:8|unique:users,password',
+        ]);
+
         $user = new User();
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
@@ -34,9 +42,17 @@ class UserController extends Controller
         return User::with(['posts','subscribsion'])->where('id',$id)->get();
     }
 
-
     public function update(Request $request,  $id)
     {
+        $validated = $request->validateWithBag('User',[
+            'firstName' => 'required|unique:users,firstName|max:20|min:2',
+            'lastName' =>'required|max:20|min:2',
+            'gender' => 'required|max:6|min:1',
+            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
+            'email'=> 'required|email|unique:users,email',
+            'password' => 'required|min:8|unique:users,password',
+        ]);
+
         $user = User::findOrFail($id);
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
@@ -66,7 +82,7 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $id)
+    public function destroy($id)
     {
         return User::destroy($id);
     }
@@ -94,4 +110,10 @@ class UserController extends Controller
     {
         return User::findOrFail($id);
     }
+
+    public function count() {
+        return User::all()->count();
+    }
+
+    
 }
