@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 return new class extends Migration
 {
     /**
@@ -12,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jobposters', function (Blueprint $table) {
+        Schema::create('jobs_posters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained()->onDelete('CASCADE');
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->string('job_title');
             $table->string('company_location');
             $table->string('job_type');
@@ -38,7 +39,7 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {   
-        Schema::dropIfExists('jobposters');
+    {
+        Schema::dropIfExists('jobs_posters');
     }
 };

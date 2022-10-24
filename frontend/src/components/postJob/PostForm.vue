@@ -2,22 +2,7 @@
   <section>
     <div>
         <button @click='showCreate' class="btn bg-blue-500 border-none mt-3">Post Job</button>
-        <div class="mt-3 w-[80%] m-auto">
-            <h2 class="mb-2">All Customers</h2>
-            <div class="border border-blue-500 mt-1 rounded p-2 flex" v-for='job of jobs' :key='job'>
-                <div class="w-full">
-                    <h1>{{job.job_description}}</h1>
-                    <h1>{{job.job_title}}</h1>
-                    <h1>{{job.job_location}}</h1>
-                </div>
-
-                <div class="flex">
-                    <button class="text-blue-400">Edit</button>
-                    <button class="text-red-400 ml-4">Delete</button>
-                </div>
-            </div>
-        </div>
-
+        
         <CreateForm>
             <div v-if='isShowCreate' @closeCreate="closeCreate" class="modal-mask ">
                 <div class="modal-wrapper w-full top-24">
@@ -122,7 +107,7 @@ export default {
 
     methods: {
         getJob() {
-            axios.get('http://127.0.0.1:8000/api/postjob')
+            axios.get('http://127.0.0.1:8000/api/jobposter')
             .then((response)=>{
                 this.jobs = response.data;
                 console.log(this.jobs)
@@ -133,7 +118,7 @@ export default {
             if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && 
             !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
             !this.contactEmail.trim()=='' && !this.jobDescription.trim()=='' && !this.jobRequirement.trim()==''){
-                axios.post('http://127.0.0.1:8000/api/postjob/',
+                axios.post('http://127.0.0.1:8000/api/jobposter/',
                     {
                         user_id: this.userId,
                         job_title: this.jobTitle,

@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         getAllJobs() {
-            axios.get('http://localhost:8000/api/postjob').then((res) => {
+            axios.get('http://localhost:8000/api/jobposter').then((res) => {
                 this.allJobs = res.data;
             })
         },

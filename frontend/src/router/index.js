@@ -3,7 +3,7 @@ import LoginForm from '../views/login/LoginView.vue';
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: LoginForm,
   },
@@ -15,7 +15,7 @@ const routes = [
   },
 
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: () => import('@/views/Home/HomePage.vue'),
     meta: {
@@ -50,6 +50,30 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/userProfile/userProfileView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  {
+    path: '/subscribe',
+    name: 'subscribe',
+    component: () => import('@/views/plane/planeView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  {
+    path: '/payment',
+    name: 'payment',
+    component: () => import('@/views/payment/paymentView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
+  {
+    path: '/companyList',
+    name: 'companyList',
+    component: () => import('@/views/companyList/companyListView.vue'),
     meta: {
         requiresAuth:true,
     }

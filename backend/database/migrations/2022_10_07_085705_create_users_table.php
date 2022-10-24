@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('verify_code')->nullable();
             $table->string('img')->nullable();
             $table->string('role')->default('user');
-            $table->string('phoneNumber');
+            $table->string('phoneNumber')->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('subscription')->default('free');

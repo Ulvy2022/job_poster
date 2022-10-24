@@ -9,29 +9,37 @@
                     </svg>
                 </label>
                 <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <router-link to="/home">
+                    <router-link to="/">
                         <li><a>Job List</a></li>
                     </router-link>
                     <router-link to="/job_category">
                         <li><a>Job category</a></li>
                     </router-link>
-                    <li><a>Company List</a></li>
+                    <router-link to="/companyList">
+                        <li><a>Company List</a></li>
+                    </router-link>
                     <li><a>Job Location</a></li>
+                    <router-link to="/subscribe">
+                        <li><a>Subscribe Plan</a></li>
+                    </router-link>
+                    <li @click="logOut()">
+                        <a>Log Out</a>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="navbar-center">
             <a class="btn btn-ghost normal-case text-xl text-white ">Job Seeker</a>
         </div>
-        <div class="navbar-end flex">
+        <div class="navbar-end flex" v-if="userName != '' " >
             <router-link to="/profile">
-                <div class="avatar flex justify-start items-center ">
-                    <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2  mr-5">
+                <div class="avatar flex justify-start items-center tooltip tooltip-bottom" data-tip="See your profile">
+                    <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2  lg:mr-5 ml-4  " >
                         <img v-if="img != null  " :src="img" />
-                        <img v-else-if="img == null && gender=='Female' " src="../../assets/images/woman.png" />
-                        <img v-else-if="img == null && gender=='Male' " src="../../assets/images/profile.png" />
+                        <img v-else-if="img == null && gender=='Female' || gender=='F' " src="../../assets/images/woman.png" />
+                        <img v-else-if="img == null && gender=='Male' || gender=='M' " src="../../assets/images/profile.png" />
                     </div>
-                    <p class="text-white mr-5">{{userName}}</p>
+                    <p class="text-white lg:mr-5 ml-4">{{userName}}</p>
                 </div>
             </router-link>
         </div>
@@ -52,12 +60,17 @@ export default {
     methods: {
         capitalize(words) {
             return words[0].toUpperCase() + words.substring(1, words.length ).toLowerCase();
+        },
+
+        logOut() {
+            localStorage.clear();
+            this.$emit('hide-menu');
+            this.$router.push('/')
         }
     },
 
     mounted() {
         axios.get('http://localhost:8000/api/getUser/' + localStorage.getItem("userId")).then((res) => {
-            console.log(res.data);
             this.img = res.data.img
             this.userName = this.capitalize(res.data.firstName) + ' ' + this.capitalize(res.data.lastName)
             this.gender = res.data.gender
