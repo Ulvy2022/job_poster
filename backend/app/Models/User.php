@@ -15,7 +15,7 @@ class User extends Model
 
     public function subscribsion()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscribe::class);
     }
 
     public function jobsposter()
@@ -23,13 +23,15 @@ class User extends Model
         return $this->hasMany(JobsPoster::class);
     }
 
+
+
     protected $fillable=[
-        'firstName', 
-        'lastName', 
-        'gender', 
+        'firstName',
+        'lastName',
+        'gender',
         'role',
-        'phoneNumber', 
-        'email', 
+        'phoneNumber',
+        'email',
         'password'
     ];
 }

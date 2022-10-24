@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subscribsion extends Model
+class Subscribe extends Model
 {
     use HasFactory;
     public function users()
@@ -13,7 +13,12 @@ class Subscribsion extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function features()
+    {
+        return $this->belongsTo(Features::class);
+    }
+
     protected $casts = [
-        'features' => 'array',
+        'feature' => 'array',
     ];
 }

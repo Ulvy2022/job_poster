@@ -14,7 +14,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         $validated = $request->validateWithBag('User',[
             'firstName' => 'required|unique:users,firstName|max:20|min:2',
             'lastName' =>'required|max:20|min:2',
@@ -39,7 +39,7 @@ class UserController extends Controller
 
     public function show( $id)
     {
-        return User::with(['posts','subscribsion'])->where('id',$id)->get();
+        return User::with(['jobsposter','subscribsion'])->where('id',$id)->get();
     }
 
     public function update(Request $request,  $id)
@@ -115,5 +115,5 @@ class UserController extends Controller
         return User::all()->count();
     }
 
-    
+
 }

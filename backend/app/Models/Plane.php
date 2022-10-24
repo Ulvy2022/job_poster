@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserPlane extends Model
+class Plane extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,6 @@ class UserPlane extends Model
 
     public function subscribsion()
     {
-        return $this->belongsTo(Subscribsion::class);
+        return $this->belongsTo(Subscribe::class);
     }
 }

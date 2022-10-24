@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SubscribsionController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserPlaneController;
 use App\Http\Controllers\JobsPosterController;
@@ -15,15 +15,17 @@ Route::get('/count', [UserController::class,'count']);
 Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 
 // user subscription
-Route::apiResource('/subscription', SubscribsionController::class);
+Route::apiResource('/subscription', SubscribeController::class);
+
+// minus 1 user's charge after they posted job
+Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
 
 Route::apiResource('/userPlane', UserPlaneController::class);
 
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);
-// Route::get('/auth/google',[GoogleAuthController::class,'redirect']);
-// Route::get('http://localhost:8000/auth/google/call-back', [GoogleAuthController::class , 'callbackGoogle']);
+
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);

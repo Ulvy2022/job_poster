@@ -30,7 +30,7 @@
 
                                 <div>
                                     <label for="closing-date" class="font-semibold block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Job Closing Date</label>
-                                    <input v-model="jobClosedate" type="text" id="closing-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                                    <input v-model="jobClosedate" type="date" id="closing-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" >
                                 </div>
                             
                                 <div>
@@ -102,6 +102,7 @@ export default {
             jobRequirement: '',
             jobs: [],
             isShowCreate: false,
+            expire_date:''
         }
     },
 
@@ -110,14 +111,14 @@ export default {
             axios.get('http://127.0.0.1:8000/api/jobposter')
             .then((response)=>{
                 this.jobs = response.data;
-                console.log(this.jobs)
             })
         },
 
-        createJob(){
+        createJob() {
             if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && 
             !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
-            !this.contactEmail.trim()=='' && !this.jobDescription.trim()=='' && !this.jobRequirement.trim()==''){
+            !this.contactEmail.trim() == '' && !this.jobDescription.trim() == '' && !this.jobRequirement.trim() == '') {
+                var moment = require('moment');
                 axios.post('http://127.0.0.1:8000/api/jobposter/',
                     {
                         user_id: this.userId,
@@ -131,6 +132,9 @@ export default {
                         contact_email: this.contactEmail,
                         job_description: this.jobDescription,
                         job_requirement: this.jobRequirement,
+                        post_at: moment("M/D/YYYY"),
+                        expired_at:d
+                        // post_at: moment("M/D/YYYY h:mm A")
                     } 
                 )
                 .then((res)=>{
@@ -151,6 +155,13 @@ export default {
         closeCreate() {
             this.isShowCreate = false
         }
+    },
+    computed: {
+           expireDate(day) {
+                const d = new Date()
+                d.setDate(d.getDate() + day)
+                return String(d).substring(0, 10) + " " + d.getFullYear();
+            }
     },
 
     mounted() {

@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('firstName');
             $table->string('lastName');
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->string('verify_code')->nullable();
             $table->string('img')->nullable();
             $table->string('role')->default('user');
