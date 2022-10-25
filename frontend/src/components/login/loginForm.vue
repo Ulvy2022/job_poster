@@ -2,22 +2,9 @@
 <section class="h-screen bg-gray-200">
     <div class="container px-6 py-12 h-full ">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <!-- <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                    class="w-full" alt="Phone image" />
-            </div> -->
             <div class="w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
                 <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
-                    <!-- email  -->
-                    <!-- <div class="relative mb-2">
-                        <input id="email"
-                         v-model="email"
-                            class="w-full rounded px-3 border border-gray-300 pt-5 pb-2 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none"
-                            type="text" autofocus>
-                        <label for="email" class="label absolute mt-2 ml-3 leading-tighter text-gray-600 text-base cursor-text" >Email
-                        </label>
-                    </div> -->
-                    <!-- email -->
+
                     <div class="relative mb-5">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -32,7 +19,7 @@
                             placeholder="Email">
                     </div>
 
-                    <div class="mb-mt-4 mb-2">
+                    <div class="mb-2">
                         <div class="flex">
                             <span v-if="isEmptyEmail" class="text-red-700">Email cannot be empty</span>
                         </div>
@@ -54,23 +41,22 @@
                 </div>
         
 
-                    <div class=" -mt-4 mb-2">
+                    <div class=" mt-4 mb-2">
                         <div class="flex" v-if="isEmptyPassword">
                             <span class="text-red-700">Password cannot be empty</span>
                         </div>
                     </div>
-
-                    <!-- <div class=" -mt-4 mb-2" v-if="showInvalid">
-                        <div class="flex">
-                            <span class="text-red-700">{{isInval}}</span>
+                    <div class=" -mt-4 mb-2">
+                        <div class="flex" v-if="showInvalid">
+                            <span class="text-red-700">Invalid Password or Email!</span>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <div class="flex justify-between items-center mb-6 mt-3">
+                    <div class="flex justify-between items-center mb-6 mt-7">
                   
                         <div class="flex items-start" >
-                            <div class="flex items-center h-5" @click="showPassword()">
-                                <input id="remember"  type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
+                            <div class="flex items-center h-5" >
+                                <input @click="showPassword()" id="remember"  type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="remember" class="text-gray-500 dark:text-gray-300">Show password</label>
@@ -116,16 +102,16 @@
                         <span class="text-light-600">REGISTER</span>
                         <div class="mb-2 flex w-full">
                             <div class="flex flex-col w-full">
-                                <input @change='checkInput(firstName)' type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
-                                <p v-if="firstName==''" class="text-red-700 font-light">
+                                <input @change='checkRegisterInput(firstName)' type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
+                                <p v-if="firstName==null " class="text-red-700 font-light">
                                     Please enter your FirstName
                                 </p>
                             </div>
 
                             <div class="flex flex-col ml-2 w-full">
-                                <input @change="checkInput(lastName)" type="text" placeholder="Last Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="lastName">
+                                <input @change="checkRegisterInput(lastName)" type="text" placeholder="Last Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="lastName">
 
-                                <p v-if='lastName == "" ' class="text-red-700 font-light">
+                                <p v-if='lastName ==null ' class="text-red-700 font-light">
                                     Please enter LastName
                                 </p>
                             </div>
@@ -133,48 +119,52 @@
                         </div>
 
                         <div class="flex flex-col w-full">
-                            <select @change="checkInput(gender)" required class="peer bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender">
-                                <option value="Gender" class="text-gray-200" disabled>Gender</option>
+                            <select @change="checkRegisterInput(gender)"  class="peer bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender" required>
+                                <option value="" class="text-gray-200"  selected>Gender</option>
                                 <option value="Male" class="text-gray-700">Male</option>
                                 <option value="Female" class="text-gray-700">Female</option>
                             </select>  
 
-                            <p v-if='gender == "" ' class="text-red-700 font-light">
+                            <p v-if='gender == null ' class="text-red-700 font-light">
                                 Please choose your gendar
                             </p>
                         </div>
                         
                         <div class="flex flex-col w-full">
-                            <input  @change="checkInput(phoneNumber)" placeholder="Phone Number"  class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
+                            <input  @change="checkRegisterInput(phoneNumber)" placeholder="Phone Number" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
 
-                            <p v-if='phoneNumber == "" ' class="text-red-700 font-light">
+                            <p v-if='phoneNumber == null ' class="text-red-700 font-light">
                                 Please enter your Phone Number
                             </p>
                         </div>
                        
                         <div class="flex flex-col w-full">
-                            <input  @change="checkInput(emailUser)" type="email" placeholder="Email" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
-
-                            <p v-if='emailUser == "" ' class="text-red-700 font-light">
+                            <input  @change="checkRegisterInput(emailUser)" type="email" placeholder="Email" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
+                            <p v-if='emailUser == null ' class="text-red-700 font-light">
                                 Please enter your Email
                             </p>
                         </div>
                         
-                        <div class="flex flex-col w-full">
-                            <input @change="checkPassword(passwordUser)" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password" v-model="passwordUser">
+                        <div class="flex flex-col w-full ">
+                            <input @change="checkPassword(passwordUser)" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password"  placeholder="Password" v-model="passwordUser">
                             <p v-if='isNoPass' class="text-red-700 font-light">
                                 Please enter your password
                             </p>
                         </div>
 
-                        <div class="flex items-center justify-between">
-                            <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
-                                Register
-                            </button>
-                            <googLoginForm/>
-                            <button @click='is_show=false' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
-                                Cancal
-                            </button>
+                        <div class=" w-full border-opacity-50">
+                            <div class=" h-20 card  rounded-box place-items-center grid grid-cols-2">
+                                <button @prevent.prevent="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="submit">
+                                    Register
+                                </button>
+                                <button @click='is_show=false' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                                    Cancal
+                                </button>
+                            </div>
+                            <div class="divider">OR</div>
+                            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
+                                <googLoginForm/>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -199,32 +189,24 @@ export default {
         return {
             is_show: false,
             showInvalid:false,
-            type: 'text',
+            type: 'password',
             isClickSigIn: false,
             isInval: 'Invalid email address or password!',
             isEmptyEmail: false,
             isEmptyPassword: false,
 
             registerValidation: false,
-            emailUser: ' ',
+            emailUser: '',
             passwordUser: '',
             role: 'user',
-            firstName: ' ',
-            lastName: ' ',
-            gender: ' ',
-            phoneNumber: ' ',
+            firstName: '',
+            lastName: '',
+            gender: '',
+            phoneNumber: '',
             isNoPass: false,
             isFirstNameEmpty: false,
             email: '',
             password:''
-
-            // login: {
-            //     email: this.email,
-            //     password: this.password,
-            // },
-
-
-            // error: []
         }
     },
     methods: {
@@ -233,9 +215,9 @@ export default {
         },
 
         checkInput(input) {
-            if(input.trim() == ''){
+            if (input.trim() == '') {
                 return '';
-            }
+            } 
         },
 
         checkPassword(pass) {
@@ -258,16 +240,6 @@ export default {
                 axios.post("http://127.0.0.1:8000/api/user", body)
                 this.is_show = false;
             }
-
-            // if (this.firstName.trim() == ""){
-            //     this.isFirstNameEmpty = false;
-            // }
-
-            // if (this.firstName.trim() != '') {
-            //     this.isFirstNameEmpty = false
-            //     this.registerValidation = !this.registerValidation
-
-            // }
             
             this.firstName = "";
             this.lastName = "";
@@ -312,19 +284,6 @@ export default {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid
             }
-
-            // console.log(this.login)
-            // this.error = []
-            // for (const item in this.login){
-            //     if (this.login[item] === "" || this.login[item].length === 0){
-            //         this.error.push(item)
-            //     }
-
-            // }
-            // if (this.error.length === 0){
-            //     alert ("You have been logged in successfully")
-            // }
-            // console.warn(this.error);
         },
 
         showPassword() {
@@ -337,8 +296,16 @@ export default {
 
         forgotPassword() {
             this.$router.push('/resetPsw');
+        },
+
+        checkRegisterInput(input) {
+            if (input.trim() == '') {
+                return input = null;
+            }
         }
     },
+
+
 
 }
 

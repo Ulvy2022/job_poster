@@ -133,7 +133,7 @@ export default {
                         job_description: this.jobDescription,
                         job_requirement: this.jobRequirement,
                         post_at: moment("M/D/YYYY"),
-                        expired_at:d
+                        // expired_at:d
                         // post_at: moment("M/D/YYYY h:mm A")
                     } 
                 )

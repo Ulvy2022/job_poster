@@ -64,8 +64,7 @@ export default {
 
         logOut() {
             localStorage.clear();
-            this.$emit('hide-menu');
-            this.$router.push('/')
+            this.$router.push('/login')
         }
     },
 
