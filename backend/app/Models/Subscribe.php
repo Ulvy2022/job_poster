@@ -21,4 +21,6 @@ class Subscribe extends Model
     protected $casts = [
         'feature' => 'array',
     ];
+    public $timestamps = false;
+
 }

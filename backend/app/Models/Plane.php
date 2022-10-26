@@ -18,4 +18,7 @@ class Plane extends Model
     {
         return $this->belongsTo(Subscribe::class);
     }
+
+    public $timestamps = false;
+
 }

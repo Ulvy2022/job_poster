@@ -6,7 +6,7 @@
         <div class=" w-full  justify-start">
             <div class="grid grid-cols-2 items-center justify-end p-2 sh w-full bg-gray-100" v-for="index in loop" :key="index" >
                 <ul class="menu bg-base-100  w-11/12">
-                    <li class="hover-bordered"><a>Accounting</a></li>
+                    <li class="hover-bordered"><a>Accounting {{index}} </a></li>
                 </ul>
                 <ul class="menu bg-base-100">
                     <li class="hover-bordered ">
@@ -38,7 +38,7 @@
                         class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
                 </li>
                 <li>
-                    <a href="#" aria-current="page"
+                    <a href="#" aria-current=""
                         class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
                 </li>
                 <li>

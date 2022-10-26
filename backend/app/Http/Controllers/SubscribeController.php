@@ -12,21 +12,21 @@ class SubscribeController extends Controller
 
     public function index()
     {
-        return Subscribe::all();
+        return Subscribe::get();
     }
 
 
     public function store(Request $request)
     {
         $subscribsion = new Subscribe();
-        $feature =  Features::find($request->features_id);
+        $feature = Features::find($request->features_id);
         $subscribsion->user_id = $request->user_id;
         $subscribsion->features_id = $request->features_id;
         $subscribsion->charge = $request->charge;
         $subscribsion->name = $feature['name'];
         $subscribsion->feature = $feature['features'];
-        $subscribsion->created_at = $request->created_at;
-        $subscribsion->updated_at = $request->updated_at;
+        $subscribsion->subscribed_at = $request->subscribed_at;
+        $subscribsion->expired_at = $request->expired_at;
         $subscribsion->save();
         return response()->json(['msg' => 'success']);
 

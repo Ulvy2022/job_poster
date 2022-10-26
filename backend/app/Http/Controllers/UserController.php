@@ -53,6 +53,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->fullName = $request->fullName;
         $user->email = $request->email;
+        $user->phoneNumber = $request->phoneNumber;
+        $user->companyName = $request->companyName;
         $user->password = bcrypt($request->password);
         if ($request->img != null) {
             $path = public_path('images');
@@ -107,5 +109,13 @@ class UserController extends Controller
     public function count() 
     {
         return User::all()->count();
+    }
+
+    public function setUserToAdmine($id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = "Admine";
+        $user->update();
+        return response()->json(['msg' => 'set user to admine success']);
     }
 }

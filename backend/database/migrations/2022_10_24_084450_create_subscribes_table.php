@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('name');
             $table->json('feature');
             $table->string('description')->nullable();
-            $table->date('created_at')->nullable();
-            $table->date('updated_at')->nullable();
+            $table->string('subscribed_at')->nullable();
+            $table->string('expired_at')->nullable();
         });
     }
 

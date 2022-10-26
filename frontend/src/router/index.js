@@ -84,6 +84,14 @@ const routes = [
     meta: {
         requiresAuth:true,
     }
+  },
+  {
+    path: '/payment',
+    name: 'payment',
+    component: () => import('@/views/googlePay/googlePayView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
   }
 ]; 
 

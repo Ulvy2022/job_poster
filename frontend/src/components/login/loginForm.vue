@@ -2,22 +2,8 @@
 <section class="h-screen bg-gray-200">
     <div class="container px-6 py-12 h-full ">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <!-- <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                    class="w-full" alt="Phone image" />
-            </div> -->
-            <div class="w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
+            <div class=" w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
                 <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
-                    <!-- email  -->
-                    <!-- <div class="relative mb-2">
-                        <input id="email"
-                         v-model="email"
-                            class="w-full rounded px-3 border border-gray-300 pt-5 pb-2 focus:border-blue-700 focus:ring-1 focus:ring-blue-700 focus:outline-none input active:outline-none"
-                            type="text" autofocus>
-                        <label for="email" class="label absolute mt-2 ml-3 leading-tighter text-gray-600 text-base cursor-text" >Email
-                        </label>
-                    </div> -->
-                    <!-- email -->
                     <div class="relative mb-5">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -32,7 +18,7 @@
                             placeholder="Email">
                     </div>
 
-                    <div class="mb-mt-4 mb-2">
+                    <div class="mb-2">
                         <div class="flex">
                             <span v-if="isEmptyEmail" class="text-red-700">Email cannot be empty</span>
                         </div>
@@ -54,18 +40,22 @@
                 </div>
         
 
-                    <div class=" -mt-4 mb-2">
+                    <div class=" mt-4 mb-2">
                         <div class="flex" v-if="isEmptyPassword">
                             <span class="text-red-700">Password cannot be empty</span>
                         </div>
                     </div>
+                    <div class=" -mt-4 mb-2">
+                        <div class="flex" v-if="showInvalid">
+                            <span class="text-red-700">Invalid Password or Email!</span>
+                        </div>
+                    </div>
 
-
-                    <div class="flex justify-between items-center mb-6 mt-3">
+                    <div class="flex justify-between items-center mb-6 mt-7">
                   
                         <div class="flex items-start" >
-                            <div class="flex items-center h-5" @click="showPassword()">
-                                <input id="remember"  type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
+                            <div class="flex items-center h-5" >
+                                <input @click="showPassword()" id="remember"  type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" >
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="remember" class="text-gray-500 dark:text-gray-300">Show password</label>
@@ -213,9 +203,10 @@ export default {
     
     data() {
         return {
+            progress:0,
             is_show: false,
             showInvalid:false,
-            type: 'text',
+            type: 'password',
             isClickSigIn: false,
             isInval: 'Invalid email address or password!',
             isEmptyEmail: false,
@@ -243,9 +234,9 @@ export default {
         },
 
         checkInput(input) {
-            if(input.trim() == ''){
+            if (input.trim() == '') {
                 return '';
-            }
+            } 
         },
 
         checkPassword(pass) {
@@ -295,7 +286,7 @@ export default {
                     } else {
                         localStorage.setItem('userId',res.data.id)
                         this.showInvalid = false;
-                        this.$router.push('/home')
+                        this.$router.push('/')
                     }
                 }).catch(() => {
                     this.isClickSigIn = !this.isClickSigIn
@@ -329,8 +320,18 @@ export default {
 
         forgotPassword() {
             this.$router.push('/resetPsw');
-        }
+        },
+
+        checkRegisterInput(input) {
+            if (input.trim() == '') {
+                return input = null;
+            }
+        },
+
     },
+
+
+
 
 }
 
