@@ -2,9 +2,8 @@
 <section class="h-screen bg-gray-200">
     <div class="container px-6 py-12 h-full ">
         <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <div class="w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
+            <div class=" w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
                 <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
-
                     <div class="relative mb-5">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -184,9 +183,11 @@ export default {
         'Register-Form': registerForm,
         googLoginForm,
     },
+   
 
     data() {
         return {
+            progress:0,
             is_show: false,
             showInvalid:false,
             type: 'password',
@@ -262,7 +263,7 @@ export default {
                     } else {
                         localStorage.setItem('userId',res.data.id)
                         this.showInvalid = false;
-                        this.$router.push('/home')
+                        this.$router.push('/')
                     }
                 }).catch(() => {
                     this.isClickSigIn = !this.isClickSigIn
@@ -302,8 +303,10 @@ export default {
             if (input.trim() == '') {
                 return input = null;
             }
-        }
+        },
+
     },
+
 
 
 

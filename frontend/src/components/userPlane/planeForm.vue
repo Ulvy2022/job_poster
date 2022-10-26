@@ -2,25 +2,20 @@
     <section class=" dark:bg-gray-900 bg-gray-200">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6  md:grid ">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business
-                    teams like yours</h2>
-                <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets
-                    where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Subscribe your favourite plan</h2>
+       
             </div>
-            <div class=" lg:ml-40 space-y-8 grid lg:grid-cols-2 md:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0" >
-                <!-- Pricing Card -->
+            <div class=" lg:ml-40 space-y-8 grid lg:grid-cols-2 md:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0 " >
                 <div v-for="plane of typePlane" :key="plane"
                     class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
                     <h3 class="mb-4 text-2xl font-semibold ">{{plane.plane_type}}</h3>
                     <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">{{plane.description}}</p>
                     <div class="flex justify-center items-baseline my-8">
-                        <span class="mr-2 text-5xl font-extrabold">${{plane.price}}</span>
+                        <span class="mr-2 text-5xl font-extrabold" >${{plane.price}}</span>
                         <span class="text-gray-500 dark:text-gray-400">/month</span>
                     </div>
-                    <!-- List -->
                     <ul role="list" class="mb-8 space-y-4 text-left" >
                         <li class="flex items-center space-x-3 " v-for="feature of plane.features" :key="feature">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" v-if="feature != '' "
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -30,7 +25,7 @@
                             <span>{{feature}}</span>
                         </li>
                     </ul>
-                    <button class="p-3 bg-gray-200 "><a :href="link">Purchase Now</a></button>
+                
                 </div>
             </div>
         </div>
@@ -40,17 +35,21 @@
 
 <script>
 import axios from "axios";
+// import googlePay from "../../components/googlePay/googlePay.vue"
 export default {
+    // components: {
+    //     googlePay
+    // },
     data() {
         return {
-            allPlanes: 4,
             typePlane: null,
             link: 'https://buy.stripe.com/test_5kA6sjfSWdSUcwgeUW'
         }
     },
 
+
     mounted() {
-        axios.get('http://localhost:8000/api/subscription').then((res) => {
+        axios.get('http://localhost:8000/api/features').then((res) => {
             this.typePlane = res.data;
         })
     }

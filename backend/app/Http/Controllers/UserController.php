@@ -45,14 +45,15 @@ class UserController extends Controller
         $validated = $request->validateWithBag('User',
         [   'firstName' => 'required|max:20|min:2',
             'lastName' => 'required|max:20|min:2',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'email' => 'required',
         ]);
 
         $user = User::findOrFail($id);
         $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->email = $request->email;
+        $user->phoneNumber = $request->phoneNumber;
+        $user->companyName = $request->companyName;
         $user->password = bcrypt($request->password);
         if ($request->img != null) {
             $path = public_path('images');

@@ -49,8 +49,7 @@ export default {
         }
     },
     watch: {
-        allJobs() {
-            
+        allJobs() {    
             this.getAllJobs();
         }
     },
