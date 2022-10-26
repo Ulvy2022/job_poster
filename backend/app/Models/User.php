@@ -10,7 +10,7 @@ class User extends Model
     use HasApiTokens, HasFactory;
     public function Subscribsion()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(Subscribe::class);
     }
 
     public function Jobsposter()
@@ -19,12 +19,9 @@ class User extends Model
     }
 
     protected $fillable=[
-        'firstName', 
-        'lastName', 
-        'gender', 
+        'fullName',
+        'email',
+        'password',
         'role',
-        'phoneNumber', 
-        'email', 
-        'password'
     ];
 }

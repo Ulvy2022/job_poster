@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('company_location');
             $table->string('job_type');
-            $table->string('job_closedate');
+            $table->string('job_closedate')->nullable();
             $table->string('company_name');
             $table->integer('salary')->nullable();
             $table->string('contact_name');

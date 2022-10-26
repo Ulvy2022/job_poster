@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         $admine = new \App\Models\User();
         $admine->firstName = 'Admine';
         $admine->lastName = 'App';
+        $admine->role = 'Admine';
         $admine->email = 'admine@gmail.com';
         $admine->password = '077257675';
         $admine->save();

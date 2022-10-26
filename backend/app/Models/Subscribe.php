@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subscribsion extends Model
+class Subscribe extends Model
 {
     use HasFactory;
-    
-    public function User()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    protected $fillable = [
-        'price',
-        'features',
-        'description',
-        'plane_type'
-    ];
+    public function features()
+    {
+        return $this->belongsTo(Features::class);
+    }
 
     protected $casts = [
-        'features' => 'array',
+        'feature' => 'array',
     ];
 }

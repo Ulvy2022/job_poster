@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
+use App\Models\Subscribsion;
 
 class JobsPosterController extends Controller
 {

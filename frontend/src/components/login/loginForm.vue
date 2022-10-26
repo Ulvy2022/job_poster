@@ -60,11 +60,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class=" -mt-4 mb-2" v-if="showInvalid">
-                        <div class="flex">
-                            <span class="text-red-700">{{isInval}}</span>
-                        </div>
-                    </div> -->
 
                     <div class="flex justify-between items-center mb-6 mt-3">
                   
@@ -105,74 +100,94 @@
                         <p class="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
 
-                    <googLoginForm @create-account="is_show= true;" />
+                    <googleLoginForm @create-account="is_show= true;" />
             </div>
         </div>
 
+        
         <Register-Form v-if='is_show' @close_register="close_register">
             <div class="modal-mask">
                 <div class="modal-wrapper w-full top-24">
-                   <form class="bg-gray-100 shadow-2xl lg:w-[50%] w-full m-auto mt-32 rounded px-8 pt-6 pb-8 mb-4">
-                        <span class="text-light-600">REGISTER</span>
-                        <div class="mb-2 flex w-full">
+
+                   <form id="app" @submit.prevent="handleFormSubmit" class="bg-gray-100 shadow-2xl lg:w-[30%] w-full m-auto mt-64 rounded px-8 pt-6 pb-8 mb-4">
+                        <span class="text-light-600 font-sans flex justify-center items-center mb-5 font-bold">REGISTER</span>
+                        <div class="mb-2 w-full grid grid-cols-2"
+                        >
                             <div class="flex flex-col w-full">
-                                <input @change='checkInput(firstName)' type="text" placeholder="First Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="firstName">
-                                <p v-if="firstName==''" class="text-red-700 font-light">
-                                    Please enter your FirstName
-                                </p>
+                                <input type="text" placeholder="FullName" class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                                v-model="fullName" required>
+                            </div>
+
+                            <div class="flex flex-col ml-2 mb-2 w-full">
+                                <input required type="email" placeholder="Email" class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
+                            </div>
+
+                            <div class="flex flex-col mb-2 w-full">
+                                <div class="relative">
+                                <input pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required  placeholder="Password" :type="showPass ? 'password' : 'text'"
+                                class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                                v-model="passwordUser">
+
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+
+                                    <svg class="h-5 w-5 text-black" @click="showPass = !showPass" width="24" height="24" viewBox="0 0 24 24" 
+                                    :class="{'hidden': !showPass, 'block':showPass }"
+                                    stroke-width="2" stroke="currentColor" fill="none" 
+                                    stroke-linecap="round" stroke-linejoin="round">  
+                                    <path stroke="none" d="M0 0h24v24H0z"/>  
+                                    <circle cx="12" cy="12" r="2" />  
+                                    <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  
+                                    <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg>
+
+
+                                    <svg class="h-5 w-5 text-black" @click="showPass = !showPass" fill="none" viewBox="0 0 24 24" 
+                                    :class="{'block': !showPass, 'hidden':showPass }"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                    </svg>
+                                </div>
+                                </div>
                             </div>
 
                             <div class="flex flex-col ml-2 w-full">
-                                <input @change="checkInput(lastName)" type="text" placeholder="Last Name" required class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="lastName">
+                                <div class="relative">
+                                <input pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required  placeholder="Confirm Password" :type="showConfirmPassword ? 'password' : 'text'" 
+                                class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                                v-model="passwordUserConfirm">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
 
-                                <p v-if='lastName == "" ' class="text-red-700 font-light">
-                                    Please enter LastName
-                                </p>
+                                    <svg class="h-5 w-5 text-black" @click="showConfirmPassword = !showConfirmPassword" width="24" height="24" viewBox="0 0 24 24" 
+                                    :class="{'hidden': !showConfirmPassword, 'block':showConfirmPassword }"
+                                    stroke-width="2" stroke="currentColor" fill="none" 
+                                    stroke-linecap="round" stroke-linejoin="round">  
+                                    <path stroke="none" d="M0 0h24v24H0z"/>  
+                                    <circle cx="12" cy="12" r="2" />  
+                                    <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />  
+                                    <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" /></svg>
+
+
+                                    <svg class="h-5 w-5 text-black" @click="showConfirmPassword = !showConfirmPassword" fill="none" viewBox="0 0 24 24" 
+                                    :class="{'block': !showConfirmPassword, 'hidden':showConfirmPassword }"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                    </svg>
+                                </div>
+                                </div>
                             </div>
-
                         </div>
 
-                        <div class="flex flex-col w-full">
-                            <select @change="checkInput(gender)" required class="peer bg-gray-50 border mb-2 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  v-model="gender">
-                                <option value="Gender" class="text-gray-200" disabled>Gender</option>
-                                <option value="Male" class="text-gray-700">Male</option>
-                                <option value="Female" class="text-gray-700">Female</option>
-                            </select>  
-
-                            <p v-if='gender == "" ' class="text-red-700 font-light">
-                                Please choose your gendar
-                            </p>
-                        </div>
-                        
-                        <div class="flex flex-col w-full">
-                            <input  @change="checkInput(phoneNumber)" placeholder="Phone Number"  class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="phoneNumber">
-
-                            <p v-if='phoneNumber == "" ' class="text-red-700 font-light">
-                                Please enter your Phone Number
-                            </p>
-                        </div>
-                       
-                        <div class="flex flex-col w-full">
-                            <input  @change="checkInput(emailUser)" type="email" placeholder="Email" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
-
-                            <p v-if='emailUser == "" ' class="text-red-700 font-light">
-                                Please enter your Email
-                            </p>
-                        </div>
-                        
-                        <div class="flex flex-col w-full">
-                            <input @change="checkPassword(passwordUser)" required class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password" v-model="passwordUser">
-                            <p v-if='isNoPass' class="text-red-700 font-light">
-                                Please enter your password
-                            </p>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <button @click="register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                        <div class="flex w-full items-center justify-between">
+                            <button type='submit' @click="register" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline">
                                 Register
                             </button>
-                            <googLoginForm/>
-                            <button @click='is_show=false' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+
+                            <router-link to='/register' class="m-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                                Sign Up
+                            </router-link>
+                           
+                            <button @click='is_show=false' class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
                                 Cancal
                             </button>
                         </div>
@@ -188,13 +203,14 @@
 <script>
 import axios from "axios"
 import registerForm from '../slot/generalSlot.vue';
-import googLoginForm from "../google/googleLogin.vue"
+import googleLoginForm from '../google/googleLogin.vue';
 export default {
     components: {
         'Register-Form': registerForm,
-        googLoginForm,
+        googleLoginForm,
     },
 
+    
     data() {
         return {
             is_show: false,
@@ -204,27 +220,21 @@ export default {
             isInval: 'Invalid email address or password!',
             isEmptyEmail: false,
             isEmptyPassword: false,
-
             registerValidation: false,
-            emailUser: ' ',
-            passwordUser: '',
             role: 'user',
-            firstName: ' ',
-            lastName: ' ',
-            gender: ' ',
-            phoneNumber: ' ',
             isNoPass: false,
             isFirstNameEmpty: false,
             email: '',
-            password:''
+            password:'',
 
-            // login: {
-            //     email: this.email,
-            //     password: this.password,
-            // },
-
-
-            // error: []
+            // ==========Register=======
+            showPass: true,
+            showConfirmPassword: true,
+            fullName: null,
+            emailUser: null,
+            passwordUser: null,
+            passwordUserConfirm: null,
+            isFormComplete: false,
         }
     },
     methods: {
@@ -244,37 +254,32 @@ export default {
             }
         },
 
+        // Register===============
+
+        handleFormSubmit() {
+            console.log('submit')
+        },
+
         register() {
-            if (!this.firstName.trim() == "" && !this.lastName.trim() == "" && !this.gender.trim() == "" && !this.phoneNumber == "" && !this.emailUser.trim() == "" && !this.passwordUser.trim() == ""){
+            if (!this.fullName.trim() == "" &&
+            !this.emailUser.trim() == "" && 
+            !this.passwordUser.trim() == "" &&
+            !this.passwordUserConfirm.trim() == "" &&
+            this.passwordUser == this.passwordUserConfirm){
                 let body = {
-                    firstName:this.firstName,
-                    lastName:this.lastName,
-                    gender:this.gender,
+                    fullName:this.fullName,
                     role: this.role,
-                    phoneNumber: this.phoneNumber,
                     email: this.emailUser,
                     password: this.passwordUser,
                 }
-                axios.post("http://127.0.0.1:8000/api/user", body)
+                axios.post("http://127.0.0.1:8000/api/registerByForm", body)
                 this.is_show = false;
+                this.fullName = "";
+                this.emailUser = "";
+                this.passwordUser = "";
+                this.passwordUserConfirm = "";
             }
-
-            // if (this.firstName.trim() == ""){
-            //     this.isFirstNameEmpty = false;
-            // }
-
-            // if (this.firstName.trim() != '') {
-            //     this.isFirstNameEmpty = false
-            //     this.registerValidation = !this.registerValidation
-
-            // }
-            
-            this.firstName = "";
-            this.lastName = "";
-            this.gender = "";
-            this.phoneNumber = "";
-            this.email = "";
-            this.password = ""
+            alert("You have completed the registration form")
         },
 
         signIn() {
@@ -312,19 +317,6 @@ export default {
                 this.isEmptyPassword = false
                 this.showInvalid = !this.showInvalid
             }
-
-            // console.log(this.login)
-            // this.error = []
-            // for (const item in this.login){
-            //     if (this.login[item] === "" || this.login[item].length === 0){
-            //         this.error.push(item)
-            //     }
-
-            // }
-            // if (this.error.length === 0){
-            //     alert ("You have been logged in successfully")
-            // }
-            // console.warn(this.error);
         },
 
         showPassword() {
@@ -368,4 +360,18 @@ export default {
        top: 0.1rem;
        left: 0;
    }
+
+   input[type=email]:not(:placeholder-shown):invalid {
+    color: red;
+    outline-color: red;
+    }
+
+
+    input[type=email]:not(:placeholder-shown):valid {
+    color: green;
+    outline-color: green;
+    }
+
+
+    
 </style>

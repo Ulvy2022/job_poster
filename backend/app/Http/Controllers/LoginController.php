@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -20,7 +19,6 @@ class LoginController extends Controller
         $token = $user->createToken('myToken')->plainTextToken;
         // $cookie = cookie('jwt', $token, 60*24*30);
         return response()->json(['token' => $token, 'message' => 'success login', 'id' => $user['id']], 200);
-
     }
 
     public function logout()

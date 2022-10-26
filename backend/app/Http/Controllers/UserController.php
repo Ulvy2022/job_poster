@@ -13,24 +13,24 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
-    {   
+     /**
+     * In user table, there are 
+     * - fullName, 
+     * - email 
+     * - password
+     */
+    public function registerByForm(Request $request)
+    {
         $validated = $request->validateWithBag('User',[
-            'firstName' => 'required|unique:users,firstName|max:20|min:2',
-            'lastName' =>'required|max:20|min:2',
-            'gender' => 'required|max:6|min:1',
-            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
+            'fullName' => 'required|max:20|min:2',
             'email'=> 'required|email|unique:users,email',
-            'password' => 'required|min:8|unique:users,password',
+            'password' => 'min:6',
         ]);
         $user = new User();
-        $user->firstName = $request->firstName;
-        $user->lastName = $request->lastName;
-        $user->gender = $request->gender;
-        $user->role = 'user';
-        $user->phoneNumber = $request->phoneNumber;
+        $user->fullName = $request->fullName;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->role = 'user';
         $user->save();
         return response()->json(['msg' => 'success']);
     }
@@ -38,23 +38,20 @@ class UserController extends Controller
 
     public function show( $id)
     {
-        return User::with(['posts','subscribsion'])->where('id',$id)->get();
+        return User::with(['jobsposter','subscribsion'])->where('id',$id)->get();
     }
 
+   
     public function update(Request $request,  $id)
     {
         $validated = $request->validateWithBag('User',[
-            'firstName' => 'required|unique:users,firstName|max:20|min:2',
-            'lastName' =>'required|max:20|min:2',
-            'gender' => 'required|max:6|min:1',
-            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
+            'fullName' => 'required|max:20|min:2',
             'email'=> 'required|email|unique:users,email',
-            'password' => 'required|min:8|unique:users,password',
+            'password' => 'min:8|confirmed',
         ]);
 
         $user = User::findOrFail($id);
-        $user->firstName = $request->firstName;
-        $user->lastName = $request->lastName;
+        $user->fullName = $request->fullName;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         if ($request->img != null) {
@@ -107,7 +104,8 @@ class UserController extends Controller
         return User::findOrFail($id);
     }
 
-    public function count() {
+    public function count() 
+    {
         return User::all()->count();
     }
 }

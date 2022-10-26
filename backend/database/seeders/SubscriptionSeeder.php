@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subscribsion;
+use App\Models\Features;
 use Illuminate\Database\Seeder;
 
 class SubscriptionSeeder extends Seeder
@@ -58,12 +58,11 @@ class SubscriptionSeeder extends Seeder
             ];
 
         foreach ($allPlane as $i => $i_value) {
-                $state = new Subscribsion();
-                $state->price = $i_value['price'];
-                $state->plane_type = $i_value['plane_type'];
-                $state->description = $i_value['description'];
-                $state->features = $i_value['features'];
-                $state->save();
+                $feature = new Features();
+                $feature->name = $i_value['plane_type'];
+                $feature->price = $i_value['price'];
+                $feature->features = ($i_value['features']);
+                $feature->save();
         }
 
     }
