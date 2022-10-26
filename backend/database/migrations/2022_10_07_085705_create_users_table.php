@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('subscription')->default('free');
-            $table->date('created_at')->nullable();
-            $table->date('updated_at')->nullable();
+            $table->string('created_at')->nullable();
+            $table->string('updated_at')->nullable();
         });
     }
 

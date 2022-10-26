@@ -28,4 +28,7 @@ class JobsPoster extends Model
         'post_at',
         'activate'
     ];
+
+    public $timestamps = false;
+
 }

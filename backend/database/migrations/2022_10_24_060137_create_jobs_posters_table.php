@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('expired_at')->nullable();
             $table->string('post_at')->nullable();
             $table->string('active')->default('No');
-            $table->timestamps();
         });
     }
 

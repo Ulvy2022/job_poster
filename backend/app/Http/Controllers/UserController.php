@@ -16,12 +16,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validateWithBag('User',[
-            'firstName' => 'required|unique:users,firstName|max:20|min:2',
+            'firstName' => 'required|max:20|min:2',
             'lastName' =>'required|max:20|min:2',
-            'gender' => 'required|max:6|min:1',
-            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
             'email'=> 'required|email|unique:users,email',
-            'password' => 'required|min:8|unique:users,password',
+            'password' => 'required|min:8',
         ]);
 
         $user = new User();
@@ -44,13 +42,11 @@ class UserController extends Controller
 
     public function update(Request $request,  $id)
     {
-        $validated = $request->validateWithBag('User',[
-            'firstName' => 'required|unique:users,firstName|max:20|min:2',
-            'lastName' =>'required|max:20|min:2',
-            'gender' => 'required|max:6|min:1',
-            'phoneNumber' => 'required |unique:users,phoneNumber| numeric | digits:10 | starts_with: 6,7,8,9',
-            'email'=> 'required|email|unique:users,email',
-            'password' => 'required|min:8|unique:users,password',
+        $validated = $request->validateWithBag('User',
+        [   'firstName' => 'required|max:20|min:2',
+            'lastName' => 'required|max:20|min:2',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
         ]);
 
         $user = User::findOrFail($id);
@@ -115,5 +111,11 @@ class UserController extends Controller
         return User::all()->count();
     }
 
-
+    public function setUserToAdmine($id)
+    {
+        $user = User::findOrFail($id);
+        $user->role = "Admine";
+        $user->update();
+        return response()->json(['msg' => 'set user to admine success']);
+    }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Mail\sendVerifyCode;
+use App\Mail\setUserToAdmine;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
@@ -28,6 +29,24 @@ class MailController extends Controller
             $user->verify_code = $psw;
             $user->update();
             return response()->json(['message' => 'success', 'code' => $psw]);
+        } else {
+            return response()->json(['message' => 'email not found!']);
+        }
+    }
+
+    public function setUserToAdmine($email)
+    {
+        $user = User::where('email', $email)->first();
+        $username = $user['firstName'] . ' ' . $user['lastName'];
+        $email = $user['email'];
+        $body = [
+            'username' => $username,
+        ];
+        if ($user) {
+            $user->role = "Admine";
+            Mail::to($email)->send(new setUserToAdmine($body)); //file in Mail folder
+            $user->update();
+            return response()->json(['message' => 'success']);
         } else {
             return response()->json(['message' => 'email not found!']);
         }

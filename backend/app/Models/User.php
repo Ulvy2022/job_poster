@@ -34,4 +34,6 @@ class User extends Model
         'email',
         'password'
     ];
+    public $timestamps = false;
+
 }

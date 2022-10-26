@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserPlaneController;
 use App\Http\Controllers\JobsPosterController;
@@ -29,12 +30,15 @@ Route::post('/logout', [LoginController::class , 'logout']);
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);
+//features
+Route::apiResource('/features', FeaturesController::class);
 
 // update verify code
 Route::put('/verifyCode', [UserController::class , 'verifyCode']);
 Route::put('/resetPsw/{id}', [UserController::class , 'resetPassword']);
 Route::get('/userBy/{email}', [UserController::class , 'getUserByEmail']);
 Route::post('/sendCode/{email}', [MailController::class , 'sendVerifyCode']);
+Route::put('/setUserToAdmine/{email}', [MailController::class , 'setUserToAdmine']);
 
 
 
