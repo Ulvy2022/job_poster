@@ -14,6 +14,7 @@ export default {
     return {
       isShowMenuBar: null,
       isShowJob: false,
+      imgae:''
     }
   },
 
@@ -27,6 +28,7 @@ export default {
     //     clearTimeout(this.timeOut);
     //   }
     // }, 
+ 
 
     showForm() {
         this.isShowJob = true

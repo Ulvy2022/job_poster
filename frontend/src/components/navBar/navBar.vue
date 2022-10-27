@@ -37,11 +37,11 @@
             <router-link to="/profile">
                 <div class="avatar flex justify-start items-center tooltip tooltip-bottom" data-tip="See your profile">
                     <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2  lg:mr-5 ml-4  " >
-                        <img v-if="img != null  " :src="img" />
-                        <img v-else-if="img == null && gender=='Female' || gender=='F' " src="../../assets/images/woman.png" />
-                        <img v-else-if="img == null && gender=='Male' || gender=='M' " src="../../assets/images/profile.png" />
+                        <img class="object-cover h-10 object-center"  v-if="img != ''  " :src="img" />
+                        <img class="object-cover"  v-else-if="img == null && gender=='Female' || gender=='F' " src="../../assets/images/woman.png" />
+                        <img class="object-cover"  v-else-if="img == null && gender=='Male' || gender=='M' " src="../../assets/images/profile.png" />
                     </div>
-                    <p class="text-white lg:mr-5 ml-4">{{userName}}</p>
+                    <p class="text-white lg:mr-5 ml-4">{{ userName }}</p>
                 </div>
             </router-link>
         </div>
@@ -58,12 +58,9 @@ export default {
                 userName: '',
                 gender: '',
                 email: '',
-
             }
     },
-
-
-
+    
     methods: {
         capitalize(words) {
             return words[0].toUpperCase() + words.substring(1, words.length ).toLowerCase();
@@ -94,11 +91,13 @@ export default {
                     this.email = res.data.email
                     this.userName = this.capitalize(res.data.firstName) + ' ' + this.capitalize(res.data.lastName)
                     this.gender = res.data.gender
-                    // this.sendEmail()
+
                 })
+
             }
         }
     },
+
 
     mounted() {
         this.getUserInfo()
