@@ -79,26 +79,26 @@
                                         <div class=" grid grid-cols-2 gap-4 mt-2">
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="text" name="floating_email" id="floating_email"
-                                                    :class="{'border-red-500 focus:border-red-600': validationEditPf(fname)} "
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    :class="{'border-red-500 focus:border-red-600': validationEditPf(fname),'focus:border-blue-600': !validationEditPf(fname)} "
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
                                                     v-model="fname"
                                                     placeholder=" " required />
                                                 <label for="floating_email"
-                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(fname)} "
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
+                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(fname), 'peer-focus:text-blue-600': !validationEditPf(fname)} "
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
                                                     name</label>
                                                     <span class="text-red-500 text-xs" v-if="validationEditPf(fname)">First name must be more than 2 letters</span>
 
                                             </div>
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    :class="{ 'border-red-500 focus:border-red-600': validationEditPf(lname)} "
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
+                                                    :class="{ 'border-red-500 focus:border-red-600': validationEditPf(lname), 'focus:border-blue-600': !validationEditPf(lname)} "
                                                     v-model="lname"
                                                     placeholder=" " required />
                                                 <label for="floating_email"
-                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(lname)} "
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last Name</label>
+                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(lname), 'peer-focus:text-blue-600': !validationEditPf(lname)} "
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last Name</label>
                                                     <span class="text-red-500 text-xs" v-if="validationEditPf(lname)">Last name must be more than 2 letters</span>
                                             </div>
                                         </div>
@@ -125,12 +125,12 @@
                                         <div class=" grid grid-cols-2 gap-4 mt-2">
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="email" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    :class="{ 'border-red-500 focus:border-red-600': validationEditPf(email)} "
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
+                                                    :class="{ 'border-red-500 focus:border-red-600': validationEmail(email), 'focus:border-blue-600':!validationEmail(email) } "
                                                     v-model='email' placeholder=" " required />
                                                 <label for="floating_email"
-                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(email)} "
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                                     :class="{ 'text-red-500 peer-focus:text-red-500 ': validationEmail(email), 'text-gray-500 peer-focus:text-blue-600': !validationEmail(email) } "
+                                                    class="peer-focus:font-medium absolute text-sm  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                                     Email</label>
                                                     <span class="text-red-500 text-xs " v-if="validationEmail(email)">
                                                         Email must be email format
@@ -225,6 +225,7 @@ export default {
                 this.address = res.data.address;
                 this.phoneNumber = res.data.phoneNumber;
                 this.companyName = res.data.companyName;
+                console.log(this.img);
             })
             
         },
@@ -235,9 +236,8 @@ export default {
         onFileChange(e) {
             const file = e.target.files[0];
             this.img = URL.createObjectURL(file);
+            this.updateImg(file)
             location.reload()
-
-
         },
 
         updateProfile() {
