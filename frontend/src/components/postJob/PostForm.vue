@@ -2,7 +2,6 @@
   <section>
     <div>
         <button @click='showCreate' class="btn bg-blue-500 border-none mt-3">Post Job</button>
-        
         <CreateForm>
             <div v-if='isShowCreate' @closeCreate="closeCreate" class="modal-mask ">
                 <div class="modal-wrapper w-full top-24">
@@ -133,7 +132,7 @@ export default {
                         job_description: this.jobDescription,
                         job_requirement: this.jobRequirement,
                         post_at: moment("M/D/YYYY"),
-                        // expired_at:d
+                        expired_at:""
                         // post_at: moment("M/D/YYYY h:mm A")
                     } 
                 )

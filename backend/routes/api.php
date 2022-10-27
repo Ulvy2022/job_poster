@@ -10,6 +10,17 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserPlaneController;
 use App\Http\Controllers\JobsPosterController;
 
+/**
+ * Register by input in form
+ */
+Route::post('/registerByForm', [UserController::class, 'registerByForm']);
+
+/**
+ * Send email to client when he or she already registered.
+ */
+Route::get('send-mail', [MailController::class, 'index']);
+
+
 // For only get and post==================
 Route::apiResource('/user', UserController::class);
 Route::get('/count', [UserController::class,'count']);
@@ -24,7 +35,6 @@ Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
 
 Route::apiResource('/userPlane', UserPlaneController::class);
 
-
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);
 
@@ -33,6 +43,7 @@ Route::post('/logout', [LoginController::class , 'logout']);
 Route::apiResource('/jobposter', JobsPosterController::class);
 //features
 Route::apiResource('/features', FeaturesController::class);
+Route::get('/jobposter/{id}', [JobsPosterController::class, 'getJobById']);
 
 // update verify code
 Route::put('/verifyCode', [UserController::class , 'verifyCode']);

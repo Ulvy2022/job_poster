@@ -214,7 +214,6 @@ export default {
         }
     },
 
-
     methods: {
         getUserData() { 
             axios.get('http://localhost:8000/api/getUser/' + localStorage.getItem("userId")).then((res) => {

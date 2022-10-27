@@ -8,7 +8,7 @@ class JobsPoster extends Model
 {
     use HasFactory;
 
-    public function users()
+    public function User()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

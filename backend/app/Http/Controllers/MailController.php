@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Mail\sendVerifyCode;
 use App\Mail\setUserToAdmine;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use App\Mail\DemoMail;
 
 class MailController extends Controller
 {
@@ -51,4 +53,31 @@ class MailController extends Controller
             return response()->json(['message' => 'email not found!']);
         }
     }
+
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function index()
+    {
+        $mailData = [
+            'title' => 'Mail from Baby-Developer-VCPartIII.com',
+            'body' => 'This is for you to clear that you already register in our system.'
+        ];
+         
+        Mail::to('your_email@gmail.com')->send(new DemoMail($mailData));
+           
+        dd("Email is sent successfully.");
+    }
 }
+
+
+
+
+
+
+
+
+
