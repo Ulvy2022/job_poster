@@ -114,7 +114,7 @@
                                                 <input type="text" name="floating_email" id="floating_email"
                                                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     v-model="phoneNumber"
-                                                    placeholder=" " required />
+                                                    placeholder=" "  />
                                                 <label for="floating_email"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                                     Phone Number</label>
@@ -203,7 +203,6 @@ export default {
                 this.address = res.data.address;
                 this.phoneNumber = res.data.phoneNumber;
                 this.companyName = res.data.companyName;
-                console.log(this.img);
             })
             
         },
@@ -219,12 +218,11 @@ export default {
         },
 
         updateProfile() {
-            if (!this.validationEditPf(this.fname) && !this.validationEditPf(this.lname) && !this.validationEmail(this.email)) {       
+            if (!this.validationEditPf(this.fname) && !this.validationEmail(this.email)) {       
                 this.showBtnSave = !this.showBtnSave;
                 this.showBtnProgress = !this.showBtnProgress
                 var userInfo = {
-                    firstName: this.fname,
-                    lastName: this.lname,
+                    fullName: this.fname,
                     gender: this.gender,
                     email: this.email,
                     phoneNumber: this.phoneNumber,
@@ -237,7 +235,8 @@ export default {
                         this.showBtnSave = true
                         location.reload()
                     }
-                }).catch(() => {
+                }).catch((err) => {
+                    console.log(err);
                     this.getUserData()
                 })
             } 
@@ -247,9 +246,7 @@ export default {
             var formData = new FormData();
             formData.append('img', file);
             formData.append('_method', "PUT");
-            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData).then(() => {
-              
-            })
+            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData)
         },
 
         validationEditPf(input) {

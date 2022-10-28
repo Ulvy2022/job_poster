@@ -21,8 +21,11 @@
                         <li><a>Company List</a></li>
                     </router-link>
                     <li><a>Job Location</a></li>
-                    <router-link to="/subscribe">
+                    <router-link to="/subscribe" >
                         <li><a>Subscribe Plan</a></li>
+                    </router-link>
+                    <router-link to="/userList" v-if="role != null && role =='Admine' ">
+                        <li><a>Users List</a></li>
                     </router-link>
                     <li @click="logOut()">
                         <a>Log Out</a>
@@ -37,9 +40,11 @@
             <router-link to="/profile">
                 <div class="avatar flex justify-start items-center tooltip tooltip-bottom" data-tip="See your profile">
                     <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2  lg:mr-5 ml-4  " >
-                        <img class="object-cover h-10 object-center"  v-if="img != ''  " :src="img" />
+                        <img class="object-cover h-10 object-center"  v-if="img != null  " :src="img" />
                         <img class="object-cover"  v-else-if="img == null && gender=='Female' || gender=='F' " src="../../assets/images/woman.png" />
-                        <img class="object-cover"  v-else-if="img == null && gender=='Male' || gender=='M' " src="../../assets/images/profile.png" />
+                        <img class="object-cover"  v-else-if="img == null && gender == 'Male' || gender == 'M'" src="../../assets/images/profile.png" />
+                        <img class="object-cover"  v-else src="../../assets/images/user.png" />
+
                     </div>
                     <p class="text-white lg:mr-5 ml-4">{{ userName }}</p>
                 </div>
@@ -58,6 +63,7 @@ export default {
                 userName: '',
                 gender: '',
                 email: '',
+                role:''
             }
     },
     
@@ -91,7 +97,7 @@ export default {
                     this.email = res.data.email
                     this.userName = this.capitalize(res.data.fullName)
                     this.gender = res.data.gender
-
+                    this.role = res.data.role
                 })
 
             }
