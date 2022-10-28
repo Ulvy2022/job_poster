@@ -17,7 +17,6 @@ class LoginController extends Controller
             return response()->json(['sms' => "Invaliid password"]);
         }
         $token = $user->createToken('myToken')->plainTextToken;
-        // $cookie = cookie('jwt', $token, 60*24*30);
         return response()->json(['token' => $token, 'message' => 'success login', 'id' => $user['id']], 200);
     }
 

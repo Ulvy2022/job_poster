@@ -64,6 +64,6 @@ class SubscribeController extends Controller
 
     public function getUserPlane($id)
     {
-        return User::with(['subscribsion'])->where('id', $id)->first();
+        return User::with(['Subscribsion'])->where('id', $id)->first();
     }
 }

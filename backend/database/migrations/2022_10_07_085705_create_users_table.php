@@ -12,11 +12,14 @@ return new class extends Migration
             $table->id();
             $table->string('fullName');
             $table->string('email');
+            $table->string('phoneNumber')->nullable();
+            $table->string('companyName')->nullable();
+            $table->string('gender')->default('Other');
             $table->string('password');
             $table->string('role')->default('user');
             $table->string('verify_code')->nullable();
             $table->string('img')->nullable();
-            $table->string('subscription')->default('free');
+            $table->string('subscription')->default('Trail');
             $table->string('created_at')->nullable();
             $table->string('updated_at')->nullable();
         });

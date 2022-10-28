@@ -15,11 +15,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $admine = new \App\Models\User();
-        $admine->firstName = 'Admine';
-        $admine->lastName = 'App';
+        $admine->fullName = 'Admine App';
         $admine->role = 'Admine';
         $admine->email = 'admine@gmail.com';
-        $admine->password = '077257675';
+        $admine->password = bcrypt('077257675');
         $admine->save();
     }
 }

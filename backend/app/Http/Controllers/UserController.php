@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::where('role','user')->get();
     }
 
      /**
-     * In user table, there are 
-     * - fullName, 
-     * - email 
+     * In user table, there are
+     * - fullName,
+     * - email
      * - password
      */
     public function register(Request $request)
@@ -28,6 +29,35 @@ class UserController extends Controller
         $user = new User();
         $user->fullName = $request->fullName;
         $user->email = $request->email;
+        $user->gender = $request->gender;
+        $user->password = bcrypt($request->password);
+        $user->role = 'user';
+        $user->save();
+        return response()->json(['msg' => 'success']);
+    }
+
+
+    public function store(Request $request)
+    {
+        $validated = $request->validateWithBag('User', [
+            'fullName' => 'required|max:20|min:2',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'min:6',
+        ]);
+        $user = new User();
+        $user->fullName = $request->fullName;
+        $user->email = $request->email;
+        if ($request->img != null) {
+            $path = public_path('images');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $file = $request->file('img');
+            $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+            $file->move($path, $fileName);
+            $user->img = asset('images/' . $fileName);
+        }
+        $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
         $user->role = 'user';
         $user->save();
@@ -40,12 +70,11 @@ class UserController extends Controller
         return User::with(['jobsposter','subscribsion'])->where('id',$id)->get();
     }
 
-   
+
     public function update(Request $request,  $id)
     {
         $validated = $request->validateWithBag('User',[
             'fullName' => 'required|max:20|min:2',
-            'email'=> 'required|email|unique:users,email',
             'password' => 'min:8|confirmed',
         ]);
 
@@ -54,6 +83,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->phoneNumber = $request->phoneNumber;
         $user->companyName = $request->companyName;
+        $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
         if ($request->img != null) {
             $path = public_path('images');
@@ -99,13 +129,13 @@ class UserController extends Controller
             return response()->json(['msg' => 'password change success']);
         }
     }
-    
+
     public function getUserById($id)
     {
         return User::findOrFail($id);
     }
 
-    public function count() 
+    public function count()
     {
         return User::all()->count();
     }
@@ -134,5 +164,22 @@ class UserController extends Controller
         }
         return response()->json(['msg' => 'ing updated']);
 
+    }
+
+
+    public function changePassword(Request $request,$id)
+    {
+        $user = User::find($id);
+        if($user)
+        {
+            if(Hash::check($request->oldPassword, $user->password))
+            {
+                $user->password = bcrypt($request->newPassword);
+                $user->update();
+                return response()->json(['msg' => 'password changed']);
+            }
+            return response()->json(['msg' => 'failed']);
+
+        }
     }
 }
