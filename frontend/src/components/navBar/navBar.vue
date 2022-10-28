@@ -2,35 +2,14 @@
     <div class="navbar p-3 bg-blue-500 ">
         <div class="navbar-start">
             <div class="dropdown">
-                <div class="tooltip  tooltip-right" data-tip="Menu Option">
-                    <label tabindex="0" class="btn btn-ghost btn-circle">
+                <div class="tooltip  tooltip-right " data-tip="Menu Option">
+                    <label for="my-drawer" >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
                         </svg>
-                    </label>
+                    </label>             
                 </div>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <router-link to="/">
-                        <li><a>Job List</a></li>
-                    </router-link>
-                    <router-link to="/job_category">
-                        <li><a>Job category</a></li>
-                    </router-link>
-                    <router-link to="/companyList">
-                        <li><a>Company List</a></li>
-                    </router-link>
-                    <li><a>Job Location</a></li>
-                    <router-link to="/subscribe" >
-                        <li><a>Subscribe Plan</a></li>
-                    </router-link>
-                    <router-link to="/userList" v-if="role != null && role =='Admine' ">
-                        <li><a>Users List</a></li>
-                    </router-link>
-                    <li @click="logOut()">
-                        <a>Log Out</a>
-                    </li>
-                </ul>
             </div>
         </div>
         <div class="navbar-center" >
@@ -51,7 +30,34 @@
             </router-link>
         </div>
     </div>
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
 
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+                <router-link to="/">
+                    <li><a>Job List</a></li>
+                </router-link>
+                <router-link to="/job_category">
+                    <li><a>Job category</a></li>
+                </router-link>
+                <router-link to="/companyList">
+                    <li><a>Company List</a></li>
+                </router-link>
+                <li><a>Job Location</a></li>
+                <router-link to="/subscribe">
+                    <li><a>Subscribe Plan</a></li>
+                </router-link>
+                <router-link to="/userList" v-if="role != null && role =='Admine' ">
+                    <li><a>Users List</a></li>
+                </router-link>
+                <li @click="logOut()">
+                    <a>Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
