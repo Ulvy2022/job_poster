@@ -38,8 +38,6 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Password">
                 </div>
-        
-
                     <div class=" mt-4 mb-2">
                         <div class="flex" v-if="isEmptyPassword">
                             <span class="text-red-700">Password cannot be empty</span>
@@ -99,7 +97,7 @@
             <div class="modal-mask">
                 <div class="modal-wrapper w-full top-24">
 
-                   <form id="app" @submit.prevent="handleFormSubmit" class="bg-gray-100 shadow-2xl lg:w-[30%] w-full m-auto mt-64 rounded px-8 pt-6 pb-8 mb-4">
+                   <form id="app" @submit.prevent="handleFormSubmit" class="bg-gray-100 shadow-2xl md:w-[80%] lg:w-[50%] w-full m-auto mt-64 rounded px-8 pt-6 pb-8 mb-4">
                         <span class="text-light-600 font-sans flex justify-center items-center mb-5 font-bold">REGISTER</span>
                         <div class="mb-2 w-full grid grid-cols-2"
                         >
@@ -168,14 +166,18 @@
                             </div>
                         </div>
 
-                        <div class="flex w-full items-center justify-between">
+                        <div class="flex w-full items-center justify-between grid lg:grid-cols-3 md:grid-cols-1 md:w-full">
                             <button type='submit' @click="register" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline">
                                 Register
                             </button>
 
-                            <router-link to='/register' class="m-2 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
-                                Sign Up
-                            </router-link>
+                            <!-- <router-link to='/register' class="lg:m-2 md:mt-2 md:mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none flex items-center justify-center focus:shadow-outline" type="button">
+                                Register Via Google
+                            </router-link> -->
+
+                            <button @click="registerByGoogle" class="lg:m-2 md:mt-2 md:mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none flex items-center justify-center focus:shadow-outline" type="button">
+                                Register Via Google
+                            </button>
                            
                             <button @click='is_show=false' class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
                                 Cancal
@@ -194,6 +196,7 @@
 import axios from "axios"
 import registerForm from '../slot/generalSlot.vue';
 import googleLoginForm from '../google/googleLogin.vue';
+import { googleTokenLogin } from "vue3-google-login";
 export default {
     components: {
         'Register-Form': registerForm,
@@ -219,12 +222,12 @@ export default {
             password:'',
 
             // ==========Register=======
-            showPass: true,
-            showConfirmPassword: true,
-            fullName: null,
-            emailUser: null,
-            passwordUser: null,
-            passwordUserConfirm: null,
+            showPass: false,
+            showConfirmPassword: false,
+            fullName: '',
+            emailUser: '',
+            passwordUser: '',
+            passwordUserConfirm: '',
             isFormComplete: false,
         }
     },
@@ -246,7 +249,6 @@ export default {
         },
 
         // Register===============
-
         handleFormSubmit() {
             console.log('submit')
         },
@@ -263,14 +265,38 @@ export default {
                     email: this.emailUser,
                     password: this.passwordUser,
                 }
-                axios.post("http://127.0.0.1:8000/api/registerByForm", body)
+                axios.post("http://127.0.0.1:8000/api/registerByForm/", body)
+                .then(()=>{
+                    axios.post('http://127.0.0.1:8000/api/register/'+ this.emailUser)
+                    .then((res)=>{
+                        console.log(res.data)
+                        console.log(this.emailUser)
+                        this.fullName = "";
+                        this.emailUser = "";
+                        this.passwordUser = "";
+                        this.passwordUserConfirm = "";
+                    })
+                })
+    
                 this.is_show = false;
-                this.fullName = "";
-                this.emailUser = "";
-                this.passwordUser = "";
-                this.passwordUserConfirm = "";
             }
-            alert("You have completed the registration form")
+        },
+
+        registerByGoogle() {
+            googleTokenLogin({clientId: '353283530301-lgl6jhjvg6cr3foc30607b3omfqs2ste.apps.googleusercontent.com' }).then((response) => {
+                var url = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token=' + response.access_token;
+                axios.get(url)
+                .then((res)=>{
+                    console.log(res.data)
+                    let body ={
+                        fullName: res.data.name,
+                        email: res.data.email,
+                        password: res.data.password,
+                    }
+                    axios.post("http://127.0.0.1:8000/api/register/", body)
+                })
+                
+            })
         },
 
         signIn() {
@@ -278,7 +304,7 @@ export default {
                 this.isClickSigIn = !this.isClickSigIn
                 this.isEmptyEmail = false
                 this.isEmptyPassword = false
-                axios.post('http://localhost:8000/api/login/', 
+                axios.post('http://localhost:8000/api/login/',
                 {email: this.email, password: this.password }).then((res) => {
                     if (res.data.sms == 'Invaliid password') {
                         this.showInvalid = !this.showInvalid
@@ -330,9 +356,6 @@ export default {
 
     },
 
-
-
-
 }
 
 </script>
@@ -367,12 +390,9 @@ export default {
     outline-color: red;
     }
 
-
     input[type=email]:not(:placeholder-shown):valid {
     color: green;
     outline-color: green;
     }
 
-
-    
 </style>

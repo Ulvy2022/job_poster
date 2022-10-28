@@ -9,16 +9,16 @@ use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserPlaneController;
 use App\Http\Controllers\JobsPosterController;
-
 /**
  * Register by input in form
+ * Register by google
  */
-Route::post('/registerByForm', [UserController::class, 'registerByForm']);
-
+Route::post('/register', [UserController::class, 'register']);
+// Route::post('/registerByGoogle', [UserController::class, 'registerByGoogle']);
 /**
  * Send email to client when he or she already registered.
  */
-Route::get('send-mail', [MailController::class, 'index']);
+Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 
 
 // For only get and post==================
@@ -31,9 +31,7 @@ Route::apiResource('/subscription', SubscribeController::class);
 
 // minus 1 user's charge after they posted job
 Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
-
 Route::apiResource('/userPlane', UserPlaneController::class);
-
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class , 'logout']);
 

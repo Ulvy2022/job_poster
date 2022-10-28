@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginForm from '../views/login/LoginView.vue';
 import RegisterGoogle from '../views/register/RegisterView.vue';
 
+
 const routes = [
   {
     path: '/login',
@@ -29,6 +30,7 @@ const routes = [
         requiresAuth:true,
     }
   },
+
   {
     path: '/job_detail',
     name: 'job_detail',
@@ -37,6 +39,7 @@ const routes = [
         requiresAuth:true,
     }
   },
+  
   {
     path: '/resetPsw',
     name: 'resetPsw',

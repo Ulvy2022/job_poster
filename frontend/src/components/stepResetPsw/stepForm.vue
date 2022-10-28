@@ -93,7 +93,7 @@ export default {
     methods: {
         sendVerifyCode() {
             this.ifClickSendCode = !this.ifClickSendCode;
-            if (this.email.trim() != '') {      
+            if (this.email.trim() != '') {       
                 axios.post('http://localhost:8000/api/sendCode/' + this.email).then(() => {
                     this.step1 = true;
                     this.step2 = true;

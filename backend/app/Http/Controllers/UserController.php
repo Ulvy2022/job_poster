@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-
 class UserController extends Controller
 {
     public function index()
@@ -19,7 +18,7 @@ class UserController extends Controller
      * - email 
      * - password
      */
-    public function registerByForm(Request $request)
+    public function register(Request $request)
     {
         $validated = $request->validateWithBag('User',[
             'fullName' => 'required|max:20|min:2',
