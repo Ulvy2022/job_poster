@@ -101,6 +101,14 @@ const routes = [
         requiresAuth:true,
     }
   },
+  {
+    path: '/userList',
+    name: 'userList',
+    component: () => import('@/views/userList/userListView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
 ]; 
 
 

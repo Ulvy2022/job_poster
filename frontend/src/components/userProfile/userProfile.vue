@@ -214,7 +214,6 @@ export default {
             const file = e.target.files[0];
             this.img = URL.createObjectURL(file);
             this.updateImg(file)
-            location.reload()
         },
 
         updateProfile() {
@@ -235,8 +234,7 @@ export default {
                         this.showBtnSave = true
                         location.reload()
                     }
-                }).catch((err) => {
-                    console.log(err);
+                }).catch(() => {
                     this.getUserData()
                 })
             } 
@@ -246,7 +244,9 @@ export default {
             var formData = new FormData();
             formData.append('img', file);
             formData.append('_method', "PUT");
-            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData)
+            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData).then(() => {
+                location.reload()
+            })
         },
 
         validationEditPf(input) {
