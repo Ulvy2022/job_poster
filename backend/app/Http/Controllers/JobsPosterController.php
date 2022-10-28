@@ -6,7 +6,6 @@ use App\Models\Subscribsion;
 
 class JobsPosterController extends Controller
 {
-
     public function index()
     {
         return JobsPoster::get();
