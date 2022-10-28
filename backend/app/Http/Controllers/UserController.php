@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
     public function index()
@@ -20,7 +19,7 @@ class UserController extends Controller
      * - email
      * - password
      */
-    public function registerByForm(Request $request)
+    public function register(Request $request)
     {
         $validated = $request->validateWithBag('User',[
             'fullName' => 'required|max:20|min:2',

@@ -6,7 +6,7 @@
                 <p class=" cursor-pointer p-3  hover:bg-slate-100" v-for="job of listJobs" :key="job" >{{job}}</p>
             </div>
         </div>
-        <div class="mt-5 lg:block hidden  w-full">
+        <div class="mt-5 lg:block hidden w-full">
             <ul class="menu bg-base-100 rounded-box drop-shadow-lg w-11/12">
                 <p class="bg-blue-500 rounded-2xl p-3 text-white">{{title}}</p>
                 <li v-for="job of listJobs" :key="job" ><a >{{job}}</a> </li>

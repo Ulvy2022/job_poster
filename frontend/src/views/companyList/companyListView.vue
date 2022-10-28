@@ -1,7 +1,7 @@
 <template>
     <div class="flex w-11/12 m-auto ">
         <div class="w-3/5">
-            <jobType />
+            <jobType/>
             <quickLink />
         </div>
     </div>

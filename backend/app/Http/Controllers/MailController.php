@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Mail\sendVerifyCode;
 use App\Mail\setUserToAdmine;
+use App\Mail\registerMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -60,16 +61,23 @@ class MailController extends Controller
      *
      * @return response()
      */
-    public function index()
+    public function registerEmail($email)
     {
-        $mailData = [
-            'title' => 'Mail from Baby-Developer-VCPartIII.com',
-            'body' => 'This is for you to clear that you already register in our system.'
+        $user = User::where('email', $email)->first();
+        $username = $user['fullName'];
+        $email = $user['email'];
+
+        $body = [
+            'username' => $username,
+            'email' => $email
         ];
-         
-        Mail::to('your_email@gmail.com')->send(new DemoMail($mailData));
-           
-        dd("Email is sent successfully.");
+
+        if ($user) {
+            Mail::to($email)->send(new registerMail($body));
+            return response()->json(['message' => 'Register Successfully']);
+        } else {
+            return response()->json(['message' => 'Unsuccessful']);
+        }
     }
 }
 
