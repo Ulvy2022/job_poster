@@ -89,7 +89,7 @@ export default {
                 axios.get('http://localhost:8000/api/getUser/' + localStorage.getItem("userId")).then((res) => {
                     this.img = res.data.img
                     this.email = res.data.email
-                    this.userName = this.capitalize(res.data.firstName) + ' ' + this.capitalize(res.data.lastName)
+                    this.userName = this.capitalize(res.data.fullName)
                     this.gender = res.data.gender
 
                 })

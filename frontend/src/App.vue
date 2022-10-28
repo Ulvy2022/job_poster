@@ -32,8 +32,8 @@ export default {
 
     showForm() {
         this.isShowJob = true
-      }
-  },  
+    }
+  },
 }
 </script>
 
