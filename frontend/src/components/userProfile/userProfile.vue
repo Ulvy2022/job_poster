@@ -10,7 +10,8 @@
                         <div class="image overflow-hidden ">
                                 <img class="h-60 w-auto mx-auto" v-if="img != null  " :src="img" />
                                 <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender=='F' " src="../../assets/images/woman.png" />
-                                <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender=='M' " src="../../assets/images/profile.png" />
+                                <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'M'" src="../../assets/images/profile.png" />
+                                <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender=='Other' " src="../../assets/images/user.png" />
                         </div>
                       <input type="file" @change="onFileChange">
                     </div>
@@ -19,7 +20,6 @@
                 <!-- Right Side -->
                 <div class="w-full md:w-9/12 mx-2 h-72">
                     <!-- Profile tab -->
-                    <!-- About Section -->
                     <div class="bg-white p-5 shadow-sm rounded-sm w-full ">
                         <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                             <span clas="text-green-500">
@@ -34,20 +34,20 @@
                         <div class="text-gray-700 ">
                             <div class="grid md:grid-cols-2 text-sm">
                                 <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">First Name</div>
+                                    <div class="px-4 py-2 font-semibold">Full Name</div>
                                     <div class="px-4 py-2">{{fname}}</div>
                                 </div>
-                                <div class="grid grid-cols-2">
+                                <!-- <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Last Name</div>
                                     <div class="px-4 py-2">{{lname}}</div>
-                                </div>
+                                </div> -->
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Gender</div>
-                                    <div class="px-4 py-2" v-if="gender != null">{{gender}}</div>
+                                    <div class="px-4 py-2 "  v-if="gender != null">{{gender}}</div>
                                 </div>
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Phone Number</div>
-                                    <a class="px-4 py-2 hover:underline hover:underline-offset-2 hover:text-blue-500" :href="'tel:+855'+phoneNumber" v-if="phoneNumber != null">{{phoneNumber}}</a>
+                                    <a class="text-blue-800 hover:underline hover:underline-offset-3 lg:mr-24 mr-7 hover:text-blue-500 tooltip" :href="'tel:+855'+phoneNumber" v-if="phoneNumber != null"  :data-tip="'Click to call '+fname">{{phoneNumber}}</a>
                                     <div class="px-4 py-2" v-else>....</div>
                                 </div>
                                 <div class="grid grid-cols-2">
@@ -59,11 +59,9 @@
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Email.</div>
                                     <div class="px-4 py-2">
-                                        <a class="text-blue-800 hover:underline hover:underline-offset-3" :href="'mailto:'+email">{{email}}</a>
+                                        <a class="text-blue-800 hover:underline hover:underline-offset-3 tooltip" :href="'mailto:'+email" :data-tip="'Click to mail to '+fname">{{email}}</a>
                                     </div>
-                                </div>
-                           
-                             
+                                </div>                            
                             </div>
                         </div>
        
@@ -82,31 +80,35 @@
                                         <div class=" grid grid-cols-2 gap-4 mt-2">
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    :class="{'border-red-500 focus:border-red-600': validationEditPf(fname),'focus:border-blue-600': !validationEditPf(fname)} "
+                                                    class="capitalize block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
                                                     v-model="fname"
                                                     placeholder=" " required />
                                                 <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
+                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(fname), 'peer-focus:text-blue-600': !validationEditPf(fname)} "
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full
                                                     name</label>
+                                                    <span class="text-red-500 text-xs" v-if="validationEditPf(fname)">First name must be more than 2 letters</span>
+
                                             </div>
-                                            <div class="relative z-0 mb-6 w-full group">
-                                                <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    v-model="lname"
-                                                    placeholder=" " required />
-                                                <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last Name</label>
-                                            </div>
+                                                <div class="relative z-0 mb-6 w-full group">
+                                                    <input type="text" name="floating_email" id="floating_email"
+                                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        v-model="companyName" placeholder=" " />
+                                                    <label for="floating_email"
+                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                                        Company Name</label>
+                                                </div>
                                         </div>
                                         <div class=" grid grid-cols-2 gap-4 mt-2">
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer capitalize"
                                                     v-model="gender"
                                                     placeholder=" " required />
                                                 <label for="floating_email"
                                                     class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                                    Gender</label>
+                                                    Gender (Male or Female)</label>
                                             </div>
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="text" name="floating_email" id="floating_email"
@@ -118,61 +120,47 @@
                                                     Phone Number</label>
                                             </div>
                                         </div>
-                                        <div class=" grid grid-cols-2 gap-4 mt-2">
+                                        <div class=" grid grid-cols-1 gap-4 mt-2">
                                             <div class="relative z-0 mb-6 w-full group">
                                                 <input type="email" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
+                                                    :class="{ 'border-red-500 focus:border-red-600': validationEmail(email), 'focus:border-blue-600':!validationEmail(email) } "
                                                     v-model='email' placeholder=" " required />
                                                 <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                                                     :class="{ 'text-red-500 peer-focus:text-red-500 ': validationEmail(email), 'text-gray-500 peer-focus:text-blue-600': !validationEmail(email) } "
+                                                    class="peer-focus:font-medium absolute text-sm  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                                                     Email</label>
+                                                    <span class="text-red-500 text-xs " v-if="validationEmail(email)">
+                                                        Email must be email format
+                                                    </span>
                                             </div>
-                                            <div class="relative z-0 mb-6 w-full group">
-                                                <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    v-model="companyName"
-                                                    placeholder=" " required />
-                                                <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                                    Company Name</label>
-                                            </div>
+                                      
                                         </div>   
-                                        <!-- <div class=" grid grid-cols-2 gap-4 mt-2">
-                                            <div class="relative z-0 mb-6 w-full group">
-                                                <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    v-model="newPassword" placeholder=" " required />
-                                                <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                                    New Password</label>
+                                        <div class="flex justify-between items-baseline">
+                                            <div>
+                                                <button type="submit" class="  text-white flex px-12 py-3 bg-gray-600 rounded-md" v-if="!showBtnSave" @click="updateProfile()"> Save</button>      
+                                                <button type="submit" class="btn bg-gray-600 text-white loading px-7 py-3 rounded-md" v-if="showBtnProgress">Saving</button>
+                                                <button type="button"
+                                                    v-if="showBtnSaved"
+                                                    class="text-white bg-gray-600 px-5 py-3  rounded-md grid grid-cols-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-4  fill-white" viewBox="0 0 512 512">
+                                                        <path
+                                                            d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                                                    </svg>
+                                                    Saved
+                                                </button>
                                             </div>
-                                            <div class="relative z-0 mb-6 w-full group">
-                                                <input type="text" name="floating_email" id="floating_email"
-                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    v-model="phoneNumber" placeholder=" " required />
-                                                <label for="floating_email"
-                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                                    Old Password</label>
-                                            </div>
-                                        </div> -->
-                                        <button type="submit" class="  text-white flex px-12 py-3 bg-gray-600 rounded-md" v-if="!showBtnSave" @click="updateProfile()"> Save</button>      
-                                        <button type="submit" class="btn bg-gray-600 text-white loading px-7 py-3 rounded-md" v-if="showBtnProgress">Saving</button>
-                                        <button type="button"
-                                            v-if="showBtnSaved"
-                                            class="text-white bg-gray-600 px-5 py-3  rounded-md grid grid-cols-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-4  fill-white" viewBox="0 0 512 512">
-                                                <path
-                                                    d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                                            </svg>
-                                            Saved
-                                        </button>
+                                            <p 
+                                            @click="this.$router.push('/changePassword')"
+                                            class="text-sm hover:underline hover:underline-offset-1 text-blue-500 cursor-pointer">Change your password?</p>
+                                        </div>
 
                                     </form>
                                     <!-- end form edit profile user -->
                                 </div>
                     
                             </div>
-                        </div>
+                            </div>
                     </div>
                 
                     <!-- End of about section -->
@@ -209,13 +197,13 @@ export default {
         getUserData() { 
             axios.get('http://localhost:8000/api/getUser/' + localStorage.getItem("userId")).then((res) => {
                 this.img = res.data.img;
-                this.fname = this.capitalize(res.data.firstName) 
-                this.lname = this.capitalize(res.data.lastName)
+                this.fname = this.capitalize(res.data.fullName) 
                 this.gender = res.data.gender;
                 this.email = res.data.email;
                 this.address = res.data.address;
                 this.phoneNumber = res.data.phoneNumber;
                 this.companyName = res.data.companyName;
+                console.log(this.img);
             })
             
         },
@@ -226,32 +214,57 @@ export default {
         onFileChange(e) {
             const file = e.target.files[0];
             this.img = URL.createObjectURL(file);
+            this.updateImg(file)
+            location.reload()
         },
 
         updateProfile() {
-            this.showBtnSave = !this.showBtnSave;
-            this.showBtnProgress = !this.showBtnProgress
-            var userInfo = {
-                firstName: this.fname,
-                lastName: this.lname,
-                gender: this.gender,
-                email: this.email,
-                phoneNumber: this.phoneNumber,
-                companyName:this.companyName
-            }
-            axios.put("http://localhost:8000/api/user/" + localStorage.getItem('userId')+'/', userInfo).then((res) => {
-                if (res.data.msg == 'updated') {
-                    this.showBtnSaved = !this.showBtnSaved
-                    this.showBtnProgress = !this.showBtnProgress
-                    this.showBtnSave = true
+            if (!this.validationEditPf(this.fname) && !this.validationEditPf(this.lname) && !this.validationEmail(this.email)) {       
+                this.showBtnSave = !this.showBtnSave;
+                this.showBtnProgress = !this.showBtnProgress
+                var userInfo = {
+                    firstName: this.fname,
+                    lastName: this.lname,
+                    gender: this.gender,
+                    email: this.email,
+                    phoneNumber: this.phoneNumber,
+                    companyName:this.companyName
                 }
-                console.log(res.data);
-            }).catch(() => {
-                this.getUserData()
+                axios.put("http://localhost:8000/api/user/" + localStorage.getItem('userId')+'/', userInfo).then((res) => {
+                    if (res.data.msg == 'updated') {
+                        this.showBtnSaved = !this.showBtnSaved
+                        this.showBtnProgress = !this.showBtnProgress
+                        this.showBtnSave = true
+                        location.reload()
+                    }
+                }).catch(() => {
+                    this.getUserData()
+                })
+            } 
+        },
+
+        updateImg(file) {
+            var formData = new FormData();
+            formData.append('img', file);
+            formData.append('_method', "PUT");
+            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData).then(() => {
+              
             })
         },
 
+        validationEditPf(input) {
+            if (input.trim() == '' || input.length < 2) {
+                return true;
+            }
+            return false;
+        },
 
+        validationEmail(email) {
+            if (email.trim() == '' || email.length < 12 || (email.search('@') > email.search('gmail')) || email.search('@') == -1 || email.search('gmail') == -1) {
+                return true;
+            }
+            return false;
+        }
  
     },
 

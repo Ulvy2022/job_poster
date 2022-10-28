@@ -14,7 +14,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 /* add icons to the library */
 library.add(faUserSecret);
 
-
+//import crypto for decrypt code 
 
 import vue3GoogleLogin from 'vue3-google-login';
 

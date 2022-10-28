@@ -146,7 +146,6 @@ export default {
                         icon: 'success',
                         text: 'Password reseted!'
                     });
-                    this.$router.push('/');
                 })
             } else {
                 Swal.fire({

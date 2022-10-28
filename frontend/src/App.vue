@@ -1,5 +1,5 @@
 <template>
-  <Navbar  />
+  <Navbar/>
   <router-view/>
 </template>
 
@@ -14,24 +14,26 @@ export default {
     return {
       isShowMenuBar: null,
       isShowJob: false,
+      imgae:''
     }
   },
 
   methods: {
-    // showMenuBar() {
-    //   this.isShowMenuBar = localStorage.getItem('userId');
-    //   this.timeOut = setTimeout(() => {
-    //     this.showMenuBar()
-    //   }, 100);
-    //   if (this.isShowMenuBar != null) {
-    //     clearTimeout(this.timeOut);
-    //   }
-    // }, 
+    showMenuBar() {
+      this.isShowMenuBar = localStorage.getItem('userId');
+      this.timeOut = setTimeout(() => {
+        this.showMenuBar()
+      }, 100);
+      if (this.isShowMenuBar != null) {
+        clearTimeout(this.timeOut);
+      }
+    }, 
+ 
 
     showForm() {
         this.isShowJob = true
-      }
-  },  
+    }
+  },
 }
 </script>
 

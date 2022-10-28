@@ -26,6 +26,7 @@
     "moment": "^2.29.4",
     "tw-elements": "^1.0.0-alpha12",
     "vue": "^3.2.13",
+    "vue-cryptojs": "^2.3.1",
     "vue-loader": "^15.7.1",
     "vue-mailchimp-email-signup-form": "^1.1.2",
     "vue-router": "^4.0.3",

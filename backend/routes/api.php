@@ -25,6 +25,7 @@ Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 Route::apiResource('/user', UserController::class);
 Route::get('/count', [UserController::class,'count']);
 Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
+Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);

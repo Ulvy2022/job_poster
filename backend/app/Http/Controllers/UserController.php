@@ -117,4 +117,22 @@ class UserController extends Controller
         $user->update();
         return response()->json(['msg' => 'set user to admine success']);
     }
+
+    public function updateImg(Request $request,$id)
+    {
+        $user = User::findOrFail($id);
+        if ($request->img != null) {
+            $path = public_path('images');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $file = $request->file('img');
+            $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+            $file->move($path, $fileName);
+            $user->img = asset('images/' . $fileName);
+            $user->update();
+        }
+        return response()->json(['msg' => 'ing updated']);
+
+    }
 }
