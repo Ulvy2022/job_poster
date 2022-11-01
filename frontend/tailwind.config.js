@@ -5,8 +5,12 @@ module.exports = {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
+   theme: {
+    extend: {
+      height: {
+        '128': '83vh',
+      }
+    }
   },
   plugins: [require("daisyui")],
 }

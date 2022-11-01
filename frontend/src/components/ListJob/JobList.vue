@@ -1,15 +1,15 @@
 <template>
     <div class=" mt-5">
         <div class="mt-5 md:block lg:hidden">
-            <button class="collapsible bg-blue-400" @click="showHideCollapse ">{{title}}</button>
+            <button class="collapsible bg-blue-400 text-white" @click="showHideCollapse">{{ title }} : {{ txt }}</button>
             <div class="content w-full ">
-                <p class=" cursor-pointer p-3  hover:bg-slate-100" v-for="job of listJobs" :key="job" >{{job}}</p>
+                <p class=" cursor-pointer p-3  hover:bg-slate-100" v-for="job of listJobs" :key="job">{{ job }}</p>
             </div>
         </div>
         <div class="mt-5 lg:block hidden w-full">
             <ul class="menu bg-base-100 rounded-box drop-shadow-lg w-11/12">
-                <p class="bg-blue-500 rounded-2xl p-3 text-white">{{title}}</p>
-                <li v-for="job of listJobs" :key="job" ><a >{{job}}</a> </li>
+                <p class="bg-blue-500 rounded-2xl p-3 text-white">{{ title }}</p>
+                <li v-for="job of listJobs" :key="job" @click="selectedValue(job)"><a>{{ job }}</a> </li>
             </ul>
         </div>
     </div>
@@ -17,11 +17,13 @@
 
 <script>
 export default {
-    props: ['title','jobList'],
+    props: ['title', 'jobList'],
     data() {
         return {
             titles: this.title,
             listJobs: this.jobList,
+            txt: ""
+
         }
     },
     methods: {
@@ -38,13 +40,20 @@ export default {
                     }
                 });
             }
+        },
+
+        selectedValue(value) {
+            this.txt = value
+            console.log(this.txt);
+            this.$emit('selectedValue', value)
         }
     }
 }
 </script>
 
 <style scoped>
-div>p,ul>li{
+div>p,
+ul>li {
     box-shadow: rgba(123, 124, 125, 0.25) 0px 4px 8px -2px, rgba(119, 121, 123, 0.08) 0px 0px 0px 1px;
 }
 
