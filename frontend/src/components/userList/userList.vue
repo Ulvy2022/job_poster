@@ -6,7 +6,6 @@ import axios from "axios"
 export default {
     components: {
         dropDown,
-
     },
     emits: ['valueSelected'],
     data() {
@@ -198,6 +197,11 @@ export default {
             }
             return false;
         },
+        userDetail(id) {
+            localStorage.removeItem('jobId')
+            localStorage.setItem('jobId', id)
+            this.$router.push('/userDetail');
+        }
 
     },
     watch: {
@@ -286,7 +290,7 @@ export default {
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                <tr class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     v-for="user of allUsers" :key="user" :id="user.id">
                     <td class="p-4 w-4">
                         <div class="flex items-center">
@@ -308,10 +312,13 @@ export default {
                     <td class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
                         {{ user.subscription }}
                     </td>
-                    <td class="py-4 px-6 flex justify-evenly place-content-center">
+                    <td class="py-4 px-6 flex justify-evenly text-center">
                         <label for="my-modal-5" @click="getSpecificUser(user.id)"
                             class=" bg-white text-blue-500 hover:underline hover:underline-offset-auto cursor-pointer">Edit
                             User</label>
+                        <label for="my-modal-5" @click="userDetail(user.id)"
+                            class=" bg-white text-black hover:underline hover:underline-offset-auto cursor-pointer">User
+                            Details</label>
                         <label
                             class="ml-5 bg-white text-red-500 hover:underline  hover:underline-offset-auto cursor-pointer"
                             @click="popUpDelete([user.id])">Delete

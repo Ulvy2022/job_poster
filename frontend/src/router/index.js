@@ -112,6 +112,14 @@ const routes = [
         requiresAuth:true,
     }
   },
+  {
+    path: '/userDetail',
+    name: 'userDetail',
+    component: () => import('@/views/userPost/userPostView.vue'),
+    meta: {
+        requiresAuth:true,
+    }
+  },
 ]; 
 
 
