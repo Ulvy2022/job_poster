@@ -109,6 +109,14 @@
                                 <input required type="email" placeholder="Email" class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
                             </div>
 
+                            <div>
+                                <select name="" id="" v-model="gender">
+                                    <option value="Gender" disabled>Gender</option>
+                                    <option value="Female">Remale</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                            </div>
+
                             <div class="flex flex-col mb-2 w-full">
                                 <div class="relative">
                                 <input pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required  placeholder="Password" :type="showPass ? 'password' : 'text'"
@@ -273,6 +281,7 @@ export default {
             passwordGoogle: '',
             fullNameGoogle: '',
             emailGoogle: '',
+            gender: '',
             dataRegisterViaGoo: {},
         }
     },
@@ -303,11 +312,13 @@ export default {
             !this.emailUser.trim() == "" && 
             !this.passwordUser.trim() == "" &&
             !this.passwordUserConfirm.trim() == "" &&
+            !this.gender.trim() == "" &&
             this.passwordUser == this.passwordUserConfirm){
                 let body = {
                     fullName:this.fullName,
                     role: this.role,
                     email: this.emailUser,
+                    gender: this.gender,
                     password: this.passwordUser,
                 }
                 axios.post("http://127.0.0.1:8000/api/register/", body)
@@ -319,6 +330,7 @@ export default {
                         this.fullName = "";
                         this.emailUser = "";
                         this.passwordUser = "";
+                        this.gender = "";
                         this.passwordUserConfirm = "";
                        
                     })

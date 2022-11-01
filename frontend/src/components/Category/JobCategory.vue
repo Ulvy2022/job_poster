@@ -5,8 +5,8 @@
         </div>
         <!-- <router-link to="/job_detail"> -->
         <!-- <div class="lg:w-8/12 md:w-full" v-for="job of allJobs" :key="job" :id="job.id" @click="jobDetails(job.id)"> -->
-            <div class="lg:w-8/12 md:w-full" v-for="job of allJobs" :key="job" :id="job.id">
-                <div class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2" id="card">
+            <div class="lg:w-8/12 md:w-full">
+                <div v-for="job of allJobs" :key="job" :id="job.id" class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                     <div>
                         <div class="avatar placeholder ml-2">
                             <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
@@ -35,7 +35,7 @@
 
                             <div class="flex">
                                 <button class="w-full bg-blue-600 hover:bg-red-700 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Edit</button>
-                                <button @click="deleteJob(job.id)" class="w-full bg-red-600 hover:bg-red-700 ml-2 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Delete</button>
+                                <button @click="deleteJob(job.id)" type="submit" class="w-full bg-red-600 hover:bg-red-700 ml-2 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -55,12 +55,19 @@ export default {
         }
     },
 
+    watch: {
+        allJobs(){
+           this.getAllJobs()
+        }
+    },
+
     methods: {
         getAllJobs() {
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
                 this.allJobs = res.data;
             })
         },
+
         jobDetails(id) {
             localStorage.removeItem('jobId');
             localStorage.setItem('jobId', id);
@@ -70,7 +77,7 @@ export default {
         deleteJob(id) {
             axios.delete('http://localhost:8000/api/jobposter/' + id)
             .then((res)=>{
-                localStorage(res.data)
+                console.log(res.data);
                 this.getAllJobs()
             })
         }
