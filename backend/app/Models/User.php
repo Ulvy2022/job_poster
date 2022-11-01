@@ -23,6 +23,7 @@ class User extends Model
         'fullName',
         'email',
         'password',
+        'gender',
         'role',
     ];
     public $timestamps = false;

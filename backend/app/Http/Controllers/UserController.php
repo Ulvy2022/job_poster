@@ -43,6 +43,7 @@ class UserController extends Controller
             'fullName' => 'required|max:20|min:2',
             'email' => 'required|email|unique:users,email',
             'password' => 'min:6',
+            
         ]);
         $user = new User();
         $user->fullName = $request->fullName;
