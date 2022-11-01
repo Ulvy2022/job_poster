@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phoneNumber')->nullable();
             $table->string('companyName')->nullable();
-            $table->string('gender')->default('Other');
+            $table->string('gender')->nullable();
             $table->string('password');
             $table->string('role')->default('user');
             $table->string('verify_code')->nullable();

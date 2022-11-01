@@ -6,7 +6,7 @@
             <div v-if='isShowCreate' @closeCreate="closeCreate" class="modal-mask ">
                 <div class="modal-wrapper w-full top-24">
                     <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
-                        <form @submit.prevent="">
+                        <form @submit.prevent="createJob">
                             <h1 class="text-center text-blue-500 mb-1 text-lg">CREATE JOB</h1>
                             <div class="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="w-full">
-                                    <button @click="createJob" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm sm:m-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                                    <button type="submit" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm sm:m-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                                 </div>
                             </div>
                             
@@ -102,20 +102,13 @@ export default {
             contactEmail: '',
             jobDescription: '',
             jobRequirement: '',
-            jobs: [],
+            jobs: {},
             isShowCreate: false,
             expire_date:''
         }
     },
 
     methods: {
-        getJob() {
-            axios.get('http://127.0.0.1:8000/api/jobposter')
-            .then((response)=>{
-                this.jobs = response.data;
-            })
-        },
-
         createJob() {
             if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && 
             !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
@@ -138,39 +131,41 @@ export default {
                         expired_at:""
                     }
                 )
-
                 .then((res)=>{
-                    console.log(res.data)
-                    // this.getJob()
+                    console.log(res.data);
+                    this.jobs
+                    this.jobTitle = '',
+                    this.jobLocation = '',
+                    this.jobType = '',
+                    this.jobClosedate = '',
+                    this.companyName = '',
+                    this.salary = '',
+                    this.contactName = '',
+                    this.contactEmail = '',
+                    this.jobDescription = '',
+                    this.jobRequirement = ''
                 })
-                .catch((err)=>{
-                    console.log(err)
-                })
-
-                this.getJob()
             }
             this.isShowCreate = false
         },
-
         showCreate() {
             this.isShowCreate = true
         },
-
         closeCreate() {
             this.isShowCreate = false
-        }
-    },
-    computed: {
-           expireDate(day) {
-                const d = new Date()
-                d.setDate(d.getDate() + day)
-                return String(d).substring(0, 10) + " " + d.getFullYear();
-            }
+        },
+        
     },
 
-    mounted() {
-        this.getJob()
-    }
+    computed: {
+        expireDate(day) {
+            const d = new Date()
+            d.setDate(d.getDate() + day)
+            return String(d).substring(0, 10) + " " + d.getFullYear();
+        }
+    },
+
+
 }
 </script>
 <style scoped>
