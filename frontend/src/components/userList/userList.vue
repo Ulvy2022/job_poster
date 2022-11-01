@@ -3,11 +3,10 @@
 import Swal from "sweetalert2"
 import dropDown from "../DropDown/dropwDown.vue"
 import axios from "axios"
-import formEditUser from "../formEditUser/formEditUser.vue"
 export default {
     components: {
         dropDown,
-        formEditUser
+
     },
     emits: ['valueSelected'],
     data() {
@@ -19,11 +18,51 @@ export default {
             search: '',
             numberOfUsers: 0,
             isShowTable: 0,
-            userInfo:null
+            img: '',
+            fullName: '',
+            gender: '',
+            phoneNumber: '',
+            companyName: '',
+            email: '',
+            idToUpdate: null,
         }
     },
 
     methods: {
+        updateProfile() {
+            if (!this.validationEditPf(this.fullName) && !this.validationEmail(this.email)) {
+                var userInfo = {
+                    fullName: this.fullName,
+                    gender: this.gender,
+                    email: this.email,
+                    phoneNumber: this.phoneNumber,
+                    companyName: this.companyName
+                }
+                Swal.fire({
+                    title: 'Do you want to save the changes?',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    denyButtonText: `Don't save`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.put("http://localhost:8000/api/user/" + this.idToUpdate, userInfo).then((res) => {
+                            if (res.data.msg == 'updated') {
+                                Swal.fire('Saved!', '', 'success')
+                                document.getElementById(this.idToUpdate + 'name').textContent = userInfo.fullName
+                                document.getElementById(this.idToUpdate + 'email').textContent = userInfo.email
+                            } else {
+                                Swal.fire('Something wrong !', '', 'error')
+                            }
+                        }).catch((error) => {
+                            console.log(error);
+                        })
+                    } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+            }
+        },
         getAllUser() {
             axios.get("http://localhost:8000/api/user").then((res) => {
                 this.allUsers = res.data
@@ -35,19 +74,18 @@ export default {
         },
 
         getSpecificUser(id) {
+            this.idToUpdate = id
             axios.get('http://localhost:8000/api/getUser/' + id).then((res) => {
-                this.userInfo = {
-                    img: res.data.img,
-                    fullName: res.data.fullName,
-                    gender: res.data.gender,
-                    email: res.data.email,
-                    address: res.data.address,
-                    phoneNumbers: res.data.phoneNumbers,
-                    company: res.data.company,
-                }
+                this.img = res.data.img;
+                this.fullName = res.data.fullName;
+                this.gender = res.data.gender;
+                this.email = res.data.email;
+                this.address = res.data.address;
+                this.phoneNumbers = res.data.phoneNumbers;
+                this.company = res.data.company;
+
             })
         },
-
 
         popUpDelete(id) {
             if (id != '') {
@@ -116,7 +154,7 @@ export default {
                 for (let user of this.allUsers) {
                     var element = document.getElementById(user.id);
                     var elementText = document.getElementById(user.id + 'subscriber');
-                    if (document.body.contains(elementText)) {     
+                    if (document.body.contains(elementText)) {
                         if (elementText.textContent.search(this.selected) > -1) {
                             element.style.display = '';
                             numberOfDisplay += 1;
@@ -134,18 +172,32 @@ export default {
                         el.style.display = '';
                     }
                 }
-            } 
+            }
         },
 
         showTable() {
             this.timeOut = setTimeout(() => {
-                this.isShowTable+=1;
+                this.isShowTable += 1;
                 if (this.isShowTable == 3) {
                     clearTimeout(this.timeOut);
                 }
             }, 1000);
 
-        }
+        },
+
+        validationEditPf(input) {
+            if (input.trim() == '' || input.length < 2) {
+                return true;
+            }
+            return false;
+        },
+
+        validationEmail(email) {
+            if (email.trim() == '' || email.length < 12 || (email.search('@') > email.search('gmail')) || email.search('@') == -1 || email.search('gmail') == -1) {
+                return true;
+            }
+            return false;
+        },
 
     },
     watch: {
@@ -153,8 +205,9 @@ export default {
             if (this.isShowTable < 3) {
                 this.showTable()
             }
-        }  
+        }
     },
+
 
     mounted() {
         this.showTable()
@@ -165,7 +218,7 @@ export default {
 
 
 <template>
-    <div class="overflow-auto relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-7  lg:h-[83vh]" >
+    <div class="overflow-auto relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-7  lg:h-[83vh]">
         <!-- action and search bar -->
         <div class="lg:flex lg:justify-between lg:items-center pb-4 grid gap-y-4 bg-white dark:bg-gray-900">
             <label for="table-search" class="sr-only">Search</label>
@@ -211,7 +264,7 @@ export default {
             </svg>
             <span class="sr-only">Loading...</span>
         </div>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-else-if=" isShowTable == 3">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-else-if="isShowTable == 3">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-4">
@@ -249,16 +302,15 @@ export default {
                         <div class="pl-3">
                             <div class="text-base font-semibold capitalize" :id="user.id + 'name'">{{ user.fullName }}
                             </div>
-                            <div class="font-normal text-gray-500">{{ user.email }} </div>
+                            <div class="font-normal text-gray-500" :id="user.id + 'email'">{{ user.email }} </div>
                         </div>
                     </th>
                     <td class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
                         {{ user.subscription }}
                     </td>
                     <td class="py-4 px-6 flex justify-evenly place-content-center">
-                        <label for="my-modal-5"
-                            @click="getSpecificUser(user.id)"
-                            class=" bg-white text-blue-500 hover:underline  hover:underline-offset-auto cursor-pointer">Edit
+                        <label for="my-modal-5" @click="getSpecificUser(user.id)"
+                            class=" bg-white text-blue-500 hover:underline hover:underline-offset-auto cursor-pointer">Edit
                             User</label>
                         <label
                             class="ml-5 bg-white text-red-500 hover:underline  hover:underline-offset-auto cursor-pointer"
@@ -271,17 +323,79 @@ export default {
 
     </div>
 
-
-    <!-- Put this part before </body> tag -->
-    <input v-if="userInfo != null" type="checkbox" id="my-modal-5" class="modal-toggle" />
-    <div v-if="userInfo != null"  class="modal">
+    <!-- pop up form for edit user -->
+    <input type="checkbox" id="my-modal-5" class="modal-toggle" />
+    <div class="modal">
         <div class="modal-box w-11/12 max-w-5xl">
             <label for="my-modal-5" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-            <formEditUser :userInfo="userInfo" />
+            <form class="w-full ">
+                <div class=" grid grid-cols-2 gap-4 mt-2">
+                    <div class="relative z-0 mb-6 w-full group">
+                        <input type="text" name="floating_email" id="floating_email"
+                            :class="{ 'border-red-500 focus:border-red-600': validationEditPf(fullName), 'focus:border-blue-600': !validationEditPf(fullName) }"
+                            class="capitalize block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
+                            v-model="fullName" placeholder=" " required />
+                        <label for="floating_email"
+                            :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(fullName), 'peer-focus:text-blue-600': !validationEditPf(fullName) }"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full
+                            name</label>
+                        <span class="text-red-500 text-xs" v-if="validationEditPf(fullName)">First name must be more
+                            than 2
+                            letters</span>
+
+                    </div>
+                    <div class="relative z-0 mb-6 w-full group">
+                        <input type="text" name="floating_email" id="floating_email"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            v-model="companyName" placeholder=" " />
+                        <label for="floating_email"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Company Name</label>
+                    </div>
+                </div>
+                <div class=" grid grid-cols-2 gap-4 mt-2">
+                    <div class="relative z-0 mb-6 w-full group">
+                        <input type="text" name="floating_email" id="floating_email"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer capitalize"
+                            v-model="gender" placeholder=" " required />
+                        <label for="floating_email"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Gender (Male or Female)</label>
+                    </div>
+                    <div class="relative z-0 mb-6 w-full group">
+                        <input type="text" name="floating_email" id="floating_email"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            v-model="phoneNumber" placeholder=" " />
+                        <label for="floating_email"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Phone Number</label>
+                    </div>
+                </div>
+                <div class=" grid grid-cols-1 gap-4 mt-2">
+                    <div class="relative z-0 mb-6 w-full group">
+                        <input type="email" name="floating_email" id="floating_email"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0  peer"
+                            :class="{ 'border-red-500 focus:border-red-600': validationEmail(email), 'focus:border-blue-600': !validationEmail(email) }"
+                            v-model='email' placeholder=" " required />
+                        <label for="floating_email"
+                            :class="{ 'text-red-500 peer-focus:text-red-500 ': validationEmail(email), 'text-gray-500 peer-focus:text-blue-600': !validationEmail(email) }"
+                            class="peer-focus:font-medium absolute text-sm  dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                            Email</label>
+                        <span class="text-red-500 text-xs " v-if="validationEmail(email)">
+                            Email must be email format
+                        </span>
+                    </div>
+                </div>
+            </form>
+
             <div class="modal-action">
-                <label for="my-modal-5" class="btn">Edit!</label>
+                <label for="my-modal-5" @click="updateProfile" class="btn">Edit!</label>
             </div>
         </div>
     </div>
+
+    <!-- Put this part before </body> tag -->
+
+
 
 </template>
