@@ -1,147 +1,15 @@
-<template>
-    <div class="overflow-x-auto relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-5">
-        <!-- action and search bar -->
-        <div class="lg:flex lg:justify-between lg:items-center pb-4 grid gap-y-4 bg-white dark:bg-gray-900">
-            <label for="table-search" class="sr-only">Search</label>
-            <div class="relative w-11/12 m-auto lg:w-1/3">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <input 
-                    class="m-auto w-full block p-3 pl-10  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  capitalize"
-                    v-model="search"
-                    @keyup="filterUser"
-                    placeholder="Search users by name">
-            </div>
-            <div class="lg:w-1/3 bg-gray-100 m-auto w-11/12">
-                <div class="">
-                    <div class="relative">
-                        <div class=" bg-white flex border border-gray-400 rounded-md items-center">
-                                <p class="w-full p-3 text-gray-400" >{{selected}}</p>
-                            <button
-                                @click="selected = 'Option' "
-                                class="cursor-pointer outline-none focus:outline-none transition-all text-gray-400 hover:text-gray-600">
-                                <svg class="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                            <label for="show_more"
-                                class="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-gray-600">
-                                <svg class="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="18 15 12 9 6 15"></polyline>
-                                </svg>
-                            </label>
-                        </div>
-            
-                        <input type="checkbox" name="show_more" id="show_more" class="hidden peer"  />
-                        <div
-                            class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col w-full mt-1 border border-gray-200">
-                            <div class="cursor-pointer group" @click="valueSelected('Python')">
-                                <a
-                                    class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100" >Python</a>
-                            </div>
-                            <div class="cursor-pointer group border-t" @click="valueSelected('Javascript')">
-                                <a
-                                    class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 border-blue-600 group-hover:bg-gray-100" >Javascript</a>
-                            </div>
-                            <div class="cursor-pointer group border-t" @click="valueSelected('Node')">
-                                <a
-                                    class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100">Node</a>
-                            </div>
-                            <div class="cursor-pointer group border-t" @click="valueSelected('PHP')">
-                                <a
-                                    class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100">PHP</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-1/4   border-gray-400  mr-3 flex place-items-end justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 fill-blue-500" viewBox="0 0 640 512">
-                    <path
-                        d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
-                </svg>
-                <p class="ml-5 text-lg text-blue-500">{{ numberOfUsers }} Users</p>
-            </div>
-        </div>
-        <!-- end of action and earch bar -->
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all-search" type="checkbox"
-                                class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" :checked="checkbox" @click="checkbox = !checkbox" >
-                            <label for="checkbox-all-search" class="sr-only"  >checkbox</label>
-                        </div>
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Name
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Subscriber
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" v-for="user of allUsers" :key="user"  :id="user.id" >
-                    <td class="p-4 w-4">
-                        <div class="flex items-center" >
-                            <input id="checkbox-value" :value="user.id" v-model="vlaueCheckbox" type="checkbox"
-                                class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" :checked="checkbox" >
-                            <label for="checkbox-value" class="sr-only" >checkbox</label>
-                        </div>
-                    </td>
-                    <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
-                        <img v-if="user.img != null " class="w-14 h-14 rounded-full object-cover" :src="user.img">
-                        <img v-else class="w-14 h-14 rounded-full" src="../../assets/images/user.png">
-                        <div class="pl-3">
-                            <div class="text-base font-semibold capitalize"  :id="user.id+'name'" >{{user.fullName}} </div>
-                            <div class="font-normal text-gray-500">{{user.email}}</div>
-                        </div>
-                    </th>
-                    <td class="py-4 px-6 capitalize">
-                        {{user.subscription}}
-                    </td>
-                    <td class="py-4 px-6  " >
-                            <label for="my-modal-5" class=" bg-white text-blue-500 hover:underline  hover:underline-offset-auto cursor-pointer">Edit User</label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 
-        
-        <!-- Put this part before </body> tag -->
-        <input type="checkbox" id="my-modal-5" class="modal-toggle" />
-        <div class="modal">
-            <div class="modal-box w-11/12 max-w-5xl">
-                <label for="my-modal-5" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-                <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                <div class="modal-action">
-                    <label for="my-modal-5" class="btn">Edit!</label>
-                </div>
-            </div>
-        </div>
-
-</template>
-
-
-<script>
+<script >
+import Swal from "sweetalert2"
+import dropDown from "../DropDown/dropwDown.vue"
 import axios from "axios"
+import formEditUser from "../formEditUser/formEditUser.vue"
 export default {
+    components: {
+        dropDown,
+        formEditUser
+    },
+    emits: ['valueSelected'],
     data() {
         return {
             checkbox: false,
@@ -149,7 +17,9 @@ export default {
             selected: 'Option',
             vlaueCheckbox: [],
             search: '',
-            numberOfUsers:0
+            numberOfUsers: 0,
+            isShowTable: 0,
+            userInfo:null
         }
     },
 
@@ -164,26 +34,254 @@ export default {
             this.selected = value;
         },
 
-        deleteUser() {
-            console.log(this.vlaueCheckbox);
+        getSpecificUser(id) {
+            axios.get('http://localhost:8000/api/getUser/' + id).then((res) => {
+                this.userInfo = {
+                    img: res.data.img,
+                    fullName: res.data.fullName,
+                    gender: res.data.gender,
+                    email: res.data.email,
+                    address: res.data.address,
+                    phoneNumbers: res.data.phoneNumbers,
+                    company: res.data.company,
+                }
+            })
+        },
+
+
+        popUpDelete(id) {
+            if (id != '') {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to restore this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Users has been deleted.',
+                            'success'
+                        )
+                        this.deleteUser(id);
+                    }
+                })
+            } else {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-center',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Please select user first!'
+                })
+            }
         },
 
         filterUser() {
             for (let user of this.allUsers) {
-                var element = document.getElementById(user.id);
+                var ele = document.getElementById(user.id);
                 var elementText = document.getElementById(user.id + 'name').textContent;
                 if (elementText.search(this.search) > -1) {
-                    element.style.display = '';
+                    ele.style.display = '';
                 } else {
-                    element.style.display = 'none'
+                    ele.style.display = 'none'
                 }
-                console.log(elementText.search(this.search));
+
             }
+        },
+
+        deleteUser(usersId) {
+            for (let id of usersId) {
+                this.numberOfUsers -= 1;
+                document.getElementById(id).remove();
+                axios.delete("http://localhost:8000/api/user/" + id);
+            }
+        },
+
+        filterBySubscriber() {
+            var numberOfDisplay = 0;
+            if (this.selected != 'Option') {
+                for (let user of this.allUsers) {
+                    var element = document.getElementById(user.id);
+                    var elementText = document.getElementById(user.id + 'subscriber');
+                    if (document.body.contains(elementText)) {     
+                        if (elementText.textContent.search(this.selected) > -1) {
+                            element.style.display = '';
+                            numberOfDisplay += 1;
+                        } else {
+                            element.style.display = 'none'
+                        }
+                    }
+                }
+                this.numberOfUsers = numberOfDisplay;
+            } if (this.selected == 'All Subscribers') {
+                this.numberOfUsers = this.allUsers.length
+                for (let user of this.allUsers) {
+                    var el = document.getElementById(user.id);
+                    if (document.body.contains(el)) {
+                        el.style.display = '';
+                    }
+                }
+            } 
+        },
+
+        showTable() {
+            this.timeOut = setTimeout(() => {
+                this.isShowTable+=1;
+                if (this.isShowTable == 3) {
+                    clearTimeout(this.timeOut);
+                }
+            }, 1000);
+
         }
+
+    },
+    watch: {
+        isShowTable() {
+            if (this.isShowTable < 3) {
+                this.showTable()
+            }
+        }  
     },
 
     mounted() {
+        this.showTable()
         this.getAllUser()
     }
 }
 </script>
+
+
+<template>
+    <div class="overflow-auto relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-7  lg:h-[83vh]" >
+        <!-- action and search bar -->
+        <div class="lg:flex lg:justify-between lg:items-center pb-4 grid gap-y-4 bg-white dark:bg-gray-900">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative w-11/12 m-auto lg:w-1/3">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <input
+                    class="m-auto w-full block p-3 pl-10  text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  capitalize"
+                    v-model="search" @keyup="filterUser" placeholder="Search users by name">
+            </div>
+            <div class="lg:w-1/3  m-auto w-11/12">
+                <div class="relative">
+                    <dropDown @valueSelected="valueSelected" @click="filterBySubscriber"
+                        @deleteUser="popUpDelete(vlaueCheckbox)" />
+                </div>
+            </div>
+            <div class="lg:w-1/4 w-4/5   border-gray-400 ml-5 lg:mr-3 flex place-items-end justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 fill-blue-500" viewBox="0 0 640 512">
+                    <path
+                        d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
+                </svg>
+                <p class="ml-5 text-lg text-blue-500">{{ numberOfUsers }} Users</p>
+            </div>
+        </div>
+
+        <!-- end of action and earch bar -->
+        <div role="status" class="w-full flex justify-center items-center" v-if="isShowTable == 1">
+            <svg aria-hidden="true"
+                class="m-auto w-14 h-14 mt-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+            </svg>
+            <span class="sr-only">Loading...</span>
+        </div>
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-else-if=" isShowTable == 3">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="p-4">
+                        <div class="flex items-center">
+                            <input id="checkbox-all-search" type="hidden"
+                                class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                        </div>
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Subscriber
+                    </th>
+                    <th scope="col" class="py-3 px-6  text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                    v-for="user of allUsers" :key="user" :id="user.id">
+                    <td class="p-4 w-4">
+                        <div class="flex items-center">
+                            <input id="checkbox-value" :value="user.id" v-model="vlaueCheckbox" type="checkbox"
+                                class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                :checked="checkbox">
+                            <label for="checkbox-value" class="sr-only">checkbox</label>
+                        </div>
+                    </td>
+                    <th scope="row" class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white">
+                        <img v-if="user.img != null" class="w-14 h-14 rounded-full object-cover" :src="user.img">
+                        <img v-else class="w-14 h-14 rounded-full" src="../../assets/images/user.png">
+                        <div class="pl-3">
+                            <div class="text-base font-semibold capitalize" :id="user.id + 'name'">{{ user.fullName }}
+                            </div>
+                            <div class="font-normal text-gray-500">{{ user.email }} </div>
+                        </div>
+                    </th>
+                    <td class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
+                        {{ user.subscription }}
+                    </td>
+                    <td class="py-4 px-6 flex justify-evenly place-content-center">
+                        <label for="my-modal-5"
+                            @click="getSpecificUser(user.id)"
+                            class=" bg-white text-blue-500 hover:underline  hover:underline-offset-auto cursor-pointer">Edit
+                            User</label>
+                        <label
+                            class="ml-5 bg-white text-red-500 hover:underline  hover:underline-offset-auto cursor-pointer"
+                            @click="popUpDelete([user.id])">Delete
+                            User</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- Put this part before </body> tag -->
+    <input v-if="userInfo != null" type="checkbox" id="my-modal-5" class="modal-toggle" />
+    <div v-if="userInfo != null"  class="modal">
+        <div class="modal-box w-11/12 max-w-5xl">
+            <label for="my-modal-5" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <formEditUser :userInfo="userInfo" />
+            <div class="modal-action">
+                <label for="my-modal-5" class="btn">Edit!</label>
+            </div>
+        </div>
+    </div>
+
+</template>

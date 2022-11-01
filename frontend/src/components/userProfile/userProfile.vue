@@ -13,7 +13,13 @@
                                 <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'M'" src="../../assets/images/profile.png" />
                                 <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender=='Other' " src="../../assets/images/user.png" />
                         </div>
-                      <input type="file" @change="onFileChange">
+                        <label class="block ">
+                            <span class="sr-only">Upload Picture</span>
+                            <input type="file"
+                            @change="onFileChange"
+                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                        </label>
+                
                     </div>
                     <!-- End of profile card -->
                 </div>
