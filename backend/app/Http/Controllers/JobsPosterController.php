@@ -37,6 +37,8 @@ class JobsPosterController extends Controller
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
         $job->job_requirement = $request->job_requirement;
+        $job->post_at= $request->post_at;
+        $job->expired_at= $request->expired_at;
         $job->save();
         return response()->json(['msg'=>'success']);
     }

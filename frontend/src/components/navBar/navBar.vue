@@ -30,34 +30,6 @@
             </router-link>
         </div>
     </div>
-    <div class="drawer">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-
-        <div class="drawer-side">
-            <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-                <router-link to="/">
-                    <li><a>Job List</a></li>
-                </router-link>
-                <router-link to="/job_category">
-                    <li><a>Job category</a></li>
-                </router-link>
-                <router-link to="/companyList">
-                    <li><a>Company List</a></li>
-                </router-link>
-                <li><a>Job Location</a></li>
-                <router-link to="/subscribe">
-                    <li><a>Subscribe Plan</a></li>
-                </router-link>
-                <router-link to="/userList" v-if="role != null && role =='Admine' ">
-                    <li><a>Users List</a></li>
-                </router-link>
-                <li @click="logOut()">
-                    <a>Log Out</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </template>
 
 <script>
