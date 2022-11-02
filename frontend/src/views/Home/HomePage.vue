@@ -1,7 +1,5 @@
 <template>
-
     <JobCategory />
-
 </template>
 
 <script>

@@ -1,20 +1,19 @@
 <template>
     <div class="w-full">
-        <div class="lg:flex lg:w-11/12 lg:ml-48">
-            <div class="lg:w-3/6">
+        <div class="lg:flex lg:w-11/12 lg:ml-48 justify-between">
+            <div class="lg:w-2/3">
                 <!-- job type -->
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
             </div>
             <div class="w-full mt-5 gap-10 overflow-x-hidden">
-                <div class="w-full flex justify-start ">
+                <div class="w-full flex justify-between ">
                     <p class="w-2/4 text-2xl  ml-2">Latest Jobs</p>
+                    <p class="w-2/4 text-2xl  ml-2 word-break">{{ selected }}</p>
                 </div>
-                <!-- <router-link to="/job_detail"> -->
-                <!-- <div class="lg:w-8/12 md:w-full" v-for="job of allJobs" :key="job" :id="job.id" @click="jobDetails(job.id)"> -->
                 <div class="lg:w-8/12 md:w-full">
-                    <div v-for="job of allJobs" :key="job" :id="job.id"
+                    <div v-for="job of allJobs" :key="job" :id="job.id + 'parent'"
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
                             <div class="avatar placeholder ml-2">
@@ -24,10 +23,11 @@
                             </div>
                         </div>
                         <div class="p-3  w-full">
-                            <p class="text-blue-400 text-xl text-ellipsis lg:text-xs">{{ job.job_title }}</p>
+                            <p class="text-blue-400 text-xl text-ellipsis lg:text-xs" :id="job.id + 'jobTitle'">
+                                {{ job.job_title }}
+                            </p>
                             <p class="text-ellipsis mb-1 text-gray-500">{{ job.company_name }}</p>
                             <input type="hidden" :value="job.job_type" :id="job.id + 'jobType'">
-                            <input type="hidden" :value="job.job_title" :id="job.id + 'jobTitle'">
                             <div class="flex lg:gap-24 gap-7">
                                 <div class="w-full grid grid-cols-1 lg:grid-cols-2">
                                     <div class="flex gap-2 lg:w-full">
@@ -47,18 +47,10 @@
                                         <p>3 days ago</p>
                                     </div>
                                 </div>
-                                <!-- 
-                                <div class="flex">
-                                    <button
-                                        class="w-full bg-blue-600 hover:bg-red-700 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Edit</button>
-                                    <button @click="deleteJob(job.id)" type="submit"
-                                        class="w-full bg-red-600 hover:bg-red-700 ml-2 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Delete</button>
-                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- </router-link> -->
             </div>
         </div>
     </div>
@@ -76,7 +68,7 @@ export default {
     data() {
         return {
             jobTitle: "Job Category",
-            jobs: ['Accounting', 'Banking', 'English Teacher'],
+            jobs: [],
             quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
             linkTitle: "Quick Links",
             allJobs: [],
@@ -85,8 +77,12 @@ export default {
     },
 
     watch: {
-        allJobs() {
-            this.getAllJobs()
+        // allJobs() {
+        //     this.getAllJobs()
+        // },
+
+        selected: function () {
+            this.filterJobs()
         }
     },
 
@@ -98,6 +94,7 @@ export default {
         },
         selectedValue(value) {
             this.selected = value;
+            // this.filterJobs()
         },
         firstLetter(words) {
             return words[0]
@@ -105,11 +102,16 @@ export default {
 
         filterJobs() {
             for (let job of this.allJobs) {
-                const text = document.getElementById(job.id)
-                if (text.value.toLocaleLowerCase().search(this.selected) == -1) {
-                    text.style.display = 'none'
+                var ele = document.getElementById(job.id + 'parent');
+                var text = document.getElementById(job.id + "jobTitle").textContent;
+                console.log(text);
+                console.log(this.selected);
+                if (text.search(this.selected) != -1) {
+                    ele.style.display = ''
+                    console.log(text.search(this.selected));
                 } else {
-                    text.style.display = ''
+                    console.log(text.search(this.selected));
+                    ele.style.display = 'none'
                 }
             }
         },
@@ -126,10 +128,20 @@ export default {
                     console.log(res.data);
                     this.getAllJobs()
                 })
+        },
+
+        getAllJobsTitle() {
+            this.jobs = []
+            axios.get("http://localhost:8000/api/jobTitle").then((res) => {
+                for (let value of res.data) {
+                    this.jobs.push(value.job_title)
+                }
+            })
         }
     },
 
     mounted() {
+        this.getAllJobsTitle()
         this.getAllJobs();
     }
 }

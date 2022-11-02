@@ -1,6 +1,6 @@
 <template>
-  <Navbar/>
-  <router-view/>
+  <Navbar />
+  <router-view />
 </template>
 
 <script>
@@ -10,11 +10,11 @@ export default {
     Navbar,
   },
   emits: ['hide-menu'],
-  data() { 
+  data() {
     return {
       isShowMenuBar: null,
       isShowJob: false,
-      imgae:''
+      imgae: ''
     }
   },
 
@@ -27,11 +27,11 @@ export default {
       if (this.isShowMenuBar != null) {
         clearTimeout(this.timeOut);
       }
-    }, 
- 
+    },
+
 
     showForm() {
-        this.isShowJob = true
+      this.isShowJob = true
     }
   },
 }
@@ -39,10 +39,12 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   font-family: "Roboto", sans-serif;
 }

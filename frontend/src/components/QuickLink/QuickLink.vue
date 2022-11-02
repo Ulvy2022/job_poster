@@ -12,9 +12,9 @@ export default {
     data() {
         return {
             title: "Quick Links",
-            jobList:['Part-time job','Full-time job','Training WorkShop']
+            jobList: ['Part-time', 'Full-time', 'Training WorkShop']
         }
     }
 }
-    
+
 </script>
