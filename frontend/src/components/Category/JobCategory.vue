@@ -1,22 +1,23 @@
 <template>
     <div class="w-full">
         <div class="lg:flex lg:w-11/12 lg:m-auto justify-between">
-            <div class="lg:w-2/3 lg:-mt-5">
+            <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- job type -->
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
+                <!-- company list -->
+                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList" />
             </div>
-            <div class="w-full mt-5 gap-10 overflow-x-hidden ">
+            <div class="w-full mt-10 gap-10 overflow-x-hidden ">
                 <div class="form-control w-full mb-2">
                     <div class="input-group">
                         <input @keyup="filterJobs(jobName)" v-model="jobName" type="text"
                             placeholder="Search jobs by name..." class="input input-bordered w-full" />
-                        <button class="btn btn-square " @click="filterJobs(jobName)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <button class="btn btn-square " @click="getAllJobs(), jobName = ''">
+                            <svg class="h-6 w-6 fill-white " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path
+                                    d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z" />
                             </svg>
                         </button>
                     </div>
@@ -36,13 +37,19 @@
                             </div>
                         </div>
                         <div class="p-3  w-full">
-                            <p class="text-blue-400 text-xl text-ellipsis lg:text-xs" :id="job.id + 'jobTitle'">
+                            <p class="text-blue-400 text-lg text-ellipsis " :id="job.id + 'jobTitle'">
                                 {{ job.job_title }} Position
                             </p>
-                            <p class="text-ellipsis mb-1 text-gray-500">{{ job.company_name }} Company</p>
-                            <input type="hidden" :value="job.job_type" :id="job.id + 'jobType'">
+                            <p class="text-ellipsis  text-gray-500 " :id="job.id + 'company'">{{
+                                    job.company_name
+                            }}
+                                Company</p>
+                            <p class="text-ellipsis mb-1 text-gray-500 capitalize" :id="job.id + 'jobType'">{{
+                                    job.job_type
+                            }}
+                                Job</p>
                             <div class="flex lg:gap-24 gap-7">
-                                <div class="w-full grid grid-cols-1 lg:grid-cols-3">
+                                <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-1">
                                     <div class="flex gap-2 lg:w-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                             class="h-5 w-5 fill-blue-500">
@@ -62,7 +69,6 @@
                                     <div class="flex gap-2 lg:w-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-500"
                                             viewBox="0 0 512 512">
-                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                                             <path
                                                 d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
                                         </svg>
@@ -96,16 +102,10 @@ export default {
             quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
             linkTitle: "Quick Links",
             allJobs: [],
-            selected: ""
+            selected: "",
+            comapnyTitle: "Company Name",
+            companyList: []
         }
-    },
-
-    watch: {
-        // allJobs() {
-        //     this.getAllJobs()
-        // },
-
-
     },
 
     methods: {
@@ -116,16 +116,40 @@ export default {
         },
         selectedValue(value) {
             this.selected = value;
-            this.filterJobs(value)
+            if (value.toLowerCase().search("company") != -1) {
+                this.filterJobByCompanyName(value)
+            } else {
+                this.filterJobs(value);
+            }
         },
         firstLetter(words) {
             return words[0]
         },
 
         filterJobs(value) {
+
             for (let job of this.allJobs) {
                 var ele = document.getElementById(job.id + 'parent');
                 var text = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
+                var jobType = document.getElementById(job.id + "jobType").textContent.toLowerCase();
+                if (text.search(value.toLowerCase()) != -1) {
+                    ele.style.display = ''
+                }
+                else if (jobType.search(value.toLowerCase()) != -1) {
+                    console.log('ss');
+                    ele.style.display = ''
+                }
+                else {
+                    console.log('ss');
+                    ele.style.display = 'none'
+                }
+            }
+        },
+
+        filterJobByCompanyName(value) {
+            for (let job of this.allJobs) {
+                var ele = document.getElementById(job.id + 'parent');
+                var text = document.getElementById(job.id + "company").textContent.toLowerCase();
                 if (text.search(value.toLowerCase()) != -1) {
                     ele.style.display = ''
                 } else {
@@ -155,12 +179,22 @@ export default {
                     this.jobs.push(value.job_title)
                 }
             })
+        },
+
+        getAllCompanyName() {
+            this.companyList = []
+            axios.get("http://localhost:8000/api/companyName").then((res) => {
+                for (let value of res.data) {
+                    this.companyList.push(value.company_name + " Company")
+                }
+            })
         }
     },
 
     mounted() {
         this.getAllJobs();
-        this.getAllJobsTitle()
+        this.getAllJobsTitle();
+        this.getAllCompanyName();
     }
 }
 </script>
