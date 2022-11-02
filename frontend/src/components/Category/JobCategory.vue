@@ -187,6 +187,11 @@ export default {
                         ele.style.display = 'none'
                     }
                 }
+            } else {
+                for (let job of this.allJobs[this.currentPage]) {
+                    var el = document.getElementById(job.id + 'parent');
+                    el.style.display = ''
+                }
             }
         },
 

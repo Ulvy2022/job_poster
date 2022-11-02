@@ -1,6 +1,6 @@
 <template>
-    <div class=" max-h-64 overflow-y-auto mb-8">
-        <div class="mt-5 md:block lg:hidden">
+    <div class=" max-h-64 overflow-y-auto ">
+        <div class="mt-2 md:block lg:hidden">
             <button class="collapsible bg-blue-400 text-white" @click="showHideCollapse">{{ title }} </button>
             <div class="content w-full ">
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize" v-for="job of listJobs" :key="job"

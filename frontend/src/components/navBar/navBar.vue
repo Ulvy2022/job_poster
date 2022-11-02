@@ -40,12 +40,12 @@
                                     UserList
                                 </a>
                             </router-link>
-                            <router-link to="/job_category">
+                            <!-- <router-link to="/job_category">
                                 <a
                                     class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
                                     Job category
                                 </a>
-                            </router-link>
+                            </router-link> -->
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,6 @@ const navigation = [
     { name: 'Job List', href: '/', current: false },
     { name: 'Subscribe Plan', href: '/subscribe', current: false },
     { name: 'Users List', href: '/userList', current: false },
-    { name: 'Job category', href: '/job_category', current: false },
 ]
 </script>
 
