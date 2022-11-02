@@ -1,69 +1,73 @@
 <template>
     <div class="grid w-full text-lg">
         <div class="grid w-full ">
-            <p  class="w-full p-3 bg-blue-400 text-white">Announcement description</p>
-            <p class="p-3 text-base">{{jobDetails.job_description}}</p>
+            <p class="w-full p-3 bg-blue-400 text-white">Announcement description</p>
+            <p class="p-3 text-base">{{ jobDetails.job_description }}</p>
         </div>
         <div class="grid">
-                <p class="w-full p-3 bg-blue-400 text-white">Announcement position</p>
-                <b class="text-xl p-3 ">Operations Manager/Scrum Master</b>
-                <div class="grid text-base">
-                    <!-- location -->
-                    <div class="flex p-3" >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-6 w-6">
-                            <path
-                                d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
-                        </svg>
-                        <p class="ml-2">Location : {{jobDetails.job_location}}</p>
-                    </div>
-                    <!-- schedule -->
-                    <div class="flex p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6">
-                            <path
-                                d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z" />
-                        </svg>
-                        <p class="ml-2">Schedule : {{jobDetails.job_type}}</p>
-                    </div>
-                    <div class="flex p-3  ">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6">
-                            <path
-                                d="M320 96H192L144.6 24.9C137.5 14.2 145.1 0 157.9 0H354.1c12.8 0 20.4 14.2 13.3 24.9L320 96zM192 128H320c3.8 2.5 8.1 5.3 13 8.4C389.7 172.7 512 250.9 512 416c0 53-43 96-96 96H96c-53 0-96-43-96-96C0 250.9 122.3 172.7 179 136.4l0 0 0 0c4.8-3.1 9.2-5.9 13-8.4zm84.1 96c0-11.1-9-20.1-20.1-20.1s-20.1 9-20.1 20.1v6c-5.6 1.2-10.9 2.9-15.9 5.1c-15 6.8-27.9 19.4-31.1 37.7c-1.8 10.2-.8 20 3.4 29c4.2 8.8 10.7 15 17.3 19.5c11.6 7.9 26.9 12.5 38.6 16l2.2 .7c13.9 4.2 23.4 7.4 29.3 11.7c2.5 1.8 3.4 3.2 3.8 4.1c.3 .8 .9 2.6 .2 6.7c-.6 3.5-2.5 6.4-8 8.8c-6.1 2.6-16 3.9-28.8 1.9c-6-1-16.7-4.6-26.2-7.9l0 0 0 0 0 0 0 0c-2.2-.8-4.3-1.5-6.3-2.1c-10.5-3.5-21.8 2.2-25.3 12.7s2.2 21.8 12.7 25.3c1.2 .4 2.7 .9 4.4 1.5c7.9 2.7 20.3 6.9 29.8 9.1V416c0 11.1 9 20.1 20.1 20.1s20.1-9 20.1-20.1v-5.5c5.4-1 10.5-2.5 15.4-4.6c15.7-6.7 28.4-19.7 31.6-38.7c1.8-10.4 1-20.3-3-29.4c-3.9-9-10.2-15.6-16.9-20.5c-12.2-8.8-28.3-13.7-40.4-17.4l-.8-.2c-14.2-4.3-23.8-7.3-29.9-11.4c-2.6-1.8-3.4-3-3.6-3.5c-.2-.3-.7-1.6-.1-5c.3-1.9 1.9-5.2 8.2-8.1c6.4-2.9 16.4-4.5 28.6-2.6c4.3 .7 17.9 3.3 21.7 4.3c10.7 2.8 21.6-3.5 24.5-14.2s-3.5-21.6-14.2-24.5c-4.4-1.2-14.4-3.2-21-4.4V224z" />
-                        </svg>
-                        <p class="ml-2">Salary : {{jobDetails.salary}}$</p>
-                    </div>
+            <p class="w-full p-3 bg-blue-400 text-white">Announcement position</p>
+            <b class="text-xl p-3 ">{{ jobDetails.job_title }}</b>
+            <div class="grid text-base">
+                <!-- location -->
+                <div class="flex p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-6 w-6">
+                        <path
+                            d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
+                    </svg>
+                    <p class="ml-2">Location : {{ jobDetails.company_location }}</p>
                 </div>
-                <div class="grid p-3">
-                    <b class="text-lg">Duties</b>
-                    <ul class="list-disc list-inside text-base">
-                        <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS) frameworks</li>
-                        <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS) frameworks</li>
-                        <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS) frameworks</li>
-                    </ul>
+                <!-- schedule -->
+                <div class="flex p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6">
+                        <path
+                            d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z" />
+                    </svg>
+                    <p class="ml-2">Schedule : {{ jobDetails.job_type }}</p>
                 </div>
-                <!-- job requirement -->
-                <div class="grid p-3">
-                    <b class="text-lg">Requirements</b>
-                    <ul class="list-disc list-inside text-base">
-                        <li>Degree Business Administration similar field</li>
-                        <li>At least 3 4 experience the management project teams</li>
-                        <li>Ability communicate well both Khmer English languages - both written spoken</li>
-                    </ul>
+                <div class="flex p-3  ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6">
+                        <path
+                            d="M320 96H192L144.6 24.9C137.5 14.2 145.1 0 157.9 0H354.1c12.8 0 20.4 14.2 13.3 24.9L320 96zM192 128H320c3.8 2.5 8.1 5.3 13 8.4C389.7 172.7 512 250.9 512 416c0 53-43 96-96 96H96c-53 0-96-43-96-96C0 250.9 122.3 172.7 179 136.4l0 0 0 0c4.8-3.1 9.2-5.9 13-8.4zm84.1 96c0-11.1-9-20.1-20.1-20.1s-20.1 9-20.1 20.1v6c-5.6 1.2-10.9 2.9-15.9 5.1c-15 6.8-27.9 19.4-31.1 37.7c-1.8 10.2-.8 20 3.4 29c4.2 8.8 10.7 15 17.3 19.5c11.6 7.9 26.9 12.5 38.6 16l2.2 .7c13.9 4.2 23.4 7.4 29.3 11.7c2.5 1.8 3.4 3.2 3.8 4.1c.3 .8 .9 2.6 .2 6.7c-.6 3.5-2.5 6.4-8 8.8c-6.1 2.6-16 3.9-28.8 1.9c-6-1-16.7-4.6-26.2-7.9l0 0 0 0 0 0 0 0c-2.2-.8-4.3-1.5-6.3-2.1c-10.5-3.5-21.8 2.2-25.3 12.7s2.2 21.8 12.7 25.3c1.2 .4 2.7 .9 4.4 1.5c7.9 2.7 20.3 6.9 29.8 9.1V416c0 11.1 9 20.1 20.1 20.1s20.1-9 20.1-20.1v-5.5c5.4-1 10.5-2.5 15.4-4.6c15.7-6.7 28.4-19.7 31.6-38.7c1.8-10.4 1-20.3-3-29.4c-3.9-9-10.2-15.6-16.9-20.5c-12.2-8.8-28.3-13.7-40.4-17.4l-.8-.2c-14.2-4.3-23.8-7.3-29.9-11.4c-2.6-1.8-3.4-3-3.6-3.5c-.2-.3-.7-1.6-.1-5c.3-1.9 1.9-5.2 8.2-8.1c6.4-2.9 16.4-4.5 28.6-2.6c4.3 .7 17.9 3.3 21.7 4.3c10.7 2.8 21.6-3.5 24.5-14.2s-3.5-21.6-14.2-24.5c-4.4-1.2-14.4-3.2-21-4.4V224z" />
+                    </svg>
+                    <p class="ml-2">Salary : {{ jobDetails.salary }}$</p>
                 </div>
-                <!-- job information -->
-                <div class="grid w-full text-base">
-                    <p class="w-full p-3 bg-blue-400 text-white">Application Information</p>
-                    <p class="p-3">To for position please submit us your CV Cover using 
-                        Bong Thom dot Com resume system “APPLY NOW”
-                    </p>
-                    <ul class="list-disc list-inside p-3 text-base">
-                        <li>Degree Business Administration similar field</li>
-                        <li>At least 3 4 experience the management project teams</li>
-                        <li>Ability communicate well both Khmer English languages - both written spoken</li>
-                    </ul>
-                </div>
+            </div>
+            <div class="grid p-3">
+                <b class="text-lg">Duties</b>
+                <ul class="list-disc list-inside text-base">
+                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                        frameworks</li>
+                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                        frameworks</li>
+                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                        frameworks</li>
+                </ul>
+            </div>
+            <!-- job requirement -->
+            <div class="grid p-3">
+                <b class="text-lg">Requirements</b>
+                <p> {{ jobDetails.job_requirement }} </p>
+                <!-- <ul class="list-disc list-inside text-base">
+                    <li>Degree Business Administration similar field</li>
+                    <li>At least 3 4 experience the management project teams</li>
+                    <li>Ability communicate well both Khmer English languages - both written spoken</li>
+                </ul> -->
+            </div>
+            <!-- job information -->
+            <div class="grid w-full text-base">
+                <p class="w-full p-3 bg-blue-400 text-white">Application Information</p>
+                <p class="p-3">To for position please submit us your CV Cover using
+                    Bong Thom dot Com resume system “APPLY NOW”
+                </p>
+                <ul class="list-disc list-inside p-3 text-base">
+                    <li>Degree Business Administration similar field</li>
+                    <li>At least 3 4 experience the management project teams</li>
+                    <li>Ability communicate well both Khmer English languages - both written spoken</li>
+                </ul>
+            </div>
         </div>
     </div>
-    
+
 </template>
 
 <script>
@@ -71,14 +75,19 @@ import axios from "axios";
 export default {
     data() {
         return {
-            jobDetails:[]
+            jobDetails: []
+        }
+    },
+
+    methods: {
+        getAlljobDetails() {
+            axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
+                this.jobDetails = res.data[0]
+            })
         }
     },
     mounted() {
-        axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
-            this.jobDetails = res.data[0]
-            // console.log(res.data);
-        })
+        this.getAlljobDetails()
     }
 }
 </script>

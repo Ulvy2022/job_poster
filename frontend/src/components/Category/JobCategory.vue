@@ -28,6 +28,7 @@
                 </div>
                 <div class="lg:w-11/12 w-full">
                     <div v-for="job of allJobs[currentPage]" :key="job" :id="job.id + 'parent'"
+                        @click="deatilJob(job.id)"
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
                             <div class="avatar placeholder ml-2">
@@ -135,6 +136,12 @@ export default {
             }
         },
 
+        jobDetails(id) {
+            localStorage.removeItem('jobId')
+            localStorage.setItem('jobId', id)
+            this.$router.push('/job_detail')
+        },
+
         getAllJobs() {
             this.allJobs = []
             var j = []
@@ -207,7 +214,7 @@ export default {
             }
         },
 
-        jobDetails(id) {
+        deatilJob(id) {
             localStorage.removeItem('jobId');
             localStorage.setItem('jobId', id);
             this.$router.push('/job_detail');
