@@ -1,35 +1,48 @@
 <template>
     <div class="w-full">
-        <div class="lg:flex lg:w-11/12 lg:ml-48 justify-between">
-            <div class="lg:w-2/3">
+        <div class="lg:flex lg:w-11/12 lg:m-auto justify-between">
+            <div class="lg:w-2/3 lg:-mt-5">
                 <!-- job type -->
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
             </div>
-            <div class="w-full mt-5 gap-10 overflow-x-hidden">
+            <div class="w-full mt-5 gap-10 overflow-x-hidden ">
+                <div class="form-control w-full mb-2">
+                    <div class="input-group">
+                        <input @keyup="filterJobs(jobName)" v-model="jobName" type="text"
+                            placeholder="Search jobs by name..." class="input input-bordered w-full" />
+                        <button class="btn btn-square " @click="filterJobs(jobName)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
                 <div class="w-full flex justify-between ">
                     <p class="w-2/4 text-2xl  ml-2">Latest Jobs</p>
                     <p class="w-2/4 text-2xl  ml-2 word-break">{{ selected }}</p>
                 </div>
-                <div class="lg:w-8/12 md:w-full">
+                <div class="lg:w-11/12 w-full">
                     <div v-for="job of allJobs" :key="job" :id="job.id + 'parent'"
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
                             <div class="avatar placeholder ml-2">
                                 <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
-                                    <span class="text-3xl">{{ firstLetter(job.company_name) }}</span>
+                                    <span class="text-3xl">{{ firstLetter(job.company_name) }} </span>
                                 </div>
                             </div>
                         </div>
                         <div class="p-3  w-full">
                             <p class="text-blue-400 text-xl text-ellipsis lg:text-xs" :id="job.id + 'jobTitle'">
-                                {{ job.job_title }}
+                                {{ job.job_title }} Position
                             </p>
-                            <p class="text-ellipsis mb-1 text-gray-500">{{ job.company_name }}</p>
+                            <p class="text-ellipsis mb-1 text-gray-500">{{ job.company_name }} Company</p>
                             <input type="hidden" :value="job.job_type" :id="job.id + 'jobType'">
                             <div class="flex lg:gap-24 gap-7">
-                                <div class="w-full grid grid-cols-1 lg:grid-cols-2">
+                                <div class="w-full grid grid-cols-1 lg:grid-cols-3">
                                     <div class="flex gap-2 lg:w-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                             class="h-5 w-5 fill-blue-500">
@@ -46,6 +59,16 @@
                                         </svg>
                                         <p>3 days ago</p>
                                     </div>
+                                    <div class="flex gap-2 lg:w-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-500"
+                                            viewBox="0 0 512 512">
+                                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                            <path
+                                                d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
+                                        </svg>
+                                        <p class="text-red-500">Closed</p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -67,6 +90,7 @@ export default {
     },
     data() {
         return {
+            jobName: "",
             jobTitle: "Job Category",
             jobs: [],
             quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
@@ -81,9 +105,7 @@ export default {
         //     this.getAllJobs()
         // },
 
-        selected: function () {
-            this.filterJobs()
-        }
+
     },
 
     methods: {
@@ -94,23 +116,19 @@ export default {
         },
         selectedValue(value) {
             this.selected = value;
-            // this.filterJobs()
+            this.filterJobs(value)
         },
         firstLetter(words) {
             return words[0]
         },
 
-        filterJobs() {
+        filterJobs(value) {
             for (let job of this.allJobs) {
                 var ele = document.getElementById(job.id + 'parent');
-                var text = document.getElementById(job.id + "jobTitle").textContent;
-                console.log(text);
-                console.log(this.selected);
-                if (text.search(this.selected) != -1) {
+                var text = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
+                if (text.search(value.toLowerCase()) != -1) {
                     ele.style.display = ''
-                    console.log(text.search(this.selected));
                 } else {
-                    console.log(text.search(this.selected));
                     ele.style.display = 'none'
                 }
             }
@@ -141,8 +159,8 @@ export default {
     },
 
     mounted() {
-        this.getAllJobsTitle()
         this.getAllJobs();
+        this.getAllJobsTitle()
     }
 }
 </script>
