@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call('App\Http\Controllers\JobsPosterController@setJobToExpired')->everyMinute();
+        $schedule->call('App\Http\Controllers\JobsPosterController@setJobToExpired')->daily();
+        $schedule->call('App\Http\Controllers\MailController@mailToNotifyUserSub')->everyMinute();
 
     }
 

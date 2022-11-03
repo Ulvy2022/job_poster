@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Mail\sendVerifyCode;
 use App\Mail\setUserToAdmine;
+use App\Mail\mailToNotifyUserSub;
 use App\Mail\registerMail;
 use App\Models\User;
+use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailable;
@@ -79,13 +82,27 @@ class MailController extends Controller
             return response()->json(['message' => 'Unsuccessful']);
         }
     }
+
+    public function mailToNotifyUserSub()
+    {
+        $date = date("Y-m-d");
+        $allSubscribers = Subscribe::get();
+        foreach ($allSubscribers as $sub) {
+            $user = User::findOrFail($sub['user_id']);
+            if (strtotime($sub['expired_at']) == strtotime(date('D j M Y', strtotime($date . ' + 7 days')))) {
+                $user->ifTrail = "Yes";
+                $user->subscription = null;
+                $user->update();
+                $body = [
+                    'username' => $user['fullName'],
+                    'sub' => $sub['subscribed_at'],
+                    'expire' => $sub['expired_at'],
+                    'email' => $user['email'],
+                ];
+                Mail::to($user['email'])->send(new mailToNotifyUserSub($body));
+
+                return $user;
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
