@@ -81,14 +81,6 @@ const routes = [
     }
   },
   {
-    path: '/companyList',
-    name: 'companyList',
-    component: () => import('@/views/companyList/companyListView.vue'),
-    meta: {
-        requiresAuth:true,
-    }
-  },
-  {
     path: '/payment',
     name: 'payment',
     component: () => import('@/views/googlePay/googlePayView.vue'),

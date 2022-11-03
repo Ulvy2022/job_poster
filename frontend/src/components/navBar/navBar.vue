@@ -49,16 +49,20 @@
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-5 ">
                         <div class="w-full ">
-                            <MenuButton
-                                class="flex rounded-full  text-sm">
+                            <MenuButton class="flex rounded-full  text-sm">
                                 <span class="sr-only">Open user menu</span>
                                 <div class="avatar mr-5">
                                     <div class="lg:w-12 w-10 rounded-full ring  ring-offset-base-100 ring-offset-2">
-                                        <img class="object-cover lg:h-10  object-center" v-if="role == 'Admine' && img== null " src="../../assets/images/software-engineer.png" />
-                                        <img class="object-cover h-10 object-center" v-else-if="img != null  " :src="img" />
-                                        <img class="object-cover" v-else-if="img == null && gender=='Female' || gender=='F' "
+                                        <img class="object-cover lg:h-10  object-center"
+                                            v-if="role == 'Admine' && img == null"
+                                            src="../../assets/images/software-engineer.png" />
+                                        <img class="object-cover h-10 object-center" v-else-if="img != null"
+                                            :src="img" />
+                                        <img class="object-cover"
+                                            v-else-if="img == null && gender == 'Female' || gender == 'F'"
                                             src="../../assets/images/woman.png" />
-                                        <img class="object-cover" v-else-if="img == null && gender == 'Male' || gender == 'M'"
+                                        <img class="object-cover"
+                                            v-else-if="img == null && gender == 'Male' || gender == 'M'"
                                             src="../../assets/images/profile.png" />
                                         <img class="object-cover" v-else src="../../assets/images/user.png" />
                                     </div>
@@ -74,18 +78,20 @@
                             <MenuItems
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
-                                    <router-link to="/profile">
-                                        <a href="#"
-                                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your Profile
-                                        </a>
-                                    </router-link>
+                                <router-link to="/profile">
+                                    <a href="#"
+                                        :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
+                                        Profile
+                                    </a>
+                                </router-link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                    <router-link to="/login">
-                                        <a href="#"
-                                            :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign Out
-                                        </a>
-                                    </router-link>
+                                <router-link to="/login">
+                                    <a href="#"
+                                        :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
+                                        Out
+                                    </a>
+                                </router-link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
                                 <a href="#"
@@ -101,7 +107,7 @@
 
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pt-2 pb-3">
-                <DisclosureButton v-for="item in navigation" :key="item.name" as="a" 
+                <DisclosureButton v-for="item in navigation" :key="item.name" as="a"
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">
                     <router-link :to="item.href">
@@ -115,14 +121,12 @@
 
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon,  XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
     { name: 'Job List', href: '/', current: false },
-    { name: 'Company List', href: '/companyList', current: false },
     { name: 'Subscribe Plan', href: '/subscribe', current: false },
     { name: 'Users List', href: '/userList', current: false },
-    { name: 'Job category', href: '/job_category', current: false },
 ]
 </script>
 
@@ -133,7 +137,7 @@ export default {
         return {
             role: 'User',
             img: '',
-            fullName:''
+            fullName: ''
         }
     },
 
