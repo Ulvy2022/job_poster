@@ -12,12 +12,8 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(
-            function () {
-                JobsPoster::where('expired_at', '<', Carbon::now()->subDays(7))->delete();
-            }
-        )->weekly(
-            );
+        $schedule->call('App\Http\Controllers\JobsPosterController@setJobToExpired')->everyMinute();
+
     }
 
 

@@ -29,6 +29,9 @@ Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 
+// get all not expire jobs
+Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);
+
 // get all job title
 Route::get('/jobTitle', [JobsPosterController::class, 'getAllJobsTitle']);
 // get all comapny name
