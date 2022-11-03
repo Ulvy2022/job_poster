@@ -33,10 +33,10 @@
                             <p>{{job.post_at}}</p>     
                         </div>
 
-                        <div class="flex">
+                        <!-- <div class="flex">
                             <label for="my-modal-5" class="w-full bg-blue-600 hover:bg-red-700 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Edit</label>
                             <button @click="deleteJob(job.id)" class="w-full bg-red-600 hover:bg-red-700 ml-2 text-white font-bold py-2 px-2 rounded focus:outline-none m-auto focus:shadow-outline">Delete</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>                
             </div>
@@ -49,17 +49,17 @@
                     <h1 class="text-center text-blue-500 mb-1 text-lg">EditJob</h1>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            <label for="job-title" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Job Title</label>
+                            <label for="job-title" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Title</label>
                             <input type="text" id="job-title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Web Developer" required="">
                         </div>
 
                         <div>
-                            <label for="job-location" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Job Location</label>
+                            <label for="job-location" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Location</label>
                             <input type="text" id="job-location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Phnom Penh" required="">
                         </div>
 
                         <div>
-                            <label for="job-type" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Job Type</label>
+                            <label for="job-type" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Type</label>
                             <select id="job-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required="">
                                 <option disabled>Job Type</option>
                                 <option value="Full-Time">Full-Time</option>
@@ -68,26 +68,26 @@
                         </div>  
 
                         <div>
-                            <label for="closing-date" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Job Closing Date</label>
+                            <label for="closing-date" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Closing Date</label>
                             <input type="date" id="closing-date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" >
                         </div>
                     
                         <div>
-                            <label for="salary" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Salary(per month)</label>
+                            <label for="salary" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Salary(per month)</label>
                             <input type="number" id="salary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Salary">
                         </div>
 
                         <div>
-                            <label for="contact-name" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Contact Name</label>
+                            <label for="contact-name" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Contact Name</label>
                             <input  type="text" id="contact-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name" required="">
                         </div>
                         <div>
-                            <label for="contact-email" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Contact Email</label>
+                            <label for="contact-email" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Contact Email</label>
                             <input type="email" id="contact-email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email">
                         </div>
 
                         <div>
-                            <label for="company-name" class="font-semibold block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Company Name</label>
+                            <label for="company-name" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Company Name</label>
                             <input  type="text" id="company-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company Name">
                         </div>
                         
@@ -112,18 +112,19 @@
                         </div>
                     </div>
                 </form>
+                <JobList/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-// import JobList from "../ListJob/JobList.vue"
+import JobList from "../ListJob/JobList.vue"
 import axios from 'axios';
 export default {
     emits: ['selectedValue'],
     components: {
-        // JobList
+        JobList,
     },
     data() {
         return {

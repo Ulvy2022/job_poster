@@ -14,12 +14,15 @@ class Features extends Model
         return $this->hasMany(Subscribe::class);
     }
 
-
-
     protected $casts = [
         'features' => 'array',
     ];
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'price',
+        'name'
+    ];
 
 }

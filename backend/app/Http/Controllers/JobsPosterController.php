@@ -21,6 +21,7 @@ class JobsPosterController extends Controller
             'company_name'=>'required|min:5|max:30',
             'contact_name'=>'required|min:2|max:20',
             'contact_email'=> 'required',
+            'job_address'=>'required',
             'job_description'=>'required|min:10|max:500',
             'job_requirement'=>'required|min:10|max:500',
         ]);
@@ -36,6 +37,7 @@ class JobsPosterController extends Controller
         $job->contact_name = $request->contact_name;
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
+        $job->job_address = $request->job_address;
         $job->job_requirement = $request->job_requirement;
         $job->post_at= $request->post_at;
         $job->expired_at= $request->expired_at;
@@ -58,6 +60,7 @@ class JobsPosterController extends Controller
             'company_name'=>'required|min:5|max:30',
             'contact_name'=>'required|min:2|max:20',
             'contact_email'=> 'required',
+            'job_address'=>'required',
             'job_description'=>'required|min:10|max:500',
             'job_requirement'=>'required|min:10|max:500',
         ]);
@@ -71,6 +74,7 @@ class JobsPosterController extends Controller
         $job->contact_name = $request->contact_name;
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
+        $job->job_address = $request->job_address;
         $job->job_requirement = $request->job_requirement;
         $job->save();
         return response()->json(['msg'=>'updated']);

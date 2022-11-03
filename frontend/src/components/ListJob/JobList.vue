@@ -23,7 +23,6 @@ export default {
             titles: this.title,
             listJobs: this.jobList,
             txt: ""
-
         }
     },
     methods: {
@@ -67,7 +66,6 @@ ul>li {
     outline: none;
     font-size: 15px;
 }
-
 
 
 .collapsible:after {

@@ -1,5 +1,3 @@
-
-
 <template>
     <Disclosure as="nav" class="bg-blue-500 " v-slot="{ open }">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -13,45 +11,41 @@
                         <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
                     </DisclosureButton>
                 </div>
+                
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start ">
-                    <div class="flex flex-shrink-0 items-center bg-white rounded-full h-10 w-10 lg:block hidden">
+                    <div class="flex flex-shrink-0 items-center bg-white rounded-full h-10 w-10 lg:block">
                         <img class="block lg:h-8 w-auto lg:hidden"
                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                         <img class="hidden h-8 w-auto lg:block"
                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                     </div>
+
                     <div class="hidden sm:ml-6 sm:block lg:mt-2">
                         <div class="flex space-x-4">
-                            <router-link to="/">
-                                <a  class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    Job List
-                                </a>
+                            <router-link to="/" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                Job List
                             </router-link>
-                            <router-link to="/companyList">
-                                <a class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    Company List
-                                </a>
+
+                            <router-link to="/companyList" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                Company List
                             </router-link>
-                            <router-link to="/subscribe">
-                                <a class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    Subscribe
-                                </a>
+
+                            <router-link to="/subscribe" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                Subscribe
                             </router-link>
-                            <router-link to="/userList">
-                                <a class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    UserList
-                                </a>
+
+                            <router-link to="/userList" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                UserList
                             </router-link>
-                            <router-link to="/job_category">
-                                <a class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    Job category
-                                </a>
+
+                            <router-link to="/job_category" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                Job category
                             </router-link>
                         </div>
                     </div>
                 </div>
+
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
-                    
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-5 ">
                         <div class="w-full ">
@@ -113,7 +107,6 @@
                     <router-link :to="item.href">
                         {{ item.name }}
                     </router-link>
-                
                 </DisclosureButton>
             </div>
         </DisclosurePanel>
@@ -154,3 +147,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    nav a.router-link-exact-active {
+        color: black;
+    }
+</style>

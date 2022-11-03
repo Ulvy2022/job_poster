@@ -183,4 +183,23 @@ class UserController extends Controller
 
         }
     }
+
+    // public function deadline(Request $request,$id)
+    // {
+    //     $start_date = Carbon::parse($item->start_date);
+    //     $end_date = Carbon::parse($item->end_date);
+    //     $diff_in_hours = $end_date->diffInHours($start_date);
+    //     $diff_in_days = $end_date->diffInDays($start_date);
+    //     $diff_in_minutes = $end_date->diffInMinutes($start_date);
+    //     $diff_in_seconds = $end_date->diffInSeconds($start_date);
+    //     $schedules = DB::table('users')
+    //         ->get()
+    //         ->map(function($item){
+    //             $start_date = Carbon::parse($item->start_date);
+    //             $end_date = Carbon::parse($item->end_date);
+    //             $item->diff = $end_date->diffInMinutes($start_date);
+
+    //         return $item;
+    //     });
+    // }
 }

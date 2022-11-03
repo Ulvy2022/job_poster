@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('job_type');
             $table->string('job_closedate')->nullable();
             $table->string('company_name');
+            $table->boolean('status')->default(0);
             $table->integer('salary')->nullable();
             $table->string('contact_name');
             $table->string('contact_email');
             $table->string('job_description');
+            $table->string('job_address');
             $table->string('job_requirement');
             $table->string('expired_at')->nullable();
             $table->string('post_at')->nullable();
