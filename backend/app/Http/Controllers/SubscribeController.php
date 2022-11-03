@@ -18,6 +18,7 @@ class SubscribeController extends Controller
 
     public function store(Request $request)
     {
+        $date = date("Y-m-d");
         $subscribsion = new Subscribe();
         $feature = Features::find($request->features_id);
         $subscribsion->user_id = $request->user_id;
@@ -25,8 +26,8 @@ class SubscribeController extends Controller
         $subscribsion->charge = $request->charge;
         $subscribsion->name = $feature['name'];
         $subscribsion->feature = $feature['features'];
-        $subscribsion->subscribed_at = $request->subscribed_at;
-        $subscribsion->expired_at = $request->expired_at;
+        $subscribsion->subscribed_at = date("D j M Y");
+        $subscribsion->expired_at = date('D j M Y', strtotime($date . ' + 7 days'));
         $subscribsion->save();
         return response()->json(['msg' => 'success']);
 

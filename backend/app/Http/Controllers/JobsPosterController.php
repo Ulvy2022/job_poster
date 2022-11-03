@@ -28,7 +28,7 @@ class JobsPosterController extends Controller
         ]);
 
         $job = new JobsPoster();
-        $date = date("D j M Y");
+        $date = date("Y-m-d");
         $job->user_id = $request->user_id;
         $job->job_title = $request->job_title;
         $job->company_location = $request->company_location;
@@ -41,8 +41,16 @@ class JobsPosterController extends Controller
         $job->job_description = $request->job_description;
         $job->job_address = $request->job_address;
         $job->job_requirement = $request->job_requirement;
+<<<<<<< HEAD
         $job->post_at= $request->post_at;
         $job->expired_at= $request->expired_at;
+=======
+        $job->post_at = date("D j M Y");
+        $job->expired_at = date('D j M Y', strtotime($date . ' + 7 days'));
+        if ($job->expired_at == $job->post_at) {
+            $job->active = "Yes";
+        }
+>>>>>>> 47020d8cb43e99daf1cb4dcf9ade02d4b972092a
         $job->save();
         return response()->json(['msg' => 'success']);
     }
@@ -101,5 +109,18 @@ class JobsPosterController extends Controller
     public function getAllCompanyName()
     {
         return JobsPoster::select('company_name')->distinct()->get();
+    }
+
+    public function setJobToExpired()
+    {
+        $notExpireJob = JobsPoster::where('active', 'No')->get();
+        foreach ($notExpireJob as $job) {
+            if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
+                $expiredJob = JobsPoster::findOrFail($job['id']);
+                $expiredJob->active = "Yes";
+                $expiredJob->update();
+            }
+        }
+        return $notExpireJob;
     }
 }

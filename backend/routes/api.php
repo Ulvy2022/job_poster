@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SubscribsionController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserPlaneController;
@@ -21,6 +21,8 @@ Route::post('/register', [UserController::class, 'register']);
  */
 Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 
+// mail to notify user when their account is expired before 7 days
+Route::post('/mailToNotifyUserSub', [MailController::class, 'mailToNotifyUserSub']);
 
 // For only get and post==================
 Route::apiResource('/user', UserController::class);
@@ -29,19 +31,23 @@ Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 
+// get all not expire jobs
+Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);
+Route::get('/mail', [MailController::class, 'mailToNotifyUserSub']);
+
 // get all job title
 Route::get('/jobTitle', [JobsPosterController::class, 'getAllJobsTitle']);
 // get all comapny name
 Route::get('/companyName', [JobsPosterController::class, 'getAllCompanyName']);
 
 // user subscription
-Route::apiResource('/subscription', SubscribsionController::class);
+Route::apiResource('/subscription', SubscribeController::class);
 // user post job
 Route::get('/UserJob/{id}', [UserController::class, 'getUserJob']);
 
 
 // minus 1 user's charge after they posted job
-Route::put('/minusCharge/{id}', [SubscribsionController::class, 'minusCharge']);
+Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
 
 Route::apiResource('/userPlane', UserPlaneController::class);
 
