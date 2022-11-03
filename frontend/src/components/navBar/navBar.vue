@@ -26,20 +26,12 @@
                                 Job List
                             </router-link>
 
-                            <router-link to="/companyList" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
-                                Company List
-                            </router-link>
-
                             <router-link to="/subscribe" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 Subscribe
                             </router-link>
 
                             <router-link to="/userList" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 UserList
-                            </router-link>
-
-                            <router-link to="/job_category" class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
-                                Job category
                             </router-link>
                         </div>
                     </div>

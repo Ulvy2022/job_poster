@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
-use App\Models\Subscribsion;
+use App\Models\User;
 
 class JobsPosterController extends Controller
 {
@@ -27,6 +28,7 @@ class JobsPosterController extends Controller
         ]);
 
         $job = new JobsPoster();
+        $date = date("D j M Y");
         $job->user_id = $request->user_id;
         $job->job_title = $request->job_title;
         $job->company_location = $request->company_location;
@@ -42,12 +44,12 @@ class JobsPosterController extends Controller
         $job->post_at= $request->post_at;
         $job->expired_at= $request->expired_at;
         $job->save();
-        return response()->json(['msg'=>'success']);
+        return response()->json(['msg' => 'success']);
     }
 
     public function show($id)
     {
-        return JobsPoster::with(['user'])->where('id',$id)->get();
+        return JobsPoster::with(['user'])->where('id', $id)->get();
     }
 
     public function update(Request $request, $id)
@@ -77,17 +79,27 @@ class JobsPosterController extends Controller
         $job->job_address = $request->job_address;
         $job->job_requirement = $request->job_requirement;
         $job->save();
-        return response()->json(['msg'=>'updated']);
+        return response()->json(['msg' => 'updated']);
     }
     public function destroy($id)
     {
         $job = JobsPoster::findOrFail($id);
         $job->delete();
-        return response()->json(['msg'=>'deleted']);
+        return response()->json(['msg' => 'deleted']);
     }
 
     public function getJobById($id)
     {
         return JobsPoster::findOrFail($id);
+    }
+
+    public function getAllJobsTitle()
+    {
+        return JobsPoster::select('job_title')->distinct()->get();
+    }
+
+    public function getAllCompanyName()
+    {
+        return JobsPoster::select('company_name')->distinct()->get();
     }
 }

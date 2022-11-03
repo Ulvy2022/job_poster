@@ -10,10 +10,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::where('role','user')->get();
+        return User::where('role', 'user')->get();
     }
 
-     /**
+    /**
      * In user table, there are
      * - fullName,
      * - email
@@ -21,11 +21,14 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-        $validated = $request->validateWithBag('User',[
-            'fullName' => 'required|max:20|min:2',
-            'email'=> 'required|email|unique:users,email',
-            'password' => 'min:6',
-        ]);
+        $validated = $request->validateWithBag(
+            'User',
+            [
+                'fullName' => 'required|max:20|min:2',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'min:6',
+            ]
+        );
         $user = new User();
         $user->fullName = $request->fullName;
         $user->email = $request->email;
@@ -39,12 +42,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validateWithBag('User', [
-            'fullName' => 'required|max:20|min:2',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'min:6',
-            
-        ]);
+        $validated = $request->validateWithBag(
+            'User',
+            [
+                'fullName' => 'required|max:20|min:2',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'min:6',
+            ]
+        );
         $user = new User();
         $user->fullName = $request->fullName;
         $user->email = $request->email;
@@ -66,18 +71,21 @@ class UserController extends Controller
     }
 
 
-    public function show( $id)
+    public function show($id)
     {
-        return User::with(['jobsposter','subscribsion'])->where('id',$id)->get();
+        return User::with(['jobsposter', 'subscribsion'])->where('id', $id)->get();
     }
 
 
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validateWithBag('User',[
-            'fullName' => 'required|max:20|min:2',
-            'password' => 'min:8|confirmed',
-        ]);
+        $validated = $request->validateWithBag(
+            'User',
+            [
+                'fullName' => 'required|max:20|min:2',
+                'password' => 'min:8|confirmed',
+            ]
+        );
 
         $user = User::findOrFail($id);
         $user->fullName = $request->fullName;
@@ -121,10 +129,10 @@ class UserController extends Controller
         return User::where('email', $email)->first();
     }
 
-    public function resetPassword(Request $request,$id)
+    public function resetPassword(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if($user){
+        if ($user) {
             $user->password = bcrypt($request->newPassword);
             $user->update();
             return response()->json(['msg' => 'password change success']);
@@ -149,7 +157,7 @@ class UserController extends Controller
         return response()->json(['msg' => 'set user to admine success']);
     }
 
-    public function updateImg(Request $request,$id)
+    public function updateImg(Request $request, $id)
     {
         $user = User::findOrFail($id);
         if ($request->img != null) {
@@ -168,13 +176,11 @@ class UserController extends Controller
     }
 
 
-    public function changePassword(Request $request,$id)
+    public function changePassword(Request $request, $id)
     {
         $user = User::find($id);
-        if($user)
-        {
-            if(Hash::check($request->oldPassword, $user->password))
-            {
+        if ($user) {
+            if (Hash::check($request->oldPassword, $user->password)) {
                 $user->password = bcrypt($request->newPassword);
                 $user->update();
                 return response()->json(['msg' => 'password changed']);
@@ -184,22 +190,8 @@ class UserController extends Controller
         }
     }
 
-    // public function deadline(Request $request,$id)
-    // {
-    //     $start_date = Carbon::parse($item->start_date);
-    //     $end_date = Carbon::parse($item->end_date);
-    //     $diff_in_hours = $end_date->diffInHours($start_date);
-    //     $diff_in_days = $end_date->diffInDays($start_date);
-    //     $diff_in_minutes = $end_date->diffInMinutes($start_date);
-    //     $diff_in_seconds = $end_date->diffInSeconds($start_date);
-    //     $schedules = DB::table('users')
-    //         ->get()
-    //         ->map(function($item){
-    //             $start_date = Carbon::parse($item->start_date);
-    //             $end_date = Carbon::parse($item->end_date);
-    //             $item->diff = $end_date->diffInMinutes($start_date);
-
-    //         return $item;
-    //     });
-    // }
+    public function getUserJob($id)
+    {
+        return User::with(['Jobsposter'])->where('id', $id)->get();
+    }
 }

@@ -26,11 +26,13 @@ export default {
             listJobs: this.jobList,
         }
     },
+
     watch: {
         jobList: function () {
             this.listJobs = this.jobList
         }
     },
+    
     methods: {
         showHideCollapse() {
             var coll = document.getElementsByClassName("collapsible");
@@ -51,6 +53,7 @@ export default {
             this.$emit('selectedValue', value)
         }
     },
+
 }
 </script>
 

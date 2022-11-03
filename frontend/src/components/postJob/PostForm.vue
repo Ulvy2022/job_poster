@@ -5,7 +5,7 @@
         <input type="checkbox" id="my-modal-3" class="modal-toggle" />
         <div class="modal">
             <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
-                <form @submit.prevent="">
+                <form @submit.prevent="createJob">
                     <h1 class="text-center text-blue-500 mb-1 text-lg">CREATE JOB</h1>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="modal-action">
-                                <label for="my-modal-3" @click="createJob" type="submit" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm sm:m-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</label>
+                                <label for="my-modal-3" @click="createJob" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm sm:m-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</label>
                             </div>
                         </div>                  
                     </div>
@@ -95,9 +95,6 @@ import axios from 'axios'
 import Swal from "sweetalert2"
 
 export default {
-    components: {
-        // CreateForm
-    },
     data() {
         return {
             userId: '',
@@ -112,7 +109,6 @@ export default {
             jobAddress: '',
             jobDescription: '',
             jobRequirement: '',
-            jobs: {},
             expire_date: null,
             isDeadline: false,
             startDay: '',
@@ -129,7 +125,7 @@ export default {
     },
 
     methods: { 
-        createJob() {
+        createJob() {      
             Swal.fire({
                     title: 'Do you want to save the changes?',
                     showDenyButton: true,
@@ -142,23 +138,7 @@ export default {
                         !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
                         !this.jobAddress.trim()==''&&
                         !this.contactEmail.trim() == '' && !this.jobDescription.trim() == '' && !this.jobRequirement.trim() == '') {
-                            const date = new Date(Date.now() + this.duration * 24*60*60*1000);
-                            var lastdate = date.toString()
 
-                            // const str = date.toString()
-                            // const postDate = str.slice(0,15);
-
-                            // For postDate (first day of posting)
-                            this.currentDate = new Date();
-                            this.startDate = this.currentDate.toString();
-                            this.postDate = this.startDate.slice(0,15);
-
-                            // For disappearDate (last day no see post anymore)
-                            this.lastDate = new Date();
-                            this.sumDate = this.lastDate.toString() 
-                            this.sumDate = date.setTime(date.getTime() + (this.duration * 24 * 60 * 60 * 1000));
-                
-                    
                             axios.post('http://127.0.0.1:8000/api/jobposter/',
                                 {
                                     user_id: localStorage.getItem("userId"),
@@ -173,12 +153,9 @@ export default {
                                     job_description: this.jobDescription,
                                     job_address: this.jobAddress,
                                     job_requirement: this.jobRequirement,
-                                    post_at: this.postDate,
-                                    expired_at: lastdate.slice(0,15)
-                                }
+                                },
                             )
                             .then((res)=>{
-                                this.calculateDay(lastdate.slice(0,15))
                                 console.log(res.data);
                                 this.jobs
                                 this.jobTitle = '',
@@ -192,30 +169,13 @@ export default {
                                 this.jobAddress = '',
                                 this.jobDescription = '',
                                 this.jobRequirement = ''
+                              
                             })
-                        }
+                    }
                 }
             })
         },
-        calculateDay(expired_at) {
-            console.log(expired_at);
-      
-        }
     },
-
-    computed: {
-        expireDate(day) {
-            const d = new Date()
-            d.setDate(d.getDate() + day)
-            return String(d).substring(0, 10) + " " + d.getFullYear();
-        },
-    },
-
-    mounted(){
-       this.calculateDay()
-       console.log(this.lastDate)
-       
-    }
 }
 </script>
 <style scoped>

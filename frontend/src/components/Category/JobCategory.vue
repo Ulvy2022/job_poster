@@ -26,14 +26,15 @@
                     <p class="w-2/4 text-xl  ml-2">Latest Jobs</p>
                     <p class="w-2/4 text-xl  ml-2 word-break">{{ selected }}</p>
                 </div>
+
                 <div class="lg:w-11/12 w-full">
-                    <div v-for="job of allJobs[currentPage]" :key="job" :id="job.id + 'parent'"
+                    <div v-for="job of allJobs" :key="job" :id="job.id + 'parent'"
                         @click="deatilJob(job.id)"
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
                             <div class="avatar placeholder ml-2">
                                 <div class="bg-gray-500 text-neutral-content rounded-full w-16">
-                                    <span class="text-3xl">{{ firstLetter(job.company_name) }} </span>
+                                    <span class="text-3xl">{{firstLetter(job.company_name) }} </span>
                                 </div>
                             </div>
                         </div>
@@ -78,21 +79,14 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="w-full flex justify-center">
                         <paginationPage @previousPage="previousPage" @nextpage="nextPage" :allPages="allPages"
-                            :currentPage="currentPage" />
+                            :currentPage="currentPage"/>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-                        <div class="modal-action">
-                            <button class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm sm:m-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        </div>
-                    </div>
-                </form>
-                <JobList/>
+
+                </div>
             </div>
         </div>
     </div>
@@ -102,30 +96,32 @@
 import JobList from "../ListJob/JobList.vue"
 import paginationPage from "../pagination/paginationPage.vue"
 import axios from 'axios';
+// import { log } from "console";
 export default {
-    emits: ['selectedValue'],
+    emits: ['selectedValue','addJob'],
     components: {
         JobList,
-        paginationPage
+        paginationPage,
+
     },
     data() {
         return {
+            // Job for loop
             allJobs:[],
             jobName: "",
             jobTitle: "Job Category",
+            // jobs in job category list
             jobs: [],
             quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
             linkTitle: "Quick Links",
-            allJobs: [],
             selected: "",
             comapnyTitle: "Company Name",
             companyList: [],
             currentPage: 0,
             allPages: 0,
-            tenJobPerPage: []
+            tenJobPerPage: [],
         }
     },
-
 
     methods: {
         previousPage() {
@@ -152,40 +148,79 @@ export default {
             this.$router.push('/job_detail')
         },
 
+        // getAllJobs() {
+        //     console.log("Hi");
+        //     this.allJobs = []
+        //     var j = []
+        //     var index = 0;
+        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
+        //         j = res.data;
+        //         for (let i = 0; i < j.length; i++) {
+        //             index += 1;
+        //             this.tenJobPerPage.push(j[i])
+        //             if (index > 19) {
+        //                 this.allJobs.push(this.tenJobPerPage);
+        //                 // this.allJobs = this.tenJobPerPage;
+        //                 this.tenJobPerPage = []
+        //                 index = 0;
+        //             }
+        //         }
+        //         console.log("Here is the job list" , this.allJobs);
+        //         console.log("Here is the list job ten ten",this.tenJobPerPage);
+        //         if (index > 0) {
+        //             this.allJobs.push(this.tenJobPerPage);
+        //             // this.allJobs = this.tenJobPerPage;
+
+        //         }
+        //         this.allPages = this.allJobs.length;
+        //         console.log("Su su, we go home: ",this.allPages);
+        //     })
+        // },
+
         getAllJobs() {
-            this.allJobs = []
-            var j = []
-            var index = 0;
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
-                j = res.data;
-                for (let i = 0; i < j.length; i++) {
-                    index += 1;
-                    this.tenJobPerPage.push(j[i])
-                    if (index > 19) {
-                        this.allJobs.push(this.tenJobPerPage);
-                        this.tenJobPerPage = []
-                        index = 0;
-                    }
-                }
-                if (index > 0) {
-                    this.allJobs.push(this.tenJobPerPage);
-                }
-                this.allPages = this.allJobs.length;
+                this.allJobs = res.data
             })
         },
+
         selectedValue(value) {
             this.selected = value;
             if (value.toLowerCase().search("company") != -1) {
                 this.filterJobByCompanyName(value)
-            } else {
+            }else {
                 this.filterJobs(value);
             }
         },
 
+        // As logo of the company==============
         firstLetter(words) {
             if (words != null) {
                 return words[0]
             }
+        },
+
+        deatilJob(id) {
+            localStorage.removeItem('jobId');
+            localStorage.setItem('jobId', id);
+            this.$router.push('/job_detail');
+        },
+
+        getAllJobsTitle() {
+            this.jobs = []
+            axios.get("http://localhost:8000/api/jobTitle").then((res) => {
+                for (let value of res.data) {
+                    this.jobs.push(value.job_title)
+                }
+            })
+        },
+
+        getAllCompanyName() {
+            this.companyList = []
+            axios.get("http://localhost:8000/api/companyName").then((res) => {
+                for (let value of res.data) {
+                    this.companyList.push(value.company_name + " Company")
+                }
+            })
         },
 
         filterJobs(value) {
@@ -204,6 +239,7 @@ export default {
                         ele.style.display = 'none'
                     }
                 }
+
             } else {
                 for (let job of this.allJobs[this.currentPage]) {
                     var el = document.getElementById(job.id + 'parent');
@@ -224,36 +260,11 @@ export default {
             }
         },
 
-        deatilJob(id) {
-            localStorage.removeItem('jobId');
-            localStorage.setItem('jobId', id);
-            this.$router.push('/job_detail');
-        },
+    },
 
-        deleteJob(id) {
-            axios.delete('http://localhost:8000/api/jobposter/' + id)
-                .then((res) => {
-                    console.log(res.data);
-                    this.getAllJobs()
-                })
-        },
-
-        getAllJobsTitle() {
-            this.jobs = []
-            axios.get("http://localhost:8000/api/jobTitle").then((res) => {
-                for (let value of res.data) {
-                    this.jobs.push(value.job_title)
-                }
-            })
-        },
-
-        getAllCompanyName() {
-            this.companyList = []
-            axios.get("http://localhost:8000/api/companyName").then((res) => {
-                for (let value of res.data) {
-                    this.companyList.push(value.company_name + " Company")
-                }
-            })
+    watch: {
+        allJobs() {
+            this.getAllJobs()
         }
     },
 
@@ -266,8 +277,15 @@ export default {
 </script>
 
 <style scoped>
-#card {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-}
+    #card {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
 </style>
 
+<!-- Make can filter both word and job title. -->
+<!-- Title already found -->
+<!-- Company already found -->
+<!-- Backend edit and need to ask friend where we should put edit and delete? -->
+<!-- Job Category (filter) -->
+<!-- Quick Link (filter) -->
+<!-- Comany Name (filter) -->
