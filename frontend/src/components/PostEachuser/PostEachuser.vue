@@ -74,7 +74,10 @@
                             {{ job.post_at }}</td>
                         <td class="px-6 py-4 whitespace-no-wrap  border-b border-gray-500 text-sm leading-5">
                             <!-- The button to open modal -->
-                            <label for="my-modal-5" class="btn" @click="oldDate(job.id)">Edit Job{{ job.id }}</label>
+                            <label for="my-modal-5" class="btn  bg-white text-black hover:text-white"
+                                @click="oldDate(job.id)">Edit
+                                Job</label>
+                            <label class="btn ml-5 bg-white text-red-500 " @click="deleteJob(job.id)">Delete Job</label>
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="my-modal-5" class="modal-toggle" />
                             <div class="modal">
@@ -280,6 +283,26 @@ export default {
                 }
             }
 
+        },
+
+        deleteJob(id) {
+            Swal.fire({
+                title: 'Do you want to delete this?',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete("http://localhost:8000/api/jobposter/" + id).then(() => {
+                        this.getUserJobs()
+                        Swal.fire('Job deleted', 'success')
+                    }).catch((err) => {
+                        console.log(err);
+                        Swal.fire('Something wrong!', '', 'warning')
+                    })
+                } else if (result.isDenied) {
+                    Swal.fire('Cancel', '', 'info')
+                }
+            })
         },
 
         getUserJobs() {
