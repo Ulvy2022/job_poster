@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    <tr v-for="( job) of userJobs" :key="job" :id="job.id + 'parent'">
+                    <tr v-for="job of userJobs" :key="job" :id="job.id + 'parent'">
 
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                             <div class="text-sm leading-5 text-blue-900 capitalize">{{ job.job_title }}</div>
@@ -74,7 +74,7 @@
                             {{ job.post_at }}</td>
                         <td class="px-6 py-4 whitespace-no-wrap  border-b border-gray-500 text-sm leading-5">
                             <!-- The button to open modal -->
-                            <label for="my-modal-5" class="btn" @click="oldDate(job.id)">Edit Job</label>
+                            <label for="my-modal-5" class="btn" @click="oldDate(job.id)">Edit Job{{ job.id }}</label>
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="my-modal-5" class="modal-toggle" />
                             <div class="modal">
@@ -220,7 +220,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-action">
-                                        <label for="my-modal-5" class="btn" @click="editJob(job.id)">Save</label>
+                                        <label for="my-modal-5" class="btn" @click="editJob()">Save
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -256,6 +257,7 @@ export default {
             Type: 'Job Type',
             companyName: '',
             contactName: '',
+            jobId: 0
         }
     },
 
@@ -263,6 +265,7 @@ export default {
         oldDate(id) {
             for (let job of this.userJobs) {
                 if (job.id == id) {
+                    this.jobId = id
                     this.email = job.contact_email;
                     this.address = job.company_address;
                     this.salary = job.salary;
@@ -305,7 +308,7 @@ export default {
             return false;
         },
 
-        editJob(id) {
+        editJob() {
             Swal.fire({
                 title: 'Do you want to save the changes?',
                 showDenyButton: true,
@@ -314,7 +317,7 @@ export default {
                 denyButtonText: "Don't save",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.put("http://localhost:8000/api/jobposter/" + id, {
+                    axios.put("http://localhost:8000/api/jobposter/" + this.jobId, {
                         contact_email: this.email,
                         company_address: this.address,
                         salary: this.salary,
@@ -327,8 +330,8 @@ export default {
                         job_requirement: this.requirments,
                         // company_location = this.location;
 
-                    }).then((res) => {
-                        console.log(res.data);
+                    }).then(() => {
+                        this.getUserJobs()
                         Swal.fire('Changes are saved', '', 'success')
                     }).catch((err) => {
                         console.log(err);
