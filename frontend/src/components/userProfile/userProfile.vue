@@ -8,7 +8,8 @@
                     <!-- Profile Card -->
                     <div class="bg-white p-3 border-t-4 border-green-400 ml-3 " style="height:51vh;">
                         <div class="image overflow-hidden ">
-                            <img class="h-60 w-auto mx-auto" v-if="img != null" :src="img" />
+                            <img class="h-60 w-auto mx-auto" v-if="img != null && role == 'Admine'" :src="img" />
+                            <img class="h-60 w-auto mx-auto" v-else-if="img != null" :src="img" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'F'"
                                 src="../../assets/images/woman.png" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'M'"
@@ -45,10 +46,6 @@
                                     <div class="px-4 py-2 font-semibold">Full Name</div>
                                     <div class="px-4 py-2">{{ fname }}</div>
                                 </div>
-                                <!-- <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Last Name</div>
-                                    <div class="px-4 py-2">{{lname}}</div>
-                                </div> -->
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Gender</div>
                                     <div class="px-4 py-2 " v-if="gender != null">{{ gender }}</div>
@@ -70,7 +67,8 @@
                                     <div class="px-4 py-2 font-semibold">Email.</div>
                                     <div class="px-4 py-2">
                                         <a class="text-blue-800 hover:underline hover:underline-offset-3 tooltip"
-                                            :href="'mailto:' + email" :data-tip="'Click to mail to ' + fname">{{ email }}</a>
+                                            :href="'mailto:' + email" :data-tip="'Click to mail to ' + fname">{{ email
+                                            }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +201,7 @@ export default {
             address: '',
             newPassword: '',
             oldPassword: '',
+            role: ''
         }
     },
 
@@ -216,6 +215,7 @@ export default {
                 this.address = res.data.address;
                 this.phoneNumber = res.data.phoneNumber;
                 this.companyName = res.data.companyName;
+                this.role = res.data.role;
             })
 
         },

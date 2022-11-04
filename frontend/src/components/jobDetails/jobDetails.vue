@@ -1,12 +1,12 @@
 <template>
-    <div class="grid w-full text-lg">
+    <div class="grid w-full text-lg p-3 ">
         <div class="grid w-full ">
             <p class="w-full p-3 bg-blue-400 text-white">Announcement description</p>
             <p class="p-3 text-base">{{ jobDetails.job_description }}</p>
         </div>
         <div class="grid">
             <p class="w-full p-3 bg-blue-400 text-white">Announcement position</p>
-            <b class="text-xl p-3 ">{{ jobDetails.job_title }}</b>
+            <b class="text-xl p-3  capitalize">{{ jobDetails.job_title }}</b>
             <div class="grid text-base">
                 <!-- location -->
                 <div class="flex p-3">
@@ -14,15 +14,25 @@
                         <path
                             d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z" />
                     </svg>
-                    <p class="ml-2">Location : {{ jobDetails.company_location }}</p>
+                    <p class="ml-2 capitalize">Location : {{ jobDetails.company_location }}</p>
                 </div>
-                <!-- schedule -->
                 <div class="flex p-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6">
                         <path
+                            d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
+                    </svg>
+                    <p class="ml-2" v-if="jobDetails.post_at != null">Posted at : {{ jobDetails.post_at }}</p>
+                    <p class="ml-2" v-else>Posted at : N/A</p>
+                </div>
+
+
+                <!-- schedule -->
+                <div class="flex p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6 ">
+                        <path
                             d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z" />
                     </svg>
-                    <p class="ml-2">Schedule : {{ jobDetails.job_type }}</p>
+                    <p class="ml-2 capitalize">Schedule : {{ jobDetails.job_type }}</p>
                 </div>
                 <div class="flex p-3  ">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6">
@@ -34,35 +44,39 @@
             </div>
             <div class="grid p-3">
                 <b class="text-lg">Duties</b>
-                <ul class="list-disc list-inside text-base">
-                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                <ul class="list-disc list-inside text-base ">
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
                         frameworks</li>
-                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
                         frameworks</li>
-                    <li>Act the administrator the company OKR Management System (OMS) Task Management System (TMS)
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
                         frameworks</li>
                 </ul>
-            </div>
-            <!-- job requirement -->
-            <div class="grid p-3">
-                <b class="text-lg">Requirements</b>
-                <p> {{ jobDetails.job_requirement }} </p>
-                <!-- <ul class="list-disc list-inside text-base">
-                    <li>Degree Business Administration similar field</li>
-                    <li>At least 3 4 experience the management project teams</li>
-                    <li>Ability communicate well both Khmer English languages - both written spoken</li>
-                </ul> -->
             </div>
             <!-- job information -->
             <div class="grid w-full text-base">
                 <p class="w-full p-3 bg-blue-400 text-white">Application Information</p>
+                <!-- job requirement -->
+                <div class="grid p-3">
+                    <b class="text-lg">Job Requirements</b>
+                    <p class="text-sm"> {{ jobDetails.job_requirement }} </p>
+                </div>
                 <p class="p-3">To for position please submit us your CV Cover using
-                    Bong Thom dot Com resume system “APPLY NOW”
+                    Email contact person above
                 </p>
                 <ul class="list-disc list-inside p-3 text-base">
-                    <li>Degree Business Administration similar field</li>
-                    <li>At least 3 4 experience the management project teams</li>
-                    <li>Ability communicate well both Khmer English languages - both written spoken</li>
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
+                        frameworks</li>
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
+                        frameworks</li>
+                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
+                        System (TMS)
+                        frameworks</li>
                 </ul>
             </div>
         </div>
