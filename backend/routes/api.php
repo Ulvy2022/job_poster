@@ -39,6 +39,9 @@ Route::get('/mail', [MailController::class, 'mailToNotifyUserSub']);
 Route::get('/jobTitle', [JobsPosterController::class, 'getAllJobsTitle']);
 // get all comapny name
 Route::get('/companyName', [JobsPosterController::class, 'getAllCompanyName']);
+// get specific jobs
+Route::get('/job/{id}', [JobsPosterController::class, 'getSpecificJobs']);
+
 
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);

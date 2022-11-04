@@ -18,6 +18,7 @@ return new class extends Migration {
                 $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
                 $table->string('job_title');
                 $table->string('company_location');
+                $table->string('company_address');
                 $table->string('job_type');
                 $table->string('job_closedate')->nullable();
                 $table->string('company_name');

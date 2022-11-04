@@ -33,6 +33,7 @@ class JobsPosterController extends Controller
         $date = date("Y-m-d");
         $job->user_id = $request->user_id;
         $job->job_title = $request->job_title;
+        $job->company_address = $request->company_address;
         $job->company_location = $request->company_location;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
@@ -53,7 +54,7 @@ class JobsPosterController extends Controller
 
     public function show($id)
     {
-        return JobsPoster::with(['user'])->where('id', $id)->get();
+        return JobsPoster::with(['user'])->where('user_id', $id)->get();
     }
 
     public function update(Request $request, $id)
@@ -61,7 +62,6 @@ class JobsPosterController extends Controller
         $validated = $request->validateWithBag(
             'JobsPoster',
             [
-                'user_id' => 'required',
                 'job_title' => 'required|min:5|max:30|',
                 'company_location' => 'required|min:5|max:50|',
                 'job_type' => 'required|min:2|max:20',
@@ -75,6 +75,7 @@ class JobsPosterController extends Controller
         $job = JobsPoster::findOrFail($id);
         $job->job_title = $request->job_title;
         $job->company_location = $request->company_location;
+        $job->company_address = $request->company_address;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
         $job->company_name = $request->company_name;
@@ -83,7 +84,7 @@ class JobsPosterController extends Controller
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
         $job->job_requirement = $request->job_requirement;
-        $job->save();
+        $job->update();
         return response()->json(['msg' => 'updated']);
     }
     public function destroy($id)
@@ -119,5 +120,10 @@ class JobsPosterController extends Controller
             }
         }
         return $notExpireJob;
+    }
+
+    public function getSpecificJobs($id)
+    {
+        return JobsPoster::where('id', $id)->get();
     }
 }
