@@ -31,6 +31,7 @@
                     <img class="h-80 w-80 " src="../../assets/images/undraw_page_not_found_re_e9o6.svg" alt=""
                         style="filter: drop-shadow(0 0 0.75rem black);">
                 </div>
+
                 <div class="lg:w-11/12 w-full">
                     <div v-for="job of allJobs[currentPage]" :key="job" :id="job.id + 'parent'"
                         @click="deatilJob(job.id)"
@@ -60,15 +61,7 @@
                                         </svg>
                                         <p class="text-sm">{{ job.post_at }}</p>
                                     </div>
-                                    <div class="flex gap-2 lg:w-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                            class="h-5 w-5 fill-blue-500">
-                                            <path
-                                                d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
-                                        </svg>
-                                        <p class="text-sm">{{ countDayPosted(job.post_at) }} days ago</p>
-                                    </div>
-                                    <div class="flex gap-2 lg:w-full">
+                                    <div class="flex gap-2 lg:w-full" v-if="job.active == 'No'">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-500"
                                             viewBox="0 0 512 512">
                                             <path
@@ -81,45 +74,52 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="w-full flex justify-center">
                         <paginationPage @previousPage="previousPage" @nextpage="nextPage" :allPages="allPages"
                             :currentPage="currentPage" />
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import JobList from "../ListJob/JobList.vue"
 import paginationPage from "../pagination/paginationPage.vue"
 import axios from 'axios';
+// import { log } from "console";
 export default {
-    emits: ['selectedValue'],
+    emits: ['selectedValue', 'addJob'],
     components: {
         JobList,
-        paginationPage
+        paginationPage,
+
     },
     data() {
         return {
+            // Job for loop
+            allJobs: [],
             jobName: "",
             jobTitle: "Job Category",
+            // jobs in job category list
             jobs: [],
             quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
             linkTitle: "Quick Links",
-            allJobs: [],
             selected: "",
             comapnyTitle: "Company Name",
             companyList: [],
             currentPage: 0,
             allPages: 0,
             tenJobPerPage: [],
-            isShowEle: true
+            isShowEle: true,
+            numberOfAllJobs: 0,
+
         }
     },
-
 
     methods: {
         previousPage() {
@@ -146,12 +146,39 @@ export default {
             this.$router.push('/job_detail')
         },
 
+        // getAllJobs() {
+        //     this.allJobs = []
+        //     var j = []
+        //     var index = 0;
+        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
+        //         j = res.data;
+        //         for (let i = 0; i < j.length; i++) {
+        //             index += 1;
+        //             this.tenJobPerPage.push(j[i])
+        //             if (index > 19) {
+        //                 this.allJobs.push(this.tenJobPerPage);
+        //                 // this.allJobs = this.tenJobPerPage;
+        //                 this.tenJobPerPage = []
+        //                 index = 0;
+        //             }
+        //         }
+        //         if (index > 0) {
+        //             this.allJobs.push(this.tenJobPerPage);
+        //             // this.allJobs = this.tenJobPerPage;
+        //         }
+        //         this.tenJobPerPage = []
+        //         this.allPages = this.allJobs.length;
+        //         console.log("Su su, we go home: ",this.allPages);
+        //     })
+        // },
+
         getAllJobs() {
             this.allJobs = []
             var j = []
             var index = 0;
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
                 j = res.data;
+                this.numberOfAllJobs = j.length;
                 for (let i = 0; i < j.length; i++) {
                     index += 1;
                     this.tenJobPerPage.push(j[i])
@@ -168,6 +195,7 @@ export default {
                 this.allPages = this.allJobs.length;
             })
         },
+
         selectedValue(value) {
             this.selected = value;
             if (value.toLowerCase().search("company") != -1) {
@@ -177,10 +205,35 @@ export default {
             }
         },
 
+        // As logo of the company==============
         firstLetter(words) {
             if (words != null) {
                 return words[0]
             }
+        },
+
+        deatilJob(id) {
+            localStorage.removeItem('jobId');
+            localStorage.setItem('jobId', id);
+            this.$router.push('/job_detail');
+        },
+
+        getAllJobsTitle() {
+            this.jobs = []
+            axios.get("http://localhost:8000/api/jobTitle").then((res) => {
+                for (let value of res.data) {
+                    this.jobs.push(value.job_title)
+                }
+            })
+        },
+
+        getAllCompanyName() {
+            this.companyList = []
+            axios.get("http://localhost:8000/api/companyName").then((res) => {
+                for (let value of res.data) {
+                    this.companyList.push(value.company_name + " Company")
+                }
+            })
         },
 
         filterJobs(value) {
@@ -203,11 +256,13 @@ export default {
                         ele.style.display = 'none'
                     }
                 }
+
                 if (isSomeEleShowed > 0) {
                     this.isShowEle = true;
                 } else {
                     this.isShowEle = false;
                 }
+
             } else {
                 for (let job of this.allJobs[this.currentPage]) {
                     var el = document.getElementById(job.id + 'parent');
@@ -235,43 +290,35 @@ export default {
             }
         },
 
-        deatilJob(id) {
-            localStorage.removeItem('jobId');
-            localStorage.setItem('jobId', id);
-            this.$router.push('/job_detail');
-        },
-
-        deleteJob(id) {
-            axios.delete('http://localhost:8000/api/jobposter/' + id)
-                .then((res) => {
-                    console.log(res.data);
-                    this.getAllJobs()
-                })
-        },
-
-        getAllJobsTitle() {
-            this.jobs = []
-            axios.get("http://localhost:8000/api/jobTitle").then((res) => {
-                for (let value of res.data) {
-                    this.jobs.push(value.job_title)
-                }
-            })
-        },
-
-        getAllCompanyName() {
-            this.companyList = []
-            axios.get("http://localhost:8000/api/companyName").then((res) => {
-                for (let value of res.data) {
-                    this.companyList.push(value.company_name + " Company")
-                }
-            })
-        },
-        countDayPosted(datePosted) {
-            var newdate = new Date(datePosted);
-            var dataPast = new Date(new Date().setDate(newdate.getDate() - new Date().getDay()));
-            return dataPast.getDay();
-        }
     },
+
+
+    deleteJob(id) {
+        axios.delete('http://localhost:8000/api/jobposter/' + id)
+            .then((res) => {
+                console.log(res.data);
+                this.getAllJobs()
+            })
+    },
+
+    getAllJobsTitle() {
+        this.jobs = []
+        axios.get("http://localhost:8000/api/jobTitle").then((res) => {
+            for (let value of res.data) {
+                this.jobs.push(value.job_title)
+            }
+        })
+    },
+
+    getAllCompanyName() {
+        this.companyList = []
+        axios.get("http://localhost:8000/api/companyName").then((res) => {
+            for (let value of res.data) {
+                this.companyList.push(value.company_name + " Company")
+            }
+        })
+    },
+
 
 
 

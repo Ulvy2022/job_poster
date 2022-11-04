@@ -128,9 +128,9 @@
                                                 <label for="floating_email"
                                                     :class="{ 'text-red-500 peer-focus:text-red-500': validationEditPf(address), 'peer-focus:text-blue-600': !validationEditPf(address) }"
                                                     class="capitalize peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Job
-                                                    Location ( City or Province) </label>
+                                                    Job Adress (Street, Khan...)</label>
                                                 <span class="text-red-500 text-xs" v-if="validationEditPf(address)">Job
-                                                    Title must be more than 5 letters</span>
+                                                    Address must be more than 5 letters</span>
                                             </div>
                                         </div>
                                         <div class=" grid grid-cols-1 gap-4">
@@ -325,15 +325,17 @@ export default {
                         job_type: this.Type,
                         job_description: this.description,
                         job_requirement: this.requirments,
+                        // company_location = this.location;
 
                     }).then((res) => {
                         console.log(res.data);
                         Swal.fire('Changes are saved', '', 'success')
                     }).catch((err) => {
                         console.log(err);
+                        Swal.fire('Something wrong!', '', 'warning')
                     })
                 } else if (result.isDenied) {
-                    Swal.fire('Changes are not saved', '', 'info')
+                    Swal.fire('Changes canceled', '', 'info')
                 }
             })
         }

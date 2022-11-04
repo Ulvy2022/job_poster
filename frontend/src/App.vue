@@ -38,7 +38,4 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

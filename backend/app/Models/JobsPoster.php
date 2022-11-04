@@ -23,6 +23,7 @@ class JobsPoster extends Model
         'contact_name',
         'contact_email',
         'job_description',
+        'job_address',
         'job_requirement',
         'expired_at',
         'post_at',

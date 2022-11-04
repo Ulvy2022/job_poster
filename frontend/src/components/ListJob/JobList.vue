@@ -32,6 +32,7 @@ export default {
             this.listJobs = this.jobList
         }
     },
+    
     methods: {
         showHideCollapse() {
             var coll = document.getElementsByClassName("collapsible");
@@ -52,6 +53,7 @@ export default {
             this.$emit('selectedValue', value)
         }
     },
+
 }
 </script>
 
@@ -78,7 +80,6 @@ ul>li {
     outline: none;
     font-size: 15px;
 }
-
 
 
 .collapsible:after {

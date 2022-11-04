@@ -18,20 +18,23 @@ return new class extends Migration {
                 $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
                 $table->string('job_title');
                 $table->string('company_location');
-                $table->string('company_address');
                 $table->string('job_type');
                 $table->string('job_closedate')->nullable();
                 $table->string('company_name');
+                $table->boolean('status')->default(0);
                 $table->integer('salary')->nullable();
                 $table->string('contact_name');
                 $table->string('contact_email');
                 $table->string('job_description');
+                $table->string('company_address');
                 $table->string('job_requirement');
                 $table->string('expired_at')->nullable();
                 $table->string('post_at')->nullable();
                 $table->string('active')->default('No');
             }
         );
+
+
     }
 
     /**

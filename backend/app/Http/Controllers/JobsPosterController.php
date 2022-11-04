@@ -9,7 +9,7 @@ class JobsPosterController extends Controller
 {
     public function index()
     {
-        return JobsPoster::get();
+        return JobsPoster::where('active', 'No')->get();
     }
 
     public function store(Request $request)
@@ -24,6 +24,7 @@ class JobsPosterController extends Controller
                 'company_name' => 'required|min:5|max:30',
                 'contact_name' => 'required|min:2|max:20',
                 'contact_email' => 'required',
+                'company_address' => 'required',
                 'job_description' => 'required|min:10|max:500',
                 'job_requirement' => 'required|min:10|max:500',
             ]
@@ -43,6 +44,8 @@ class JobsPosterController extends Controller
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
         $job->job_requirement = $request->job_requirement;
+        $job->post_at = $request->post_at;
+        $job->expired_at = $request->expired_at;
         $job->post_at = date("D j M Y");
         $job->expired_at = date('D j M Y', strtotime($date . ' + 7 days'));
         if ($job->expired_at == $job->post_at) {
@@ -59,15 +62,17 @@ class JobsPosterController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $validated = $request->validateWithBag(
             'JobsPoster',
             [
                 'job_title' => 'required|min:5|max:30|',
                 'company_location' => 'required|min:5|max:50|',
                 'job_type' => 'required|min:2|max:20',
-                'company_name' => 'required|min:3|max:30',
+                'company_name' => 'required|min:5|max:30',
                 'contact_name' => 'required|min:2|max:20',
                 'contact_email' => 'required',
+                'company_address' => 'required',
                 'job_description' => 'required|min:10|max:500',
                 'job_requirement' => 'required|min:10|max:500',
             ]

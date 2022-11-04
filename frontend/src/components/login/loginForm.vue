@@ -109,10 +109,10 @@
                                 <input required type="email" placeholder="Email" class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="emailUser">
                             </div>
 
-                            <div>
+                            <div class="w-full">
                                 <select name="" id="" v-model="gender">
                                     <option value="Gender" disabled>Gender</option>
-                                    <option value="Female">Remale</option>
+                                    <option value="Female">Female</option>
                                     <option value="Male">Male</option>
                                 </select>
                             </div>
@@ -173,20 +173,16 @@
                             </div>
                         </div>
 
-                        <div class="flex w-full items-center justify-between grid lg:grid-cols-3 md:grid-cols-1 md:w-full">
-                            <button type='submit' @click="register" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline">
+                        <div class="flex w-full items-center justify-between lg:grid-cols-3 md:grid-cols-1 md:w-full">
+                            <button type='submit' @click="register" >
                                 Register
                             </button>
 
-                            <!-- <router-link to='/register' class="lg:m-2 md:mt-2 md:mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none flex items-center justify-center focus:shadow-outline" type="button">
-                                Register Via Google
-                            </router-link> -->
-
-                            <button @click="registerByGoogle" class="lg:m-2 md:mt-2 md:mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none flex items-center justify-center focus:shadow-outline" type="button">
+                            <button @click="registerByGoogle" type="button">
                                 Register Via Google
                             </button>
                            
-                            <button @click='is_show=false' class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none m-auto focus:shadow-outline" type="button">
+                            <button @click='is_show=false' type="button">
                                 Cancal
                             </button>
                         </div>
