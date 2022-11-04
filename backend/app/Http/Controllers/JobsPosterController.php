@@ -41,16 +41,13 @@ class JobsPosterController extends Controller
         $job->job_description = $request->job_description;
         $job->job_address = $request->job_address;
         $job->job_requirement = $request->job_requirement;
-<<<<<<< HEAD
         $job->post_at= $request->post_at;
         $job->expired_at= $request->expired_at;
-=======
         $job->post_at = date("D j M Y");
         $job->expired_at = date('D j M Y', strtotime($date . ' + 7 days'));
         if ($job->expired_at == $job->post_at) {
             $job->active = "Yes";
         }
->>>>>>> 47020d8cb43e99daf1cb4dcf9ade02d4b972092a
         $job->save();
         return response()->json(['msg' => 'success']);
     }

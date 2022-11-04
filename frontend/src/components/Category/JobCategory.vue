@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="lg:w-11/12 w-full">
-                    <div v-for="job of allJobs" :key="job" :id="job.id + 'parent'"
+                    <div v-for="job of allJobs[currentPage]" :key="job" :id="job.id + 'parent'"
                         @click="deatilJob(job.id)"
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
@@ -120,6 +120,7 @@ export default {
             currentPage: 0,
             allPages: 0,
             tenJobPerPage: [],
+            numberOfAllJobs: 0,
         }
     },
 
@@ -149,7 +150,6 @@ export default {
         },
 
         // getAllJobs() {
-        //     console.log("Hi");
         //     this.allJobs = []
         //     var j = []
         //     var index = 0;
@@ -165,23 +165,45 @@ export default {
         //                 index = 0;
         //             }
         //         }
-        //         console.log("Here is the job list" , this.allJobs);
-        //         console.log("Here is the list job ten ten",this.tenJobPerPage);
         //         if (index > 0) {
         //             this.allJobs.push(this.tenJobPerPage);
         //             // this.allJobs = this.tenJobPerPage;
-
         //         }
+        //         this.tenJobPerPage = []
         //         this.allPages = this.allJobs.length;
         //         console.log("Su su, we go home: ",this.allPages);
         //     })
         // },
 
         getAllJobs() {
+            this.allJobs = []
+            var j = []
+            var index = 0;
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
-                this.allJobs = res.data
+                j = res.data;
+                this.numberOfAllJobs = j.length;
+                for (let i = 0; i < j.length; i++) {
+                    index += 1;
+                    this.tenJobPerPage.push(j[i])
+                    if (index > 19) {
+                        this.allJobs.push(this.tenJobPerPage);
+                        this.tenJobPerPage = []
+                        index = 0;
+                    }
+                }
+                if (index > 0) {
+                    this.allJobs.push(this.tenJobPerPage);
+                }
+                this.tenJobPerPage = []
+                this.allPages = this.allJobs.length;
             })
         },
+
+        // getAllJobs() {
+        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
+        //         this.allJobs = res.data
+        //     })
+        // },
 
         selectedValue(value) {
             this.selected = value;
@@ -264,7 +286,9 @@ export default {
 
     watch: {
         allJobs() {
-            this.getAllJobs()
+            if (this.numberOfAllJobs != this.allJobs.length) {
+             this.getAllJobs()
+            }
         }
     },
 
@@ -282,10 +306,3 @@ export default {
     }
 </style>
 
-<!-- Make can filter both word and job title. -->
-<!-- Title already found -->
-<!-- Company already found -->
-<!-- Backend edit and need to ask friend where we should put edit and delete? -->
-<!-- Job Category (filter) -->
-<!-- Quick Link (filter) -->
-<!-- Comany Name (filter) -->

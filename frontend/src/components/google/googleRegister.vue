@@ -18,12 +18,6 @@ export default {
                 var url = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token=' + response.access_token;
                 axios.get(url).then((res)=>{
                     console.log(res.data)
-                    // const userInfo = {
-                    //     email: res.data.email,
-                    //     firstName: res.data.given_name,
-                    //     lastName: res.data.family_name
-                    // }
-                    // console.log(userInfo)
                 })
             })
         }

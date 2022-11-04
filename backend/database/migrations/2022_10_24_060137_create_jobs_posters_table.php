@@ -12,7 +12,6 @@ return new class extends Migration {
      */
     public function up()
     {
-<<<<<<< HEAD
         Schema::create('jobs_posters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
@@ -32,7 +31,7 @@ return new class extends Migration {
             $table->string('post_at')->nullable();
             $table->string('active')->default('No');
         });
-=======
+
         Schema::create(
             'jobs_posters', function (Blueprint $table) {
                 $table->id();
@@ -52,7 +51,6 @@ return new class extends Migration {
                 $table->string('active')->default('No');
             }
         );
->>>>>>> 47020d8cb43e99daf1cb4dcf9ade02d4b972092a
     }
 
     /**
