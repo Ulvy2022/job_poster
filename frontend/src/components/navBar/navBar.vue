@@ -1,5 +1,5 @@
 <template>
-    <Disclosure as="nav" class="bg-blue-500 " v-slot="{ open }">
+    <Disclosure as="nav" class="bg-blue-500 " v-slot="{ open }" v-if="userId != null">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -38,13 +38,6 @@
                                     UserList
                                 </a>
                             </router-link>
-                            <router-link to="/login" v-if="role == ''">
-                                <a
-                                    class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    Log In
-                                </a>
-                            </router-link>
-
                         </div>
                     </div>
                 </div>
@@ -95,8 +88,8 @@
                                 </router-link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <router-link to="/login" @click="clearLocalStorage">
-                                    <a href="#" class="flex place-items-center gap-2"
+                                <p class="cursor-pointer" @click="clearLocalStorage">
+                                    <a class="flex place-items-center gap-2"
                                         :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                                             class="h-6 w-6 fill-blue-500 ">
@@ -105,7 +98,7 @@
                                         </svg>
                                         Sign Out
                                     </a>
-                                </router-link>
+                                </p>
                                 </MenuItem>
 
                                 <MenuItem v-slot="{ active }">
@@ -159,17 +152,19 @@ export default {
             role: '',
             img: '',
             fullName: '',
-            userId: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
         }
     },
+
     watch: {
-        role: function () {
-            this.userInfo()
+        userId: function () {
+            this.userInfo();
         }
     },
 
     methods: {
         clearLocalStorage() {
+            window.location.assign('/login')
             localStorage.clear()
         },
 

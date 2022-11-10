@@ -1,6 +1,6 @@
 <template>
     <!-- component -->
-    <div class="overflow-x-auto container m-auto p-3" style="width: 98%">
+    <div class="overflow-x-auto container m-auto p-3" style="width: 98%" v-if="userJobs.length > 0">
         <div
             class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
             <div class="flex justify-between">

@@ -404,7 +404,7 @@ export default {
                                 localStorage.setItem('role', res.data[0].role)
                             })
                             this.showInvalid = false;
-                            this.$router.push('/')
+                            window.location.assign('/')
                         }
                     }).catch(() => {
                         this.isClickSigIn = !this.isClickSigIn
@@ -447,7 +447,6 @@ export default {
         },
 
     },
-
 }
 
 </script>

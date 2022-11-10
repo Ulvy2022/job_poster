@@ -73,6 +73,7 @@ export default {
     methods: {
         getUserPost(id) {
             axios.get("http://localhost:8000/api/UserJob/" + id).then((res) => {
+                console.log(res.data);
                 this.allJobs = res.data[0].jobsposter
                 this.fullName = res.data[0].fullName
                 this.email = res.data[0].email

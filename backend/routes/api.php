@@ -48,6 +48,9 @@ Route::apiResource('/subscription', SubscribeController::class);
 // user post job
 Route::get('/UserJob/{id}', [UserController::class, 'getUserJob']);
 
+//login vai google forma
+Route::post('/loginViaGoogle', [LoginController::class, 'loginViaGoogle']);
+
 
 // minus 1 user's charge after they posted job
 Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
