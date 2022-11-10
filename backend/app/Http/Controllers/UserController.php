@@ -34,6 +34,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
+        $user->subscription = $request->subscription;
         $user->role = 'user';
         $user->save();
         return response()->json(['msg' => 'success']);
@@ -52,6 +53,7 @@ class UserController extends Controller
         );
         $user = new User();
         $user->fullName = $request->fullName;
+        $user->subscription = $request->subscription;
         $user->email = $request->email;
         if ($request->img != null) {
             $path = public_path('images');

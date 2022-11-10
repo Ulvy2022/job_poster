@@ -149,6 +149,9 @@ export default {
 
         filterBySubscriber() {
             var numberOfDisplay = 0;
+            if (this.selected == 'Non Subscribers') {
+                this.selected = 'No'
+            }
             if (this.selected != 'Option') {
                 for (let user of this.allUsers) {
                     var element = document.getElementById(user.id);
@@ -175,9 +178,10 @@ export default {
         },
 
         showTable() {
+            this.getAllUser();
             this.timeOut = setTimeout(() => {
                 this.isShowTable += 1;
-                if (this.isShowTable == 3) {
+                if (this.isShowTable == 2) {
                     clearTimeout(this.timeOut);
                 }
             }, 1000);
@@ -206,7 +210,7 @@ export default {
     },
     watch: {
         isShowTable() {
-            if (this.isShowTable < 3) {
+            if (this.isShowTable < 2) {
                 this.showTable()
             }
         }
@@ -215,7 +219,7 @@ export default {
 
     mounted() {
         this.showTable()
-        this.getAllUser()
+
     }
 }
 </script>
@@ -255,7 +259,7 @@ export default {
         </div>
 
         <!-- end of action and earch bar -->
-        <div role="status" class="w-full flex justify-center items-center" v-if="isShowTable == 1">
+        <div role="status" class="w-full flex justify-center items-center" v-if="isShowTable < 2">
             <svg aria-hidden="true"
                 class="m-auto w-14 h-14 mt-20 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -268,7 +272,7 @@ export default {
             </svg>
             <span class="sr-only">Loading...</span>
         </div>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-else-if="isShowTable == 3">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-show="isShowTable == 2">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-4">
@@ -309,8 +313,11 @@ export default {
                             <div class="font-normal text-gray-500" :id="user.id + 'email'">{{ user.email }} </div>
                         </div>
                     </th>
-                    <td class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
+                    <td v-if="user.subscription != null" class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
                         {{ user.subscription }}
+                    </td>
+                    <td v-else class="py-4 px-6 capitalize" :id="user.id + 'subscriber'">
+                        No
                     </td>
                     <td class="py-4 px-6 flex justify-evenly text-center">
                         <label for="my-modal-5" @click="getSpecificUser(user.id)"
