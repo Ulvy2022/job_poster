@@ -33,14 +33,8 @@ Route::get('/job/{id}', [JobsPosterController::class, 'getSpecificJobs']);
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);
 Route::get('/UserJob/{id}', [UserController::class, 'getUserJob']);
-
-<<<<<<< HEAD
-=======
 //login vai google forma
 Route::post('/loginViaGoogle', [LoginController::class, 'loginViaGoogle']);
-
-
->>>>>>> a2280d726f72256c2b7beddee7fb2e292792ae3c
 // minus 1 user's charge after they posted job
 Route::put('/minusCharge/{id}', [SubscribeController::class, 'minusCharge']);
 Route::apiResource('/userPlane', UserPlaneController::class);

@@ -3,13 +3,13 @@
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- job type -->
-                
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
+
                 <!-- quick link -->
-                <!-- Not yet show by click -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
+
                 <!-- company list -->
-                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList" />
+                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList"/>
             </div>
             <div class="w-full mt-10 gap-10 overflow-x-hidden ">
                 <div class="form-control w-full mb-2">
@@ -45,6 +45,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="p-3  w-full">
                             <p class="text-blue-400 text-md text-ellipsis capitalize" :id="job.id + 'jobTitle'">
                                 {{ job.job_title }} Position
@@ -126,23 +128,23 @@ export default {
         }
     },
     methods: {
-        previousPage() {
-            this.selected = '';
-            this.jobName = '';
-            if (this.currentPage > 0) {
-                this.currentPage -= 1;
-                this.filterJobs(this.selected)
-            }
-        },
+        // previousPage() {
+        //     this.selected = '';
+        //     this.jobName = '';
+        //     if (this.currentPage > 0) {
+        //         this.currentPage -= 1;
+        //         this.filterJobs(this.selected)
+        //     }
+        // },
 
-        nextPage() {
-            this.selected = '';
-            this.jobName = '';
-            if (this.currentPage < this.allJobs.length - 1) {
-                this.currentPage += 1;
-                this.filterJobs(this.selected)
-            }
-        },
+        // nextPage() {
+        //     this.selected = '';
+        //     this.jobName = '';
+        //     if (this.currentPage < this.allJobs.length - 1) {
+        //         this.currentPage += 1;
+        //         this.filterJobs(this.selected)
+        //     }
+        // },
 
         jobDetails(id) {
             localStorage.removeItem('jobId')
@@ -194,6 +196,7 @@ export default {
             localStorage.setItem('jobId', id);
             this.$router.push('/job_detail');
         },
+
 
         getAllJobsTitle() {
             this.jobs = []
@@ -269,7 +272,6 @@ export default {
         },
 
     },
-
 
     deleteJob(id) {
         axios.delete('http://localhost:8000/api/jobposter/' + id)
