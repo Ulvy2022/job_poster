@@ -54,10 +54,7 @@ class JobsPosterController extends Controller
         }
         $sub = Subscribe::where('user_id', $request->user_id)->get();
         $updateSub = Subscribe::findOrFail($sub[0]['id']);
-        $feature = Features::findOrFail($updateSub['features_id']);
         if ($updateSub->leftCharge - 1 > -1) {
-            $feature->subscribed_at = date("D j M Y");
-            $feature->expired_at = date('D j M Y', strtotime($date . ' + 15 days'));
             $updateSub->leftCharge -= 1;
             $job->save();
             $updateSub->update();
