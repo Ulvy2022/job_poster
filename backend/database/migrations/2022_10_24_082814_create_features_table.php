@@ -14,7 +14,8 @@ return new class extends Migration
             $table->integer('price');
             $table->string('name');
             $table->json('features');
-            $table->timestamps();
+            $table->string('subscribed_at')->nullable();
+            $table->string('expired_at')->nullable();
         });
     }
 

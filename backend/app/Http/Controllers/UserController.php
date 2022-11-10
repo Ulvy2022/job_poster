@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::where('role', 'user')->get();
+        return User::with(['jobsposter', 'subscribsion'])->where('role', 'user')->get();
     }
 
     /**
@@ -53,7 +53,6 @@ class UserController extends Controller
         );
         $user = new User();
         $user->fullName = $request->fullName;
-        $user->subscription = $request->subscription;
         $user->email = $request->email;
         if ($request->img != null) {
             $path = public_path('images');

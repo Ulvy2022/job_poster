@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call('App\Http\Controllers\JobsPosterController@setJobToExpired')->daily();
         $schedule->call('App\Http\Controllers\MailController@mailToNotifyUserSub')->everyMinute();
+        $schedule->call('App\Http\Controllers\SubscribeController@restoreCharge')->everyMinute();
 
     }
 

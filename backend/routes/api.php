@@ -31,6 +31,11 @@ Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 
+
+Route::get('/restoreCharge', [SubscribeController::class, 'restoreCharge']);
+
+
+
 // get all not expire jobs
 Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);
 Route::get('/mail', [MailController::class, 'mailToNotifyUserSub']);
