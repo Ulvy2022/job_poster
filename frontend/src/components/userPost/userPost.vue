@@ -119,8 +119,8 @@
 
             <div class="grid w-full gap-4 mb-6 grid-cols-1">
                 <div class="w-full">
-                    <label for="jobAddress" class="font-semibold block text-sm text-gray-900 dark:text-gray-300">Job Address</label>
-                    <textarea v-model="jobAddressUpdate" name="" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Address" required="">
+                    <label for="companyAddress" class="font-semibold block text-sm text-gray-900 dark:text-gray-300">Company Address</label>
+                    <textarea v-model="companyAddressUpdate" name="" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Address" required="">
                     </textarea>
                 </div> 
                 
@@ -170,7 +170,7 @@ export default {
             contactNameUpdate: '',
             contactEmailUpdate: '',
             companyNameUpdate: '',
-            jobAddressUpdate: '',
+            companyAddressUpdate: '',
             jobDescriptionUpdate: '',
             jobRequirmentUpdate: '',
             jobIdUpdate: null,
@@ -204,7 +204,7 @@ export default {
             this.contactNameUpdate = this.dataToEdit.contact_name,
             this.contactEmailUpdate = this.dataToEdit.contact_email,
             this.companyNameUpdate = this.dataToEdit.company_name,
-            this.jobAddressUpdate = this.dataToEdit.job_address,
+            this.companyAddressUpdate = this.dataToEdit.company_address,
             this.jobDescriptionUpdate = this.dataToEdit.job_description,
             this.jobRequirmentUpdate = this.dataToEdit.job_requirement
             this.jobIdUpdate = this.dataToEdit.id
@@ -220,7 +220,7 @@ export default {
             this.salaryUpdate != '' &&
             this.contactNameUpdate != '' &&
             this.contactEmailUpdate != '' &&
-            this.jobAddressUpdate != '' &&
+            this.companyAddressUpdate != '' &&
             this.jobDescriptionUpdate != '' &&
             this.jobRequirmentUpdate != ''){
                 var editedData = {
@@ -232,7 +232,7 @@ export default {
                     contact_name: this.contactNameUpdate,
                     contact_email: this.contactEmailUpdate,
                     company_name: this.companyNameUpdate,
-                    job_address: this.jobAddressUpdate,
+                    company_address: this.companyAddressUpdate,
                     job_description: this.jobDescriptionUpdate,
                     job_requirement: this.jobRequirmentUpdate,
                 }

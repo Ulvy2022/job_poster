@@ -279,27 +279,6 @@ export default {
             })
     },
 
-    getAllJobsTitle() {
-        this.jobs = []
-        axios.get("http://localhost:8000/api/jobTitle").then((res) => {
-            for (let value of res.data) {
-                this.jobs.push(value.job_title)
-            }
-        })
-    },
-
-    getAllCompanyName() {
-        this.companyList = []
-        axios.get("http://localhost:8000/api/companyName").then((res) => {
-            for (let value of res.data) {
-                this.companyList.push(value.company_name + " Company")
-            }
-        })
-    },
-
-
-
-
     mounted() {
         this.getAllJobs();
         this.getAllJobsTitle();

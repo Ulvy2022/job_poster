@@ -32,11 +32,9 @@
                                 Subscribe
                             </router-link>
 
-                            <router-link to="/userList" v-if="role == 'Admine' && role != null">
-                                <a
-                                    class=" text-white hover:bg-white hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                                    UserList
-                                </a>
+                            <router-link to="/userList" v-if="role == 'Admine' && role != null"
+                                class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
+                                UserList
                             </router-link>
                             <router-link to="/login" v-if="role == ''">
                                 <a
