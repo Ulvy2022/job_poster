@@ -186,6 +186,7 @@ export default {
                 this.fullName = res.data[0].fullName
                 this.email = res.data[0].email
                 this.img = res.data[0].img
+
             })
         },
         

@@ -37,18 +37,20 @@
                 <div class="py-1">
                     <MenuItem v-slot="{ active }" @click="valueSelected('All Subscribers')">
                     <a href="#"
-                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">All Subscribers</a>
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">All
+                        Subscribers</a>
                     </MenuItem>
-                    <MenuItem v-slot="{ active }">
+                    <MenuItem v-slot="{ active }" @click="valueSelected('Non Subscribers')">
                     <a href="#"
-                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Add
-                        to favorites</a>
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Non
+                        Subscribers</a>
                     </MenuItem>
                 </div>
                 <div class="py-1">
                     <MenuItem v-slot="{ active }">
                     <a href="#"
-                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']" @click="deleteUser">Delete</a>
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']"
+                        @click="deleteUser">Delete</a>
                     </MenuItem>
                 </div>
             </MenuItems>
@@ -60,13 +62,13 @@
 export default {
     date() {
         return {
-            selectedValue:'Options'  
+            selectedValue: 'Options'
         }
     },
     methods: {
         valueSelected(value) {
             this.selectedValue = value;
-                this.$emit('valueSelected', value)
+            this.$emit('valueSelected', value)
         },
 
         deleteUser() {

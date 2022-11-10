@@ -9,7 +9,6 @@ export default {
   components: {
     Navbar,
   },
-  emits: ['hide-menu'],
   data() {
     return {
       isShowMenuBar: null,
@@ -19,16 +18,6 @@ export default {
   },
 
   methods: {
-    showMenuBar() {
-      this.isShowMenuBar = localStorage.getItem('userId');
-      this.timeOut = setTimeout(() => {
-        this.showMenuBar()
-      }, 100);
-      if (this.isShowMenuBar != null) {
-        clearTimeout(this.timeOut);
-      }
-    },
-
 
     showForm() {
       this.isShowJob = true
