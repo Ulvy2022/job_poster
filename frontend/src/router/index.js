@@ -114,19 +114,6 @@ const routes = [
   },
 ]; 
 
-
-// function authenticationGuard(to, from, next) {
-//   let requiresAuth = to.meta.requiresAuth;
-//   if (requiresAuth) {
-//       if(!localStorage.getItem('token')){
-//         next('/login');
-//       }
-//       else {
-//         next();
-//       }
-//   }
-// }
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,

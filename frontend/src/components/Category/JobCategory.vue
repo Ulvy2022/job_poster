@@ -3,8 +3,10 @@
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- job type -->
+                
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
                 <!-- quick link -->
+                <!-- Not yet show by click -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
                 <!-- company list -->
                 <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList" />
@@ -44,9 +46,11 @@
                             </p>
                             <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'company'">
                                 {{ job.company_name }}
-                                Company</p>
+                                Company
+                            </p>
                             <p class="text-ellipsis mb-1 text-gray-500 capitalize hidden" :id="job.id + 'jobType'">
                                 {{ job.job_type }}
+                                Job
                             </p>
                             <div class="flex lg:gap-24 gap-7">
                                 <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-1">
@@ -74,7 +78,6 @@
                                         </svg>
                                         <p class="text-red-500 text-sm">Closed</p>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -112,7 +115,7 @@ export default {
             jobTitle: "Job Category",
             // jobs in job category list
             jobs: [],
-            quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
+            quickLink: ['Part-Time', 'Full-Time', 'Training WorkShop'],
             linkTitle: "Quick Links",
             selected: "",
             comapnyTitle: "Company Name",
@@ -120,6 +123,7 @@ export default {
             currentPage: 0,
             allPages: 0,
             tenJobPerPage: [],
+            // numberOfAllJobs: localStorage.getItem('jobPost'),
             numberOfAllJobs: 0,
         }
     },
@@ -149,39 +153,12 @@ export default {
             this.$router.push('/job_detail')
         },
 
-        // getAllJobs() {
-        //     this.allJobs = []
-        //     var j = []
-        //     var index = 0;
-        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
-        //         j = res.data;
-        //         for (let i = 0; i < j.length; i++) {
-        //             index += 1;
-        //             this.tenJobPerPage.push(j[i])
-        //             if (index > 19) {
-        //                 this.allJobs.push(this.tenJobPerPage);
-        //                 // this.allJobs = this.tenJobPerPage;
-        //                 this.tenJobPerPage = []
-        //                 index = 0;
-        //             }
-        //         }
-        //         if (index > 0) {
-        //             this.allJobs.push(this.tenJobPerPage);
-        //             // this.allJobs = this.tenJobPerPage;
-        //         }
-        //         this.tenJobPerPage = []
-        //         this.allPages = this.allJobs.length;
-        //         console.log("Su su, we go home: ",this.allPages);
-        //     })
-        // },
-
         getAllJobs() {
             this.allJobs = []
             var j = []
             var index = 0;
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
                 j = res.data;
-                this.numberOfAllJobs = j.length;
                 for (let i = 0; i < j.length; i++) {
                     index += 1;
                     this.tenJobPerPage.push(j[i])
@@ -198,12 +175,6 @@ export default {
                 this.allPages = this.allJobs.length;
             })
         },
-
-        // getAllJobs() {
-        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
-        //         this.allJobs = res.data
-        //     })
-        // },
 
         selectedValue(value) {
             this.selected = value;
@@ -286,8 +257,8 @@ export default {
 
     watch: {
         allJobs() {
-            if (this.numberOfAllJobs != this.allJobs.length) {
-             this.getAllJobs()
+            if (this.numberOfAllJobs != this.allJobs.length){
+                this.getAllJobs();
             }
         }
     },

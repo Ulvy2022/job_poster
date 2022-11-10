@@ -6,7 +6,7 @@
         <div class="modal">
             <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
                 <form @submit.prevent="createJob">
-                    <h1 class="text-center text-blue-500 mb-1 text-lg">CREATE JOB</h1>
+                    <h1 class="text-center bg-blue-600 text-white rounded p-2 mb-1 text-lg">CREATE JOB</h1>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
                             <label for="job-title" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Title</label>
@@ -121,6 +121,7 @@ export default {
             sumDate: null,
             duration: 7,
             disappearDate: null,
+           
         }
     },
 
@@ -155,8 +156,7 @@ export default {
                                     job_requirement: this.jobRequirement,
                                 },
                             )
-                            .then((res)=>{
-                                console.log(res.data);
+                            .then(()=>{
                                 this.jobs
                                 this.jobTitle = '',
                                 this.jobLocation = '',
@@ -168,10 +168,15 @@ export default {
                                 this.contactEmail = '',
                                 this.jobAddress = '',
                                 this.jobDescription = '',
-                                this.jobRequirement = ''
-                              
+                                this.jobRequirement = '',
+                                // $router.go() make page refresh by itself.
+                                this.$router.go()
                             })
-                    }
+                    }else(
+                        Swal.fire(
+                           'Please complete all information before click button "Add"!!!'
+                        )
+                    )
                 }
             })
         },

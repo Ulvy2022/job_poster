@@ -60,7 +60,6 @@ class JobsPosterController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validateWithBag('JobsPoster', [
-            'user_id' => 'required',
             'job_title' => 'required|min:5|max:30|',
             'company_location' => 'required|min:5|max:50|',
             'job_type'=>'required|min:2|max:20',

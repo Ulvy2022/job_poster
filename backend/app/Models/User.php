@@ -12,8 +12,6 @@ class User extends Model
     {
         return $this->hasMany(Subscribe::class);
     }
-
-
     public function Jobsposter()
     {
         return $this->hasMany(JobsPoster::class);

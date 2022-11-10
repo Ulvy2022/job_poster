@@ -81,7 +81,8 @@ export default {
 
     methods: {
         getAlljobDetails() {
-            axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
+            axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId'))
+            .then((res) => {
                 this.jobDetails = res.data[0]
             })
         }

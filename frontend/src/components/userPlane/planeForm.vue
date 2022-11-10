@@ -3,7 +3,6 @@
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6  md:grid ">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Subscribe your favourite plan</h2>
-       
             </div>
             <div class=" lg:ml-40 space-y-8 grid lg:grid-cols-2 md:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0 " >
                 <div v-for="plane of typePlane" :key="plane"
@@ -25,29 +24,21 @@
                             <span>{{feature}}</span>
                         </li>
                     </ul>
-                
                 </div>
             </div>
         </div>
     </section>
 </template>
 
-
 <script>
 import axios from "axios";
-// import googlePay from "../../components/googlePay/googlePay.vue"
 export default {
-    // components: {
-    //     googlePay
-    // },
     data() {
         return {
             typePlane: null,
             link: 'https://buy.stripe.com/test_5kA6sjfSWdSUcwgeUW'
         }
     },
-
-
     mounted() {
         axios.get('http://localhost:8000/api/features').then((res) => {
             this.typePlane = res.data;
