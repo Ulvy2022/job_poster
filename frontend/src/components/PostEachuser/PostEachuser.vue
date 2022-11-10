@@ -19,7 +19,7 @@
                                 </svg>
                             </span>
                         </div>
-                        <input type="text"
+                        <input type="text" v-model="jobName" @keyup="filterJobs"
                             class="flex-shrink flex-grow flex-auto leading-normal tracking-wide w-px flex-1 border border-none border-l-0 rounded rounded-l-none px-3 relative focus:outline-none text-xxs lg:text-xs lg:text-base text-gray-500 font-thin"
                             placeholder="Search job by name...">
                     </div>
@@ -54,7 +54,9 @@
                     <tr v-for="job of userJobs" :key="job" :id="job.id + 'parent'">
 
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                            <div class="text-sm leading-5 text-blue-900 capitalize">{{ job.job_title }}</div>
+                            <div class="text-sm leading-5 text-blue-900 capitalize" :id="job.id + 'title'">{{
+                                    job.job_title
+                            }}</div>
                         </td>
                         <td
                             class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
@@ -66,7 +68,7 @@
                             class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                             <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                 <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                <span class="relative text-xs">{{ job.active }}</span>
+                                <span class="relative text-xs" :id="job.id + 'active'">{{ job.active }}</span>
                             </span>
                         </td>
                         <td
@@ -260,7 +262,8 @@ export default {
             Type: 'Job Type',
             companyName: '',
             contactName: '',
-            jobId: 0
+            jobId: 0,
+            jobName: ''
         }
     },
 
@@ -280,6 +283,24 @@ export default {
                     this.Type = job.job_type;
                     this.description = job.job_description;
                     this.requirments = job.job_requirement;
+                }
+            }
+
+        },
+
+        filterJobs() {
+            if (this.jobName.trim() != '') {
+                for (let job of this.userJobs) {
+                    const element = document.getElementById(job.id + 'title').textContent;
+                    if (element.toLowerCase().indexOf(this.jobName.toLowerCase()) == -1) {
+                        document.getElementById(job.id + 'parent').style.display = 'none';
+                    } else {
+                        document.getElementById(job.id + 'parent').style.display = ''
+                    }
+                }
+            } else {
+                for (let job of this.userJobs) {
+                    document.getElementById(job.id + 'parent').style.display = '';
                 }
             }
 
@@ -364,7 +385,8 @@ export default {
                     Swal.fire('Changes canceled', '', 'info')
                 }
             })
-        }
+        },
+
 
     },
 

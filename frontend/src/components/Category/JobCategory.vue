@@ -52,7 +52,7 @@
                                 Company</p>
                             <input type="hidden" :value="job.job_type" :id="job.id + 'jobType'">
                             <div class="flex lg:gap-24 gap-7">
-                                <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-1">
+                                <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-y-1">
                                     <div class="flex gap-2 lg:w-full">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                             class="h-5 w-5 fill-blue-500">
@@ -264,6 +264,7 @@ export default {
                 }
 
             } else {
+                this.isShowEle = true;
                 for (let job of this.allJobs[this.currentPage]) {
                     var el = document.getElementById(job.id + 'parent');
                     el.style.display = ''
