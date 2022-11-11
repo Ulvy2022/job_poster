@@ -91,7 +91,6 @@
                 </div>
             </div>
 
-
             <Register-Form v-if='is_show' @close_register="close_register">
                 <div class="modal-mask">
                     <div class="modal-wrapper w-full top-24">
@@ -106,30 +105,32 @@
                                         v-model="fullName" required>
                                 </div>
 
-                                <div class="flex flex-col ml-2 mb-2 w-full">
+                                <div class="flex flex-col w-full">
+                                    <select v-model="gender" id="job-type" class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required="">
+                                        <option selected>Gender</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                    </select>
+                                </div>  
+                            </div>
+
+                            <div class="grid w-full gap-4 mb-2 grid-cols-1">
+                                <div class="w-full">
                                     <input required type="email" placeholder="Email"
                                         class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         v-model="emailUser">
                                 </div>
+                            </div>
 
-                                <div class="w-full">
-                                    <select name="" id="" v-model="gender">
-                                        <option value="Gender" disabled>Gender</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Male">Male</option>
-                                    </select>
-                                </div>
-
+                            <div class="mb-2 w-full grid grid-cols-2">
                                 <div class="flex flex-col mb-2 w-full">
                                     <div class="relative">
                                         <input pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required
                                             placeholder="Password" :type="showPass ? 'password' : 'text'"
                                             class="peer shadow appearance-none border mr-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             v-model="passwordUser">
-
                                         <div
                                             class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-
                                             <svg class="h-5 w-5 text-black" @click="showPass = !showPass" width="24"
                                                 height="24" viewBox="0 0 24 24"
                                                 :class="{ 'hidden': !showPass, 'block': showPass }" stroke-width="2"
@@ -152,7 +153,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-col ml-2 w-full">
+                                <div class="flex flex-col w-full">
                                     <div class="relative">
                                         <input pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required
                                             placeholder="Confirm Password"
@@ -190,15 +191,15 @@
 
                             <div
                                 class="flex w-full items-center justify-between lg:grid-cols-3 md:grid-cols-1 md:w-full">
-                                <button type='submit' @click="register">
+                                <button class="bg-blue-600 rounded p-2 w-full text-white" type='submit' @click="register">
                                     Register
                                 </button>
 
-                                <button @click="registerByGoogle" type="button">
+                                <button class="bg-blue-600 rounded p-2 ml-2 mr-2 w-full text-white" @click="registerByGoogle" type="button">
                                     Register Via Google
                                 </button>
 
-                                <button @click='is_show = false' type="button">
+                                <button class="bg-blue-600 rounded p-2 w-full text-white" @click='is_show = false' type="button">
                                     Cancal
                                 </button>
                             </div>
@@ -230,7 +231,6 @@
                                             <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />
                                             <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
                                         </svg>
-
 
                                         <svg class="h-5 w-5 text-black" @click="showPass = !showPass" fill="none"
                                             viewBox="0 0 24 24" :class="{ 'block': !showPass, 'hidden': showPass }"
