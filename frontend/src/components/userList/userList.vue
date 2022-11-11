@@ -45,8 +45,9 @@ export default {
                     denyButtonText: `Don't save`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.put("http://localhost:8000/api/user/" + this.idToUpdate, userInfo).then((res) => {
-                            if (res.data.msg == 'updated') {
+                        axios.put("http://localhost:8000/api/user/" + this.idToUpdate, userInfo)
+                        .then((res) => {
+                            if (res.data.msg == 'updated'){
                                 Swal.fire('Saved!', '', 'success')
                                 document.getElementById(this.idToUpdate + 'name').textContent = userInfo.fullName
                                 document.getElementById(this.idToUpdate + 'email').textContent = userInfo.email
@@ -408,7 +409,7 @@ export default {
         </div>
     </div>
 
-
+    <!-- Put this part before </body> tag -->
 
 
 

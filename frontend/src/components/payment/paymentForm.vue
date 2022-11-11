@@ -25,8 +25,6 @@ export default {
         },
         tokenCreated(token) {
             console.log(token);
-            // handle the token
-            // send it to your server
         },
     }
 };

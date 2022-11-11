@@ -167,13 +167,11 @@
                                         </div>
 
                                     </form>
-                                    <!-- end form edit profile user -->
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <!-- End of about section -->
                 </div>
             </div>
         </div>
@@ -207,7 +205,6 @@ export default {
             role: ''
         }
     },
-
     methods: {
         getUserData() {
             axios.get('http://localhost:8000/api/getUser/' + localStorage.getItem("userId")).then((res) => {
@@ -220,7 +217,6 @@ export default {
                 this.companyName = res.data.companyName;
                 this.role = res.data.role;
             })
-
         },
         capitalize(words) {
             return words[0].toUpperCase() + words.substring(1, words.length).toLowerCase();

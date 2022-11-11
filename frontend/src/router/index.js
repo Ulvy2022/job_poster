@@ -123,12 +123,6 @@ const routes = [
   },
 ]; 
 
-// var requiresAuth = false;
-// router.beforeEach((to, from, next) => {
-//   if (to.name !== 'Login' && !requiresAuth) next({ name: 'Login' })
-//   else next()
-// })
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,

@@ -4,10 +4,12 @@
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- job type -->
                 <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
+
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
+
                 <!-- company list -->
-                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList" />
+                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList"/>
             </div>
             <div class="w-full mt-10 gap-10 overflow-x-hidden ">
                 <div class="form-control w-full mb-2">
@@ -43,14 +45,23 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="p-3  w-full">
-                            <p class="text-blue-400 text-md text-ellipsis capitalize" :id="job.id + 'jobTitle'">
-                                {{ job.job_title }} Position
+                            <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'jobTitle'">
+                                {{ job.job_title }} 
+                                Position
                             </p>
+
                             <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'company'">
                                 {{ job.company_name }}
-                                Company</p>
-                            <input type="hidden" :value="job.job_type" :id="job.id + 'jobType'">
+                                Company
+                            </p>
+
+                            <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'jobType'">
+                                {{ job.job_type }}
+                                Job
+                            </p>
                             <div class="flex lg:gap-24 gap-7">
                                 <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-y-1">
                                     <div class="flex gap-2 lg:w-full">
@@ -69,7 +80,6 @@
                                         </svg>
                                         <p class="text-red-500 text-sm">Closed</p>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -79,7 +89,6 @@
                         <paginationPage @previousPage="previousPage" @nextpage="nextPage" :allPages="allPages"
                             :currentPage="currentPage" />
                     </div>
-
 
                 </div>
             </div>
@@ -105,9 +114,10 @@ export default {
             allJobs: [],
             jobName: "",
             jobTitle: "Job Category",
-            // jobs in job category list
+            // job titles
             jobs: [],
-            quickLink: ['Part-time job', 'Full-time job', 'Training WorkShop'],
+            // job categories
+            quickLink: ['Part-Time', 'Full-Time', 'Training WorkShop'],
             linkTitle: "Quick Links",
             selected: "",
             comapnyTitle: "Company Name",
@@ -117,10 +127,8 @@ export default {
             tenJobPerPage: [],
             isShowEle: true,
             numberOfAllJobs: 0,
-
         }
     },
-
     methods: {
         previousPage() {
             this.selected = '';
@@ -146,39 +154,12 @@ export default {
             this.$router.push('/job_detail')
         },
 
-        // getAllJobs() {
-        //     this.allJobs = []
-        //     var j = []
-        //     var index = 0;
-        //     axios.get('http://localhost:8000/api/jobposter').then((res) => {
-        //         j = res.data;
-        //         for (let i = 0; i < j.length; i++) {
-        //             index += 1;
-        //             this.tenJobPerPage.push(j[i])
-        //             if (index > 19) {
-        //                 this.allJobs.push(this.tenJobPerPage);
-        //                 // this.allJobs = this.tenJobPerPage;
-        //                 this.tenJobPerPage = []
-        //                 index = 0;
-        //             }
-        //         }
-        //         if (index > 0) {
-        //             this.allJobs.push(this.tenJobPerPage);
-        //             // this.allJobs = this.tenJobPerPage;
-        //         }
-        //         this.tenJobPerPage = []
-        //         this.allPages = this.allJobs.length;
-        //         console.log("Su su, we go home: ",this.allPages);
-        //     })
-        // },
-
         getAllJobs() {
             this.allJobs = []
             var j = []
             var index = 0;
             axios.get('http://localhost:8000/api/jobposter').then((res) => {
                 j = res.data;
-                this.numberOfAllJobs = j.length;
                 for (let i = 0; i < j.length; i++) {
                     index += 1;
                     this.tenJobPerPage.push(j[i])
@@ -200,9 +181,10 @@ export default {
             this.selected = value;
             if (value.toLowerCase().search("company") != -1) {
                 this.filterJobByCompanyName(value)
-            } else {
-                this.filterJobs(value);
-            }
+            } 
+            else (
+                this.filterJobs(value)
+            )
         },
 
         // As logo of the company==============
@@ -219,7 +201,6 @@ export default {
         },
 
         getAllJobsTitle() {
-            this.jobs = []
             axios.get("http://localhost:8000/api/jobTitle").then((res) => {
                 for (let value of res.data) {
                     this.jobs.push(value.job_title)
@@ -227,8 +208,9 @@ export default {
             })
         },
 
+        
+
         getAllCompanyName() {
-            this.companyList = []
             axios.get("http://localhost:8000/api/companyName").then((res) => {
                 for (let value of res.data) {
                     this.companyList.push(value.company_name + " Company")
@@ -238,20 +220,20 @@ export default {
 
         filterJobs(value) {
             var isSomeEleShowed = 0;
-            const str = value.replace("job", "").trim()
             if (this.selected != '' || this.jobName != '') {
                 for (let job of this.allJobs[this.currentPage]) {
                     var ele = document.getElementById(job.id + 'parent');
-                    var text = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
-                    var jobType = document.getElementById(job.id + "jobType").value.toLowerCase();
-                    if (text.indexOf(value.toLowerCase()) != -1) {
+                    var title = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
+                    var jobType = document.getElementById(job.id + "jobType").textContent.toLowerCase();
+                    if (title.indexOf(value.toLowerCase()) != -1) {
                         ele.style.display = ''
                         isSomeEleShowed += 1;
                     }
-                    else if (jobType.trim() == str.trim().toLowerCase()) {
+                    else if (jobType.indexOf(value.toLowerCase()) != -1) {
                         ele.style.display = ''
                         isSomeEleShowed += 1;
                     }
+                   
                     else {
                         ele.style.display = 'none'
                     }
@@ -272,6 +254,7 @@ export default {
             }
         },
 
+
         filterJobByCompanyName(value) {
             var isSomeEleShowed = 0;
             for (let job of this.allJobs[this.currentPage]) {
@@ -291,38 +274,16 @@ export default {
             }
         },
 
+        deleteJob(id) {
+            axios.delete('http://localhost:8000/api/jobposter/' + id)
+                .then((res) => {
+                    console.log(res.data);
+                    this.getAllJobs()
+                })
+        },
     },
 
-
-    deleteJob(id) {
-        axios.delete('http://localhost:8000/api/jobposter/' + id)
-            .then((res) => {
-                console.log(res.data);
-                this.getAllJobs()
-            })
-    },
-
-    getAllJobsTitle() {
-        this.jobs = []
-        axios.get("http://localhost:8000/api/jobTitle").then((res) => {
-            for (let value of res.data) {
-                this.jobs.push(value.job_title)
-            }
-        })
-    },
-
-    getAllCompanyName() {
-        this.companyList = []
-        axios.get("http://localhost:8000/api/companyName").then((res) => {
-            for (let value of res.data) {
-                this.companyList.push(value.company_name + " Company")
-            }
-        })
-    },
-
-
-
-
+    
     mounted() {
         this.getAllJobs();
         this.getAllJobsTitle();

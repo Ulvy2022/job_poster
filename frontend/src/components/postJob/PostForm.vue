@@ -6,7 +6,7 @@
         <div class="modal">
             <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
                 <form @submit.prevent="createJob">
-                    <h1 class="text-center text-blue-500 mb-1 text-lg">CREATE JOB</h1>
+                    <h1 class="text-center bg-blue-600 text-white rounded p-2 mb-1 text-lg">CREATE JOB</h1>
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
                             <label for="job-title" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Title</label>
@@ -56,8 +56,8 @@
 
                     <div class="grid w-full gap-4 mb-6 grid-cols-1">
                         <div class="mb-1 w-full">
-                            <label for="jobAddress" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Job Address</label>
-                            <textarea v-model="jobAddress" name="" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Address" required="">
+                            <label for="jobAddress" class="font-semibold block mb-1 text-sm text-gray-900 dark:text-gray-300">Company Address</label>
+                            <textarea v-model="companyAddress" name="" cols="30" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Job Address" required="">
                             </textarea>
                         </div> 
                         
@@ -106,7 +106,7 @@ export default {
             salary: '',
             contactName: '',
             contactEmail: '',
-            jobAddress: '',
+            companyAddress: '',
             jobDescription: '',
             jobRequirement: '',
             expire_date: null,
@@ -121,6 +121,7 @@ export default {
             sumDate: null,
             duration: 7,
             disappearDate: null,
+           
         }
     },
 
@@ -136,7 +137,7 @@ export default {
                     if (result.isConfirmed) {
                         if (!this.jobTitle.trim()=='' && !this.jobLocation.trim()=='' && !this.jobClosedate.trim()=='' && 
                         !this.jobType.trim()=='' && !this.salary=='' && !this.contactName.trim()=='' && 
-                        !this.jobAddress.trim()==''&&
+                        !this.companyAddress.trim()==''&&
                         !this.contactEmail.trim() == '' && !this.jobDescription.trim() == '' && !this.jobRequirement.trim() == '') {
 
                             axios.post('http://127.0.0.1:8000/api/jobposter/',
@@ -151,12 +152,11 @@ export default {
                                     contact_name: this.contactName,
                                     contact_email: this.contactEmail,
                                     job_description: this.jobDescription,
-                                    job_address: this.jobAddress,
+                                    company_address: this.companyAddress,
                                     job_requirement: this.jobRequirement,
                                 },
                             )
-                            .then((res)=>{
-                                console.log(res.data);
+                            .then(()=>{
                                 this.jobs
                                 this.jobTitle = '',
                                 this.jobLocation = '',
@@ -166,12 +166,17 @@ export default {
                                 this.salary = '',
                                 this.contactName = '',
                                 this.contactEmail = '',
-                                this.jobAddress = '',
+                                this.companyAddress = '',
                                 this.jobDescription = '',
-                                this.jobRequirement = ''
-                              
+                                this.jobRequirement = '',
+                                // $router.go() make page refresh by itself.
+                                this.$router.go()
                             })
-                    }
+                    }else(
+                        Swal.fire(
+                           'Please complete all information before click button "Add"!!!'
+                        )
+                    )
                 }
             })
         },
