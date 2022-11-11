@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subscribe;
 use App\Models\User;
 use App\Models\Features;
+use App\Models\Plane;
 use Illuminate\Http\Request;
 
 class SubscribeController extends Controller
@@ -25,33 +26,23 @@ class SubscribeController extends Controller
         $subscribsion->features_id = $request->features_id;
         $subscribsion->name = $feature['name'];
         $subscribsion->feature = $feature['features'];
-        $subscribsion->subscribed_at = date("D j M Y");
-        if ($feature['name'] == 'Trailer') {
-            $subscribsion->charge = 1;
-            $subscribsion->leftCharge = 1;
-        } else if ($feature['name'] == 'Silver') {
-            $subscribsion->charge = 3;
-            $subscribsion->leftCharge = 3;
-        } else if ($feature['name'] == 'Gold') {
-            $subscribsion->charge = 10;
-            $subscribsion->leftCharge = 10;
-        } else if ($feature['name'] == 'Diamond') {
-            $subscribsion->charge = 1000000000;
-            $subscribsion->leftCharge = 1000000000;
-        }
-        $subscribsion->expired_at = date('D j M Y', strtotime($date . ' + 29 days'));
+        $subscribsion->charge = $this->setChargeBySubName($feature['name']);
+        $subscribsion->leftCharge = $this->setChargeBySubName($feature['name']);
         $subscribsion->save();
         $user = User::find($request->user_id);
         $user->subscription = $subscribsion->name;
         $user->update();
+        $subscribes_id = Subscribe::where('user_id', $request->user_id)->get()->last();
+        app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
+        app('App\Http\Controllers\PlaneController')->store($request);
         return response()->json(['msg' => 'success']);
 
     }
 
 
-    public function show(Subscribe $subscribsion)
+    public function show($id)
     {
-        //
+        return Subscribe::where('user_id', $id)->get();
     }
 
 
@@ -61,38 +52,55 @@ class SubscribeController extends Controller
     }
 
 
-    public function destroy(Subscribe $id)
+    public function destroy($id)
     {
         return Subscribe::destroy($id);
     }
 
-    public function minusCharge($id)
-    {
-        $sub = Subscribe::find($id);
-        if ($sub) {
-            if ($sub->charge > 1) {
-                $sub->charge -= 1;
-                $sub->update();
-            }
-            return response()->json(['msg' => $sub->charge]);
-        }
-    }
 
     public function getUserPlane($id)
     {
         return User::with(['Subscribsion'])->where('id', $id)->first();
     }
 
-    public function restoreCharge()
+    // public function restoreCharge()
+// {
+//     $date = date("Y-m-d");
+//     $sub = Subscribe::all();
+//     foreach ($sub as $job) {
+//         if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
+//             $charge = Subscribe::findOrFail($job['id']);
+//             $charge->leftCharge = $charge->charge;
+//             $charge->update();
+//         }
+//     }
+// }
+
+
+
+    public function getCostOfSub($name)
     {
-        $notExpireJob = Subscribe::all();
-        foreach ($notExpireJob as $job) {
-            if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
-                $expiredJob = Subscribe::findOrFail($job['id']);
-                $expiredJob->leftCharge = $expiredJob->charge;
-                // return $expiredJob;
-                $expiredJob->update();
-            }
+        if ($name == "Trailer") {
+            return 0;
+        } else if ($name == "Silver") {
+            return 20;
+        } else if ($name == "Gold") {
+            return 40;
+        } else if ($name == "Diamond") {
+            return 60;
+        }
+    }
+
+    public function setChargeBySubName($name)
+    {
+        if ($name == 'Trailer') {
+            return 1;
+        } else if ($name == 'Silver') {
+            return 3;
+        } else if ($name == 'Gold') {
+            return 6;
+        } else if ($name == 'Diamond') {
+            return 1000000000;
         }
     }
 }

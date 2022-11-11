@@ -16,10 +16,10 @@ return new class extends Migration {
                 $table->integer('leftCharge');
                 $table->integer('charge');
                 $table->string('name');
+                $table->integer('used')->default(0);
                 $table->json('feature');
                 $table->string('description')->nullable();
-                $table->string('subscribed_at')->nullable();
-                $table->string('expired_at')->nullable();
+
             }
         );
     }

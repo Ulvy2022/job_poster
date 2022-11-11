@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+
 class User extends Model
 {
     use HasApiTokens, HasFactory;
@@ -19,7 +20,17 @@ class User extends Model
         return $this->hasMany(JobsPoster::class);
     }
 
-    protected $fillable=[
+    public function plane()
+    {
+        return $this->belongsTo(Plane::class);
+    }
+
+    public function restorePost()
+    {
+        return $this->hasMany(restorePost::class);
+    }
+
+    protected $fillable = [
         'fullName',
         'email',
         'password',

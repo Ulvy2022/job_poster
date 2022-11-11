@@ -5,18 +5,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create(
-            'planes', function (Blueprint $table) {
+            'restore_posts', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
                 $table->foreignId('subscribes_id')->constrained()->onDelete('CASCADE');
-                $table->integer('cost');
-                $table->string('subscribed_at');
-                $table->string('expired')->default('No');
-                $table->string('expired_at');
+                $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
+                $table->string('start_date');
+                $table->string('end_date');
             }
         );
     }
@@ -24,6 +26,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('user_planes');
+        Schema::dropIfExists('restore_posts');
     }
 };

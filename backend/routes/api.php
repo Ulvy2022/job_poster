@@ -7,7 +7,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\UserPlaneController;
+use App\Http\Controllers\PlaneController;
+use App\Http\Controllers\RestorePostController;
 use App\Http\Controllers\JobsPosterController;
 
 /**
@@ -31,10 +32,11 @@ Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 
+// user plane
+Route::apiResource('/plane', PlaneController::class);
+Route::apiResource('/restorePost', RestorePostController::class);
 
-Route::get('/restoreCharge', [SubscribeController::class, 'restoreCharge']);
-
-
+Route::get('/restoreCharge', [PlaneController::class, 'restoreCharge']);
 
 // get all not expire jobs
 Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);

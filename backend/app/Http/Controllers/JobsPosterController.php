@@ -45,11 +45,9 @@ class JobsPosterController extends Controller
         $job->contact_email = $request->contact_email;
         $job->job_description = $request->job_description;
         $job->job_requirement = $request->job_requirement;
-        $job->post_at = $request->post_at;
-        $job->expired_at = $request->expired_at;
         $job->post_at = date("D j M Y");
-        $job->expired_at = date('D j M Y', strtotime($date . ' + 7 days'));
-        if ($job->expired_at == $job->post_at) {
+        $job->expired_at = date('D j M Y', strtotime($date . ' + 15 days'));
+        if ($job->expired_at == date("D j M Y")) {
             $job->active = "Yes";
         }
         $sub = Subscribe::where('user_id', $request->user_id)->get();
@@ -62,8 +60,6 @@ class JobsPosterController extends Controller
         } else {
             return response()->json(['msg' => 'You have used all your leftCharge!']);
         }
-        // return $updateSub;
-
 
     }
 
@@ -142,4 +138,18 @@ class JobsPosterController extends Controller
     {
         return JobsPoster::where('id', $id)->get();
     }
+
+// public function restoreExpiredDate()
+// {
+//     $date = date("Y-m-d");
+//     $sub = JobsPoster::all();
+//     foreach ($sub as $job) {
+//         if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
+//             $charge = JobsPoster::findOrFail($job['id']);
+//             $charge->leftCharge = $charge->charge;
+//             $charge->expired_at = date('D j M Y', strtotime($date . ' + 29 days'));
+//             $charge->update();
+//         }
+//     }
+// }
 }
