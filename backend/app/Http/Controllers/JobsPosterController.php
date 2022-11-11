@@ -3,7 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
-use App\Models\User;
+use App\Models\Features;
+use App\Models\Subscribe;
 
 class JobsPosterController extends Controller
 {
@@ -51,13 +52,24 @@ class JobsPosterController extends Controller
         if ($job->expired_at == $job->post_at) {
             $job->active = "Yes";
         }
-        $job->save();
-        return response()->json(['msg' => 'success']);
+        $sub = Subscribe::where('user_id', $request->user_id)->get();
+        $updateSub = Subscribe::findOrFail($sub[0]['id']);
+        if ($updateSub->leftCharge - 1 > -1) {
+            $updateSub->leftCharge -= 1;
+            $job->save();
+            $updateSub->update();
+            return response()->json(['msg' => 'success']);
+        } else {
+            return response()->json(['msg' => 'You have used all your leftCharge!']);
+        }
+        // return $updateSub;
+
+
     }
 
     public function show($id)
     {
-        return JobsPoster::with(['user'])->where('user_id', $id)->get();
+        return JobsPoster::with(['user'])->where('user_id', $id)->first();
     }
 
     public function update(Request $request, $id)
@@ -124,7 +136,6 @@ class JobsPosterController extends Controller
                 $expiredJob->update();
             }
         }
-        return $notExpireJob;
     }
 
     public function getSpecificJobs($id)
