@@ -8,7 +8,8 @@
                     <!-- Profile Card -->
                     <div class="bg-white p-3 border-t-4 border-green-400 ml-3 " style="height:51vh;">
                         <div class="image overflow-hidden ">
-                            <img class="h-60 w-auto mx-auto" v-if="img != null && role == 'Admine'" :src="img" />
+                            <img class="h-60 w-auto mx-auto" v-if="img == null && role == 'Admine'"
+                                src="../../assets/images/software-engineer.png" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img != null" :src="img" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'F'"
                                 src="../../assets/images/woman.png" />

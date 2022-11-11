@@ -37,6 +37,7 @@ export default {
                                 localStorage.setItem('userId', res.data.id)
                                 axios.get('http://localhost:8000/api/user/' + localStorage.getItem('userId')).then((res) => {
                                     localStorage.setItem('role', res.data[0].role)
+                                    console.log(res.data[0]);
                                 })
                             }
                         })

@@ -106,12 +106,14 @@
                                 </div>
 
                                 <div class="flex flex-col w-full">
-                                    <select v-model="gender" id="job-type" class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required="">
+                                    <select v-model="gender" id="job-type"
+                                        class="peer shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        required="">
                                         <option selected>Gender</option>
                                         <option value="Female">Female</option>
                                         <option value="Male">Male</option>
                                     </select>
-                                </div>  
+                                </div>
                             </div>
 
                             <div class="grid w-full gap-4 mb-2 grid-cols-1">
@@ -191,15 +193,18 @@
 
                             <div
                                 class="flex w-full items-center justify-between lg:grid-cols-3 md:grid-cols-1 md:w-full">
-                                <button class="bg-blue-600 rounded p-2 w-full text-white" type='submit' @click="register">
+                                <button class="bg-blue-600 rounded p-2 w-full text-white" type='submit'
+                                    @click="register">
                                     Register
                                 </button>
 
-                                <button class="bg-blue-600 rounded p-2 ml-2 mr-2 w-full text-white" @click="registerByGoogle" type="button">
+                                <button class="bg-blue-600 rounded p-2 ml-2 mr-2 w-full text-white"
+                                    @click="registerByGoogle" type="button">
                                     Register Via Google
                                 </button>
 
-                                <button class="bg-blue-600 rounded p-2 w-full text-white" @click='is_show = false' type="button">
+                                <button class="bg-blue-600 rounded p-2 w-full text-white" @click='is_show = false'
+                                    type="button">
                                     Cancal
                                 </button>
                             </div>
@@ -400,9 +405,11 @@ export default {
                             this.isClickSigIn = !this.isClickSigIn
                         } else {
                             localStorage.setItem('userId', res.data.id)
-                            axios.get('http://localhost:8000/api/user/' + localStorage.getItem('userId')).then((res) => {
-                                localStorage.setItem('role', res.data[0].role)
-                            })
+                            localStorage.setItem('role', res.data.role)
+                            // axios.get('http://localhost:8000/api/user/' + localStorage.getItem('userId')).then((res) => {
+                            //     localStorage.setItem('role', res.dat.role)
+                            //     console.log(res.data[0]);
+                            // })
                             this.showInvalid = false;
                             window.location.assign('/')
                         }
