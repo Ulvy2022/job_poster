@@ -19,7 +19,7 @@ class LoginController extends Controller
             return !Hash::check($request->password, $user->password);
         }
         $token = $user->createToken('myToken')->plainTextToken;
-        return response()->json(['token' => $token, 'message' => 'success login', 'id' => $user['id']], 200);
+        return response()->json(['token' => $token, 'role' => $user['role'], 'id' => $user['id']], 200);
     }
 
     public function logout()

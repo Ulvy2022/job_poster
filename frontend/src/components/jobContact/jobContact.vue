@@ -82,11 +82,12 @@ export default {
     methods: {
         getJobDetail() {
             axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
-                this.jobDetails = res.data[0]
-                this.fname = this.jobDetails.user.fullName;
-                this.phone = this.jobDetails.user.phoneNumber;
-                this.email = this.jobDetails.user.email;
-                this.companyName = this.jobDetails.company_name[0];
+                this.jobDetails = res.data
+                console.log(res.data);
+                this.fname = this.jobDetails.contact_name;
+                this.phone = '';
+                this.email = this.jobDetails.contact_email;
+                this.companyName = this.jobDetails.company_name;
             })
         },
 
