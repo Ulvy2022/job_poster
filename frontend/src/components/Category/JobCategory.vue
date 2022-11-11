@@ -48,14 +48,17 @@
 
 
                         <div class="p-3  w-full">
-                            <p class="text-blue-400 text-md text-ellipsis capitalize" :id="job.id + 'jobTitle'">
-                                {{ job.job_title }} Position
+                            <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'jobTitle'">
+                                {{ job.job_title }} 
+                                Position
                             </p>
+
                             <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'company'">
                                 {{ job.company_name }}
                                 Company
                             </p>
-                            <p class="text-ellipsis mb-1 text-gray-500 capitalize hidden" :id="job.id + 'jobType'">
+
+                            <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'jobType'">
                                 {{ job.job_type }}
                                 Job
                             </p>
@@ -87,7 +90,6 @@
                             :currentPage="currentPage" />
                     </div>
 
-
                 </div>
             </div>
         </div>
@@ -112,8 +114,9 @@ export default {
             allJobs: [],
             jobName: "",
             jobTitle: "Job Category",
-            // jobs in job category list
+            // job titles
             jobs: [],
+            // job categories
             quickLink: ['Part-Time', 'Full-Time', 'Training WorkShop'],
             linkTitle: "Quick Links",
             selected: "",
@@ -124,27 +127,26 @@ export default {
             tenJobPerPage: [],
             isShowEle: true,
             numberOfAllJobs: 0,
-
         }
     },
     methods: {
-        // previousPage() {
-        //     this.selected = '';
-        //     this.jobName = '';
-        //     if (this.currentPage > 0) {
-        //         this.currentPage -= 1;
-        //         this.filterJobs(this.selected)
-        //     }
-        // },
+        previousPage() {
+            this.selected = '';
+            this.jobName = '';
+            if (this.currentPage > 0) {
+                this.currentPage -= 1;
+                this.filterJobs(this.selected)
+            }
+        },
 
-        // nextPage() {
-        //     this.selected = '';
-        //     this.jobName = '';
-        //     if (this.currentPage < this.allJobs.length - 1) {
-        //         this.currentPage += 1;
-        //         this.filterJobs(this.selected)
-        //     }
-        // },
+        nextPage() {
+            this.selected = '';
+            this.jobName = '';
+            if (this.currentPage < this.allJobs.length - 1) {
+                this.currentPage += 1;
+                this.filterJobs(this.selected)
+            }
+        },
 
         jobDetails(id) {
             localStorage.removeItem('jobId')
@@ -179,9 +181,10 @@ export default {
             this.selected = value;
             if (value.toLowerCase().search("company") != -1) {
                 this.filterJobByCompanyName(value)
-            } else {
-                this.filterJobs(value);
-            }
+            } 
+            else (
+                this.filterJobs(value)
+            )
         },
 
         // As logo of the company==============
@@ -197,9 +200,7 @@ export default {
             this.$router.push('/job_detail');
         },
 
-
         getAllJobsTitle() {
-            this.jobs = []
             axios.get("http://localhost:8000/api/jobTitle").then((res) => {
                 for (let value of res.data) {
                     this.jobs.push(value.job_title)
@@ -207,8 +208,9 @@ export default {
             })
         },
 
+        
+
         getAllCompanyName() {
-            this.companyList = []
             axios.get("http://localhost:8000/api/companyName").then((res) => {
                 for (let value of res.data) {
                     this.companyList.push(value.company_name + " Company")
@@ -218,20 +220,20 @@ export default {
 
         filterJobs(value) {
             var isSomeEleShowed = 0;
-            const str = value.replace("job", "").trim()
             if (this.selected != '' || this.jobName != '') {
                 for (let job of this.allJobs[this.currentPage]) {
                     var ele = document.getElementById(job.id + 'parent');
-                    var text = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
-                    var jobType = document.getElementById(job.id + "jobType").value.toLowerCase();
-                    if (text.indexOf(value.toLowerCase()) != -1) {
+                    var title = document.getElementById(job.id + "jobTitle").textContent.toLowerCase();
+                    var jobType = document.getElementById(job.id + "jobType").textContent.toLowerCase();
+                    if (title.indexOf(value.toLowerCase()) != -1) {
                         ele.style.display = ''
                         isSomeEleShowed += 1;
                     }
-                    else if (jobType.trim() == str.trim().toLowerCase()) {
+                    else if (jobType.indexOf(value.toLowerCase()) != -1) {
                         ele.style.display = ''
                         isSomeEleShowed += 1;
                     }
+                   
                     else {
                         ele.style.display = 'none'
                     }
@@ -252,6 +254,7 @@ export default {
             }
         },
 
+
         filterJobByCompanyName(value) {
             var isSomeEleShowed = 0;
             for (let job of this.allJobs[this.currentPage]) {
@@ -271,16 +274,16 @@ export default {
             }
         },
 
+        deleteJob(id) {
+            axios.delete('http://localhost:8000/api/jobposter/' + id)
+                .then((res) => {
+                    console.log(res.data);
+                    this.getAllJobs()
+                })
+        },
     },
 
-    deleteJob(id) {
-        axios.delete('http://localhost:8000/api/jobposter/' + id)
-            .then((res) => {
-                console.log(res.data);
-                this.getAllJobs()
-            })
-    },
-
+    
     mounted() {
         this.getAllJobs();
         this.getAllJobsTitle();
