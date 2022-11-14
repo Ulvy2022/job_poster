@@ -17,6 +17,12 @@ const routes = [
     component: RegisterGoogle,
   },
 
+   {
+    path: '/purchase',
+    name: 'purchase',
+    component: () => import('@/views/cardPayment/cardPayment.vue'),
+  },
+
   {
     path: '/post',
     name: 'post',
@@ -70,13 +76,13 @@ const routes = [
   {
     path: '/payment',
     name: 'payment',
-    component: () => import('@/views/payment/paymentView.vue'),
-    beforeEnter() {
-      const userId = localStorage.getItem('userId');
-      if (userId == null) {
-        return { name: 'notFound' };
-      }
-    }
+    // component: () => import('@/views/payment/paymentView.vue'),
+    // beforeEnter() {
+    //   const userId = localStorage.getItem('userId');
+    //   if (userId == null) {
+    //     return { name: 'notFound' };
+    //   }
+    // }
   },
   {
     path: '/payment',

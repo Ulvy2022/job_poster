@@ -23,8 +23,14 @@ import vue3GoogleLogin from 'vue3-google-login';
 
 import './main.css';
 
+// vue flage
+import VueFlags from "@growthbunker/vueflags";
+
+//vue country code
+import VueCountryCode from "vue-country-code";
+
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 
-createApp(App).use(router, vue3GoogleLogin,VueSweetalert2).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
+createApp(App).use(router, vue3GoogleLogin,VueSweetalert2,VueFlags,VueCountryCode).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
