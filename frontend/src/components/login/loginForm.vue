@@ -1,7 +1,10 @@
 <template>
     <section class="h-screen bg-gray-200">
-        <div class="container px-6 py-12 h-full ">
-            <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
+        <div class="container px-6 py-12 h-full">
+            <p class="flex justify-center mb-5 mt-0 text-blue-800 items-center">
+                You can see jobs without login.<br> But you cannot post job without login. <br> You can post only one time if you didn't subscribe
+            </p>
+            <div class="flex justify-center items-center flex-wrap g-6 text-gray-800">
                 <div class=" w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
                     <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
                     <div class="relative mb-5">
@@ -272,7 +275,6 @@ export default {
         googleLoginForm,
     },
 
-
     data() {
         return {
             progress: 0,
@@ -290,6 +292,7 @@ export default {
             isFirstNameEmpty: false,
             email: '',
             password: '',
+           
 
             // ==========Register=======
             showPass: false,
@@ -406,10 +409,6 @@ export default {
                         } else {
                             localStorage.setItem('userId', res.data.id)
                             localStorage.setItem('role', res.data.role)
-                            // axios.get('http://localhost:8000/api/user/' + localStorage.getItem('userId')).then((res) => {
-                            //     localStorage.setItem('role', res.dat.role)
-                            //     console.log(res.data[0]);
-                            // })
                             this.showInvalid = false;
                             window.location.assign('/')
                         }

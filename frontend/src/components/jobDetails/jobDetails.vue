@@ -97,16 +97,20 @@ import axios from "axios";
 export default {
     data() {
         return {
-            jobDetails: []
+            jobDetails: [],
+            jobId : localStorage.getItem('jobId'),
         }
     },
 
     methods: {
         getAlljobDetails() {
-            axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId'))
+            axios.get('http://localhost:8000/api/jobposterId/' + localStorage.getItem('jobId'))
             .then((res) => {
-                this.jobDetails = res.data[0]
+                this.jobDetails = res.data
+                console.log("Hello jobDetails.")
+                console.log(this.jobDetails);
             })
+
         }
     },
     mounted() {

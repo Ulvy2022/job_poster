@@ -20,45 +20,55 @@
                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                     </div>
 
-                    <div class="hidden sm:ml-6 sm:block lg:mt-2">
+                    <div class="hidden w-full sm:ml-6 sm:block lg:mt-2">
                         <div class="flex space-x-4">
                             <router-link to="/"
                                 class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 Job List
                             </router-link>
 
-                            <router-link to="/subscribe"
+                            <router-link to="/subscribe" v-if="role == 'user'"
                                 class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 Subscribe
                             </router-link>
 
-                            <router-link to="/userList" v-if="role == 'Admine' && role != null"
+                            <router-link to="/userList" v-if="role == 'Admine'"
                                 class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 UserList
                             </router-link>
+
+                            <router-link to="/login" v-if="userId == 'undefined'"
+                                class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white">
+                                Login
+                            </router-link>
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                     <!-- Profile dropdown -->
-                    <Menu as="div" class="relative ml-5 " v-if="img != ''">
-                        <div class="w-full ">
-                            <MenuButton class="flex rounded-full  text-sm">
+                    <Menu as="div" class="relative ml-5 " v-if="img != '' ">
+                        <div class="w-full">
+                            <MenuButton class="flex rounded-full text-sm">
                                 <span class="sr-only">Open user menu</span>
                                 <div class="avatar mr-5">
                                     <div class="lg:w-12 w-10 rounded-full ring  ring-offset-base-100 ring-offset-2">
                                         <img class="object-cover lg:h-10  object-center"
                                             v-if="role == 'Admine' && img == null"
                                             src="../../assets/images/software-engineer.png" />
+
                                         <img class="object-cover h-10 object-center" v-else-if="img != null"
                                             :src="img" />
+
                                         <img class="object-cover"
                                             v-else-if="img == null && gender == 'Female' || gender == 'F'"
                                             src="../../assets/images/woman.png" />
+
                                         <img class="object-cover"
                                             v-else-if="img == null && gender == 'Male' || gender == 'M'"
                                             src="../../assets/images/profile.png" />
+
                                         <img class="object-cover" v-else src="../../assets/images/user.png" />
                                     </div>
                                 </div>
@@ -96,6 +106,7 @@
                                         </svg>
                                         Sign Out
                                     </a>
+                                    
                                 </p>
                                 </MenuItem>
 
@@ -151,14 +162,15 @@ export default {
             img: '',
             fullName: '',
             userId: localStorage.getItem("userId"),
+            
         }
     },
-
 
     methods: {
         clearLocalStorage() {
             window.location.assign('/login')
-            localStorage.clear()
+            localStorage.setItem('userId', undefined);
+            localStorage.setItem('role', undefined);
         },
 
         userInfo() {

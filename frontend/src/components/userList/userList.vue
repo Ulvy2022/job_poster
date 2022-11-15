@@ -64,7 +64,8 @@ export default {
             }
         },
         getAllUser() {
-            axios.get("http://localhost:8000/api/user").then((res) => {
+            axios.get("http://localhost:8000/api/user")
+            .then((res) => {
                 this.allUsers = res.data
                 this.numberOfUsers = this.allUsers.length
             })
@@ -220,6 +221,7 @@ export default {
 
     mounted() {
         this.showTable()
+        this.getAllUser()
 
     }
 }

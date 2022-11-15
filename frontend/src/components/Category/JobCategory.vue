@@ -2,8 +2,13 @@
     <div class="w-full">
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
+                <!-- equal undefined no button -->
+                <div v-if="userId != 'undefined' || role == 'Admine'">
+                    <PostForm/>
+                </div>
+                
                 <!-- job type -->
-                <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
+                <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs"/>
 
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
@@ -45,6 +50,7 @@
                                 </div>
                             </div>
                         </div>
+
 
 
                         <div class="p-3  w-full">
@@ -98,6 +104,7 @@
 
 <script>
 import JobList from "../ListJob/JobList.vue"
+import PostForm from '../../components/postJob/PostForm.vue'
 import paginationPage from "../pagination/paginationPage.vue"
 import axios from 'axios';
 // import { log } from "console";
@@ -106,17 +113,14 @@ export default {
     components: {
         JobList,
         paginationPage,
-
+        PostForm
     },
     data() {
         return {
-            // Job for loop
             allJobs: [],
             jobName: "",
             jobTitle: "Job Category",
-            // job titles
             jobs: [],
-            // job categories
             quickLink: ['Part-Time', 'Full-Time', 'Training WorkShop'],
             linkTitle: "Quick Links",
             selected: "",
@@ -127,6 +131,7 @@ export default {
             tenJobPerPage: [],
             isShowEle: true,
             numberOfAllJobs: 0,
+            userId : localStorage.getItem("userId"),
         }
     },
     methods: {
@@ -283,7 +288,6 @@ export default {
         },
     },
 
-    
     mounted() {
         this.getAllJobs();
         this.getAllJobsTitle();
