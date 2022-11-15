@@ -73,7 +73,7 @@ class JobsPosterController extends Controller
 
     public function show($id)
     {
-        return JobsPoster::with(['user'])->where('user_id', $id)->first();
+        return JobsPoster::where('id', $id)->first();
     }
 
     public function update(Request $request, $id)

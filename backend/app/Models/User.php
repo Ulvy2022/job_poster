@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Model
 {
     use HasApiTokens, HasFactory;
@@ -26,6 +27,11 @@ class User extends Model
     public function restorePost()
     {
         return $this->hasMany(restorePost::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
     }
 
     protected $fillable = [

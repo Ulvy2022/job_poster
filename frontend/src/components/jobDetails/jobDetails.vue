@@ -26,10 +26,17 @@
                 </div>
 
                 <div class="flex p-2">
-                    <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="4" y="5" width="16" height="16" rx="2" />  <line x1="16" y1="3" x2="16" y2="7" />  <line x1="8" y1="3" x2="8" y2="7" />  <line x1="4" y1="11" x2="20" y2="11" />  <rect x="8" y="15" width="2" height="2" />
-                        
+                    <svg class="h-8 w-8 text-red-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" />
+                        <rect x="4" y="5" width="16" height="16" rx="2" />
+                        <line x1="16" y1="3" x2="16" y2="7" />
+                        <line x1="8" y1="3" x2="8" y2="7" />
+                        <line x1="4" y1="11" x2="20" y2="11" />
+                        <rect x="8" y="15" width="2" height="2" />
+
                     </svg>
-                    <p class="ml-1">Close Date : {{jobDetails.job_closedate}}</p>
+                    <p class="ml-1">Close Date : {{ jobDetails.job_closedate }}</p>
                 </div>
 
                 <!-- schedule -->
@@ -48,7 +55,7 @@
                     <p class="ml-2">Salary : {{ jobDetails.salary }}$</p>
                 </div>
 
-                
+
             </div>
             <div class="grid p-3">
                 <b class="text-lg">Duties</b>
@@ -104,11 +111,8 @@ export default {
 
     methods: {
         getAlljobDetails() {
-            axios.get('http://localhost:8000/api/jobposterId/' + localStorage.getItem('jobId'))
-            .then((res) => {
+            axios.get('http://localhost:8000/api/jobposter/' + parseInt(localStorage.getItem("jobId"))).then((res) => {
                 this.jobDetails = res.data
-                console.log("Hello jobDetails.")
-                console.log(this.jobDetails);
             })
 
         }

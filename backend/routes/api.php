@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\FeaturesController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\RestorePostController;
@@ -37,6 +38,8 @@ Route::get('/companyName', [JobsPosterController::class, 'getAllCompanyName']);
 // get specific jobs
 Route::get('/job/{id}', [JobsPosterController::class, 'getSpecificJobs']);
 
+// payment route==================
+Route::post("/payment", [PaymentController::class, 'stripePost']);
 
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);
