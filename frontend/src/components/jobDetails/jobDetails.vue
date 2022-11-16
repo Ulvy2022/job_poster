@@ -104,7 +104,8 @@ import axios from "axios";
 export default {
     data() {
         return {
-            jobDetails: []
+            jobDetails: [],
+            jobId : localStorage.getItem('jobId'),
         }
     },
 
@@ -113,6 +114,7 @@ export default {
             axios.get('http://localhost:8000/api/jobposter/' + parseInt(localStorage.getItem("jobId"))).then((res) => {
                 this.jobDetails = res.data
             })
+
         }
     },
     mounted() {

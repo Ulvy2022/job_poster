@@ -95,11 +95,13 @@ const routes = [
       }
     }
   },
+  
   {
     path: '/changePassword',
     name: 'changePassword',
     component: () => import('@/views/updatePassword/updatePassword.vue'),
   },
+
   {
     path: '/userList',
     name: 'userList',

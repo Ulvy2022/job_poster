@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
+use App\Models\User;
 use App\Models\Features;
 use App\Models\Subscribe;
 
@@ -28,9 +28,9 @@ class JobsPosterController extends Controller
                 'company_address' => 'required',
                 'job_description' => 'required|min:10|max:500',
                 'job_requirement' => 'required|min:10|max:500',
-            ]
-        );
-
+            ]);
+// Before
+// =======================================================
         $job = new JobsPoster();
         $date = date("Y-m-d");
         $job->user_id = $request->user_id;
@@ -50,17 +50,25 @@ class JobsPosterController extends Controller
         if ($job->expired_at == date("D j M Y")) {
             $job->active = "Yes";
         }
-        $sub = Subscribe::where('user_id', $request->user_id)->get();
-        $updateSub = Subscribe::findOrFail($sub[0]['id']);
-        if ($updateSub->leftCharge - 1 > -1) {
-            $updateSub->leftCharge -= 1;
+        
+        // =====Conditions =====
+        $role = User::where('id', $request->user_id)->get();
+        // Above code, use to get the whole info by id
+        if ($role[0]['role'] == 'Admine'){
             $job->save();
-            $updateSub->update();
-            return response()->json(['msg' => 'success']);
-        } else {
-            return response()->json(['msg' => 'You have used all your leftCharge!']);
+            return response()->json(['msg' => 'Admine have stored job successfully']);
+        }else{
+            $sub = Subscribe::where('user_id', $request->user_id)->get();
+            $updateSub = Subscribe::findOrFail($sub[0]['id']);
+            if ($updateSub->leftCharge - 1 > -1) {
+                $updateSub->leftCharge -= 1;
+                $job->save();
+                $updateSub->update();
+                return response()->json(['msg' => 'User have stored job successfully']);
+            } else {
+                return response()->json(['msg' => 'You have used all your leftCharge!']);
+            }
         }
-
     }
 
     public function show($id)
@@ -138,18 +146,4 @@ class JobsPosterController extends Controller
     {
         return JobsPoster::where('id', $id)->get();
     }
-
-// public function restoreExpiredDate()
-// {
-//     $date = date("Y-m-d");
-//     $sub = JobsPoster::all();
-//     foreach ($sub as $job) {
-//         if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
-//             $charge = JobsPoster::findOrFail($job['id']);
-//             $charge->leftCharge = $charge->charge;
-//             $charge->expired_at = date('D j M Y', strtotime($date . ' + 29 days'));
-//             $charge->update();
-//         }
-//     }
-// }
 }

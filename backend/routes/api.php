@@ -17,6 +17,7 @@ Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 Route::post('/mailToNotifyUserSub', [MailController::class, 'mailToNotifyUserSub']);
 
 Route::apiResource('/user', UserController::class);
+
 Route::get('/count', [UserController::class, 'count']);
 Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
@@ -62,7 +63,7 @@ Route::apiResource('/allTransaction',TransactionController::class);
 Route::apiResource('/jobposter', JobsPosterController::class);
 //features
 Route::apiResource('/features', FeaturesController::class);
-Route::get('/jobposter/{id}', [JobsPosterController::class, 'getJobById']);
+Route::get('/jobposterId/{id}', [JobsPosterController::class, 'getJobById']);
 
 // update verify code
 Route::put('/verifyCode', [UserController::class, 'verifyCode']);

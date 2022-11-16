@@ -34,12 +34,11 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
-        $user->subscription = $request->subscription;
-        $user->role = 'user';
+        // $user->subscription = $request->subscription;
+        $user->role = 'Admine';
         $user->save();
         return response()->json(['msg' => 'success']);
     }
-
 
     public function store(Request $request)
     {
