@@ -36,9 +36,7 @@ class SubscribeController extends Controller
         app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
         app('App\Http\Controllers\PlaneController')->store($request);
         return response()->json(['msg' => 'success']);
-
     }
-
 
     public function show($id)
     {

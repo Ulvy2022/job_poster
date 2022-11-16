@@ -3,7 +3,7 @@
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- equal undefined no button -->
-                <div v-if="userId != 'undefined' || role == 'Admine'">
+                <div v-if="userId != 'undefined' || role == 'Admine'" class="cusor">
                     <PostForm/>
                 </div>
                 
@@ -299,6 +299,10 @@ export default {
 <style scoped>
 #card {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.cusor {
+    cursor: not-allowed;
 }
 </style>
 
