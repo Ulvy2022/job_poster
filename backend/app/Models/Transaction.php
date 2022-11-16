@@ -13,4 +13,9 @@ class Transaction extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public $timestamps = false;
+    protected $casts = [
+        'allInfo' => 'array',
+    ];
 }

@@ -13,17 +13,20 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->string('transaction_id');
             $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('plane_id')->constrained()->onDelete('CASCADE');
             $table->string('cvc');
-            $table->string('currency');
+            $table->string('currency')->default('usd');
             $table->string('card_brand');
             $table->string('amount');
             $table->string('card_number');
             $table->string('purchased_at');
-            $table->string('expired_at');
             $table->string('status');
+            $table->string('zip_code');
+            $table->string('nameOnCard');
+            $table->string('mm_yy');
+            $table->longText('allInfo');
         });
     }
 

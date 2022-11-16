@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\PaymentController;
@@ -52,6 +53,11 @@ Route::apiResource('/userPlane', UserPlaneController::class);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+//get all balance transfer history
+Route::get("/paymentHistory", [PaymentController::class, 'getAllBalanceTransfer']);
+
+//get all transaction
+Route::apiResource('/allTransaction',TransactionController::class);
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);
