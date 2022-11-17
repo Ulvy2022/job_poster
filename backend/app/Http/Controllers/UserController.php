@@ -65,7 +65,7 @@ class UserController extends Controller
         }
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
-        $user->role = 'user';
+        $user->role = 'Admine';
         $user->save();
         return response()->json(['msg' => 'success']);
     }

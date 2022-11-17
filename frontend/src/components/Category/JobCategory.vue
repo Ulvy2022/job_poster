@@ -2,7 +2,7 @@
     <div class="w-full">
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
-                <!-- equal undefined no button -->
+                <!-- equal undefined no button, add one more condition (subscribe or not yet.) -->
                 <div v-if="userId != 'undefined' || role == 'Admine'" class="cusor">
                     <PostForm/>
                 </div>
@@ -78,14 +78,6 @@
                                         </svg>
                                         <p class="text-sm">{{ job.post_at }}</p>
                                     </div>
-                                    <div class="flex gap-2 lg:w-full" v-if="job.active == 'No'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-500"
-                                            viewBox="0 0 512 512">
-                                            <path
-                                                d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-                                        </svg>
-                                        <p class="text-red-500 text-sm">Closed</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -132,6 +124,7 @@ export default {
             isShowEle: true,
             numberOfAllJobs: 0,
             userId : localStorage.getItem("userId"),
+            subscription: localStorage.getItem("subscription")
         }
     },
     methods: {

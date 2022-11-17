@@ -12,6 +12,15 @@ use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\RestorePostController;
 use App\Http\Controllers\JobsPosterController;
 
+    // Api on user: by id, gender,count
+    // Api on job: by id, title, job-type, count, 
+    // List down from supervisor to do on this.
+    // Ask him about subscriptions, continue or not.
+    // ==He will demo: 
+    
+    // Create api
+
+
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 Route::post('/mailToNotifyUserSub', [MailController::class, 'mailToNotifyUserSub']);

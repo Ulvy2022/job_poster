@@ -54,23 +54,8 @@
                     </svg>
                     <p class="ml-2">Salary : {{ jobDetails.salary }}$</p>
                 </div>
-
-
             </div>
-            <div class="grid p-3">
-                <b class="text-lg">Duties</b>
-                <ul class="list-disc list-inside text-base ">
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
-                </ul>
-            </div>
+
             <!-- job information -->
             <div class="grid w-full text-base">
                 <p class="w-full p-3 bg-blue-400 text-white">Application Information</p>
@@ -79,19 +64,13 @@
                     <b class="text-lg">Job Requirements</b>
                     <p class="text-sm"> {{ jobDetails.job_requirement }} </p>
                 </div>
-                <p class="p-3">To for position please submit us your CV Cover using
+                <p class="p-3">To do on this position please submit us your CV Cover using
                     Email contact person above
                 </p>
                 <ul class="list-disc list-inside p-3 text-base">
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
-                    <li class="text-sm">Act the administrator the company OKR Management System (OMS) Task Management
-                        System (TMS)
-                        frameworks</li>
+                    <li class="text-sm">
+                        {{jobDetails.contact_email}}
+                    </li>
                 </ul>
             </div>
         </div>
