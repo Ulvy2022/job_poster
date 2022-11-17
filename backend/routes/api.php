@@ -28,6 +28,7 @@ Route::apiResource('/plane', PlaneController::class);
 Route::apiResource('/restorePost', RestorePostController::class);
 
 Route::get('/restoreCharge', [PlaneController::class, 'restoreCharge']);
+Route::get('/expiredSubscribe', [PlaneController::class, 'expiredSubscribe']);
 
 // get all not expire jobs
 Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);

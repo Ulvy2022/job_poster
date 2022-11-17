@@ -31,9 +31,10 @@ class PlaneController extends Controller
 
     public function expiredSubscribe()
     {
-        $sub = Plane::all();
+        $sub = Plane::where("expired","No")->get();
         foreach ($sub as $job) {
-            if (($job['expired_at']) == (date("D j M Y"))) {
+
+            if ($job['expired_at'] == date("D j M Y")) {
                 $expiredSub = Plane::findOrFail($job['subscribes_id']);
                 $expiredSub->expired = "Yes";
                 $expiredSub->update();
