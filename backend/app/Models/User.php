@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+use LucasDotVin\Soulbscription\Models\Concerns\HasSubscriptions;
 
 
 class User extends Model
 {
-    use HasApiTokens, HasFactory;
+    use HasApiTokens, HasFactory,HasSubscriptions;
     public function Subscribsion()
     {
         return $this->hasMany(Subscribe::class);

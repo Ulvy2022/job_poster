@@ -61,18 +61,23 @@ class SubscribeController extends Controller
         return User::with(['Subscribsion'])->where('id', $id)->first();
     }
 
-    // public function restoreCharge()
-// {
-//     $date = date("Y-m-d");
-//     $sub = Subscribe::all();
-//     foreach ($sub as $job) {
-//         if (strtotime($job['expired_at']) == strtotime(date("D j M Y"))) {
-//             $charge = Subscribe::findOrFail($job['id']);
-//             $charge->leftCharge = $charge->charge;
-//             $charge->update();
-//         }
-//     }
-// }
+    public function  userTrail(Request $request)
+    {
+        $subscribsion = new Subscribe();
+        $feature = Features::find(1);
+        $subscribsion->user_id = $request->user_id;
+        $subscribsion->features_id = $request->features_id;
+        $subscribsion->charge = $this->setChargeBySubName($feature['name']);
+        $subscribsion->leftCharge = $this->setChargeBySubName($feature['name']);
+        $subscribsion->save();
+        $user = User::find($request->user_id);
+        $user->subscription = $subscribsion->name;
+        $user->update();
+        $subscribes_id = Subscribe::where('user_id', $request->user_id)->get()->last();
+        app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
+        app('App\Http\Controllers\PlaneController')->store($request);
+        return response()->json(['msg' => 'success']);
+    }
 
 
 
