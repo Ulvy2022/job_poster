@@ -9,14 +9,7 @@
                         <div class="flex">
                             <span
                                 class="flex items-center leading-normal bg-transparent rounded rounded-r-none border border-r-0 border-none lg:px-3 py-2 whitespace-no-wrap text-grey-dark text-sm">
-                                <!-- <svg width="18" height="18" class="w-4 lg:w-auto" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.11086 15.2217C12.0381 15.2217 15.2217 12.0381 15.2217 8.11086C15.2217 4.18364 12.0381 1 8.11086 1C4.18364 1 1 4.18364 1 8.11086C1 12.0381 4.18364 15.2217 8.11086 15.2217Z"
-                                        stroke="#455A64" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M16.9993 16.9993L13.1328 13.1328" stroke="#455A64" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg> -->
+                               
                                 <svg @click="refreshDate" xmlns="http://www.w3.org/2000/svg"
                                     class="fill-blue-500 cursor-pointer w-6 h-6 " viewBox="0 0 512 512">
                                     <path
@@ -25,7 +18,7 @@
                             </span>
                         </div>
                         <input type="text" v-model="jobName" @keyup="filterJobs"
-                            class="flex-shrink flex-grow flex-auto leading-normal tracking-wide w-px flex-1 border border-none border-l-0 rounded rounded-l-none px-3 relative focus:outline-none text-xxs lg:text-xs lg:text-base text-gray-500 font-thin"
+                            class="flex-shrink flex-grow flex-auto leading-normal tracking-wide w-px border border-none border-l-0 rounded rounded-l-none px-3 relative focus:outline-none text-xxs lg:text-xs lg:text-base text-gray-500 font-thin"
                             placeholder="Search job by name..." />
                     </div>
                 </div>
@@ -35,11 +28,7 @@
                         class="cursor-pointer relative px-5 py-2.5 transition-all ease-in duration-75  dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Active : {{ active }}
                     </span>
-                    <!-- <svg @click="refreshDate" xmlns="http://www.w3.org/2000/svg"
-                        class="fill-blue-500 cursor-pointer w-6 h-6 " viewBox="0 0 512 512">
-                        <path
-                            d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z" />
-                    </svg> -->
+                   
                 </button>
                 <p class="flex justify-center place-items-end text-blue-500">
                     {{ userJobs.length }} Posted Jobs

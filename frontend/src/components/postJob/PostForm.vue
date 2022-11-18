@@ -3,7 +3,7 @@
     <div>
       <div>
         <label
-          v-if="role == 'user' && id != 'undefined' && job != 'undefined'"
+          v-if="subscription == 'undefined' && role == 'user' && id != 'undefined' && job != 'undefined'"
           disabled
           for="my-modal-3"
           class="btn bg-blue-500 btn-circle"
@@ -562,6 +562,7 @@ export default {
       role: localStorage.getItem("role"),
       id: localStorage.getItem("userId"),
       job: localStorage.getItem("jobId"),
+      subscription: localStorage.getItem("subscription")
 
     };
   },

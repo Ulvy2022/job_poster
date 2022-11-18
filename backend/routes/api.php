@@ -10,18 +10,30 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\RestorePostController;
+use App\Http\Controllers\SubRenewalsController;
 use App\Http\Controllers\JobsPosterController;
+
+    // Api on user: by id, gender,count
+    // Api on job: by id, title, job-type, count, 
+    // List down from supervisor to do on this.
+    // Ask him about subscriptions, continue or not.
+    // ==He will demo: 
+    
+    // Create api
+
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/registerEmail/{email}', [MailController::class, 'registerEmail']);
 Route::post('/mailToNotifyUserSub', [MailController::class, 'mailToNotifyUserSub']);
 
 Route::apiResource('/user', UserController::class);
+Route::apiResource('/renewal', SubRenewalsController::class);
 
 Route::get('/count', [UserController::class, 'count']);
 Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
+Route::post('/switchTo', [SubscribeController::class, 'switchTo']);
 
 // user plane
 Route::apiResource('/plane', PlaneController::class);

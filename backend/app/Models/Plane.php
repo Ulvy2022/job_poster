@@ -9,15 +9,15 @@ class Plane extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->hasMany(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
 
-    public function subscribsion()
-    {
-        return $this->belongsTo(Subscribe::class);
-    }
+    // public function subscribsion()
+    // {
+    //     return $this->belongsTo(Subscribe::class);
+    // }
 
     public $timestamps = false;
 

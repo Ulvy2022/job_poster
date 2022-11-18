@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
 use App\Models\User;
-use App\Models\Features;
-use App\Models\Subscribe;
+use LucasDotVin\Soulbscription\Models\Plan;
+use LucasDotVin\Soulbscription\Models\FeaturePlan;
+use LucasDotVin\Soulbscription\Models\Subscription;
+use LucasDotVin\Soulbscription\Models\FeatureTicket;
+use Carbon\Carbon;
+
 
 class JobsPosterController extends Controller
 {
@@ -54,23 +58,32 @@ class JobsPosterController extends Controller
             $job->active = "Yes";
         }
 
+        // find user id in suscribtion table
+        $subscriber_id = Subscription::where("subscriber_id", $request->user_id)->orderBy('id', 'desc')->first();
+        ;
         // =====Conditions =====
         $role = User::where('id', $request->user_id)->get();
+        $featurePlan = FeaturePlan::findOrFail($subscriber_id['id']);
+        $charges = Plan::findOrFail($featurePlan['plan_id']);
+        // app('App\Http\Controllers\FeatureTicketController')
+        // ->store(
+        //     $charges['periodicity'],
+        //     $featurePlan['id'],
+        //     $subscriber_id['id'],
+        //     $charges['name'],
+        // );
         // Above code, use to get the whole info by id
+        $ticketID = FeatureTicket::where("subscriber_id", $request->user_id)->orderBy('id', 'desc')->first();
         if ($role[0]['role'] == 'Admine') {
             $job->save();
             return response()->json(['msg' => 'Admine have stored job successfully']);
         } else {
-            $sub = Subscribe::where('user_id', $request->user_id)->get();
-            $updateSub = Subscribe::findOrFail($sub[0]['id']);
-            if ($updateSub->leftCharge - 1 > -1) {
-                $updateSub->leftCharge -= 1;
-                $job->save();
-                $updateSub->update();
-                return response()->json(['msg' => 'User have stored job successfully']);
-            } else {
-                return response()->json(['msg' => 'You have used all your leftCharge!']);
-            }
+            $job->save();
+            $updateTicket = app('App\Http\Controllers\FeatureTicketController')
+                ->update(
+                    $ticketID['id']
+                );
+            return $updateTicket;
         }
     }
 
