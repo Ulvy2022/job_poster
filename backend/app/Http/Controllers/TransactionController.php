@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -14,10 +15,10 @@ class TransactionController extends Controller
     }
 
 
-    public function store(Request $request)
-    {
-        //
-    }
+    //public function store(Request $request)
+    //{
+
+    //}
 
     /**
      * Display the specified resource.
@@ -62,5 +63,12 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $data['transaction_date'] = Carbon::createFromFormat('m/d/Y', $request->transaction_date)->format('Y-m-d');
+        $transaction = Transaction::create($data);
     }
 }

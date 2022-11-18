@@ -13,12 +13,6 @@ class UserController extends Controller
         return User::with(['jobsposter', 'subscribsion'])->where('role', 'user')->get();
     }
 
-    /**
-     * In user table, there are
-     * - fullName,
-     * - email
-     * - password
-     */
     public function register(Request $request)
     {
         $validated = $request->validateWithBag(
@@ -34,7 +28,6 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
-        // $user->subscription = $request->subscription;
         $user->role = 'Admine';
         $user->save();
         return response()->json(['msg' => 'success']);
@@ -109,6 +102,11 @@ class UserController extends Controller
         return response()->json(['msg' => 'updated']);
     }
 
+    public function destroy($id)
+    {
+        return User::destroy($id);
+    }
+
     public function verifyCode(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -116,13 +114,6 @@ class UserController extends Controller
         $user->update();
         return response()->json(['msg' => 'verify code updated']);
     }
-
-
-    public function destroy($id)
-    {
-        return User::destroy($id);
-    }
-
 
     public function getUserByEmail($email)
     {
@@ -172,7 +163,6 @@ class UserController extends Controller
             $user->update();
         }
         return response()->json(['msg' => 'ing updated']);
-
     }
 
 

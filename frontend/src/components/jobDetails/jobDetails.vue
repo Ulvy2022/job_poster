@@ -34,9 +34,12 @@
                         <line x1="8" y1="3" x2="8" y2="7" />
                         <line x1="4" y1="11" x2="20" y2="11" />
                         <rect x="8" y="15" width="2" height="2" />
-
                     </svg>
-                    <p class="ml-1">Close Date : {{ jobDetails.job_closedate }}</p>
+
+                    <p class="ml-1">Close Date :
+                        {{ jobDetails.job_closedate }}
+                    </p>
+
                 </div>
 
                 <!-- schedule -->
@@ -105,7 +108,8 @@ export default {
     data() {
         return {
             jobDetails: [],
-            jobId : localStorage.getItem('jobId'),
+            jobId: localStorage.getItem('jobId'),
+
         }
     },
 
@@ -115,10 +119,18 @@ export default {
                 this.jobDetails = res.data
             })
 
+            const dateString = '12/03/2022';
+            var date = new Date(dateString);
+            console.log(date);
+            console.log('Sat 3 Dec 2022');
+
         }
     },
     mounted() {
         this.getAlljobDetails()
     }
+
+
+
 }
 </script>

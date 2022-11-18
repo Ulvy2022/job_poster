@@ -46,6 +46,8 @@ Route::post("/payment", [PaymentController::class, 'stripePost']);
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);
 Route::get('/UserJob/{id}', [UserController::class, 'getUserJob']);
+
+//========
 //login vai google forma
 Route::post('/loginViaGoogle', [LoginController::class, 'loginViaGoogle']);
 // minus 1 user's charge after they posted job
@@ -58,7 +60,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get("/paymentHistory", [PaymentController::class, 'getAllBalanceTransfer']);
 
 //get all transaction
-Route::apiResource('/allTransaction',TransactionController::class);
+Route::apiResource('/allTransaction', TransactionController::class);
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);

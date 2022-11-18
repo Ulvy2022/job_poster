@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\JobsPoster;
 use App\Models\User;
@@ -28,8 +29,9 @@ class JobsPosterController extends Controller
                 'company_address' => 'required',
                 'job_description' => 'required|min:10|max:500',
                 'job_requirement' => 'required|min:10|max:500',
-            ]);
-// Before
+            ]
+        );
+        // Before
 // =======================================================
         $job = new JobsPoster();
         $date = date("Y-m-d");
@@ -39,6 +41,7 @@ class JobsPosterController extends Controller
         $job->company_location = $request->company_location;
         $job->job_type = $request->job_type;
         $job->job_closedate = $request->job_closedate;
+        //job_closedate is the string, should convert it to date and then fit with format.
         $job->company_name = $request->company_name;
         $job->salary = $request->salary;
         $job->contact_name = $request->contact_name;
@@ -50,14 +53,14 @@ class JobsPosterController extends Controller
         if ($job->expired_at == date("D j M Y")) {
             $job->active = "Yes";
         }
-        
+
         // =====Conditions =====
         $role = User::where('id', $request->user_id)->get();
         // Above code, use to get the whole info by id
-        if ($role[0]['role'] == 'Admine'){
+        if ($role[0]['role'] == 'Admine') {
             $job->save();
             return response()->json(['msg' => 'Admine have stored job successfully']);
-        }else{
+        } else {
             $sub = Subscribe::where('user_id', $request->user_id)->get();
             $updateSub = Subscribe::findOrFail($sub[0]['id']);
             if ($updateSub->leftCharge - 1 > -1) {
