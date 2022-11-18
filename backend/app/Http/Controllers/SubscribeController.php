@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subscribe;
+
+use LucasDotVin\Soulbscription\Models\Subscription;
+use LucasDotVin\Soulbscription\Models\Feature;
+use LucasDotVin\Soulbscription\Models\FeaturePlan;
+
+use LucasDotVin\Soulbscription\Models\Plan;
 use App\Models\User;
-use App\Models\Features;
-use App\Models\Plane;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SubscribeController extends Controller
@@ -13,46 +17,67 @@ class SubscribeController extends Controller
 
     public function index()
     {
-        return Subscribe::get();
+        return Subscription::get();
     }
 
 
     public function store(Request $request)
     {
-        $date = date("Y-m-d");
-        $subscribsion = new Subscribe();
-        $feature = Features::find($request->features_id);
-        $subscribsion->user_id = $request->user_id;
-        $subscribsion->features_id = $request->features_id;
-        $subscribsion->name = $feature['name'];
-        $subscribsion->feature = $feature['features'];
-        $subscribsion->charge = $this->setChargeBySubName($feature['name']);
-        $subscribsion->leftCharge = $this->setChargeBySubName($feature['name']);
-        $subscribsion->save();
-        $user = User::find($request->user_id);
-        $user->subscription = $subscribsion->name;
-        $user->update();
-        $subscribes_id = Subscribe::where('user_id', $request->user_id)->get()->last();
-        app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
-        app('App\Http\Controllers\PlaneController')->store($request);
-        return response()->json(['msg' => 'success']);
+        $student = User::find($request->subscriber_id);
+        $plan = Plan::find($request->plan_id);
+        $student->subscribeTo($plan, expiration: today()->addMonth());
+
+        $feature_id = app('App\Http\Controllers\FeaturesController')->getFeatureId($plan['name']);
+
+        $plan_id = app('App\Http\Controllers\PlaneController')->getPlanId($plan['name']);
+
+        $charge = app('App\Http\Controllers\FeaturesController')->getChargeByName($plan['name']);
+
+        app('App\Http\Controllers\FeaturePlanController')->store($feature_id,$plan_id,$charge                                                   );
+        $subscriber_id = Subscription::where("subscriber_id",$request->subscriber_id)
+        ->where('was_switched', 0)->first();
+        $featurePlan = FeaturePlan::findOrFail($student['id']);
+        $charges = Plan::findOrFail($featurePlan['plan_id']);
+        app('App\Http\Controllers\FeatureTicketController')
+        ->store(
+            $charges['periodicity'],
+            $featurePlan['id'],
+            $subscriber_id['subscriber_id'],
+            $charges['name'],
+        );
+
+        return response()->json(['msg'=>'subscribe successful']);
     }
 
     public function show($id)
     {
-        return Subscribe::where('user_id', $id)->get();
+        return Subscription::where('id', $id)->get();
     }
 
 
-    public function update(Request $request, Subscribe $subscribsion)
+    public function switchTo(Request $request)
     {
-        //
+        $student = User::find($request->subscriber_id);
+        // $oldPlan =  Plan::where('subscriber_id',$request->subscriber_id)
+        // ->where('was_switched',0)->get();
+        $plan = Plan::find($request->plan_id);
+        $oldSub = Subscription::where('subscriber_id',$request->subscriber_id)
+        ->where('was_switched',0)->get();
+        $newSub = Subscription::findOrFail($oldSub[0]['id']);
+        $newSub->was_switched = true;
+        $newSub->update();
+        $this->store( $request);
+
+        return response()->json(['msg'=>'subscribe successful']);
     }
 
 
     public function destroy($id)
     {
-        return Subscribe::destroy($id);
+        $subscriber = Subscription::findOrFail($id);
+        $subscriber->canceled_at = Carbon::now()->toDayDateTimeString();
+        $subscriber->save();
+      
     }
 
 
@@ -63,8 +88,8 @@ class SubscribeController extends Controller
 
     public function  userTrail(Request $request)
     {
-        $subscribsion = new Subscribe();
-        $feature = Features::find(1);
+        $subscribsion = new Subscription();
+        $feature = Feature::find(1);
         $subscribsion->user_id = $request->user_id;
         $subscribsion->features_id = $request->features_id;
         $subscribsion->charge = $this->setChargeBySubName($feature['name']);
@@ -73,7 +98,7 @@ class SubscribeController extends Controller
         $user = User::find($request->user_id);
         $user->subscription = $subscribsion->name;
         $user->update();
-        $subscribes_id = Subscribe::where('user_id', $request->user_id)->get()->last();
+        $subscribes_id = Subscription::where('user_id', $request->user_id)->get()->last();
         app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
         app('App\Http\Controllers\PlaneController')->store($request);
         return response()->json(['msg' => 'success']);
@@ -106,4 +131,15 @@ class SubscribeController extends Controller
             return 1000000000;
         }
     }
+
+    public function addDays($sub_id)
+    {
+        $sub = Subscription::findOrFail($sub_id);
+        $sub->expired_at = $sub->expired_at->addDays(30+$sub->expired_at->format('d') );
+        $sub->update();
+        return response()->json(['mg'=>'renewal successfully']);
+    }
+
+
+
 }

@@ -57,13 +57,13 @@ class SubscriptionSeeder extends Seeder
                 ]
             ];
 
-        foreach ($allPlane as $i => $i_value) {
-                $feature = new Features();
-                $feature->name = $i_value['plane_type'];
-                $feature->price = $i_value['price'];
-                $feature->features = ($i_value['features']);
-                $feature->save();
-        }
+        // foreach ($allPlane as $i => $i_value) {
+        //         $feature = new Features();
+        //         $feature->name = $i_value['plane_type'];
+        //         $feature->price = $i_value['price'];
+        //         $feature->features = ($i_value['features']);
+        //         $feature->save();
+        // }
 
     }
 }
