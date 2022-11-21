@@ -25,28 +25,27 @@ class SubscribeController extends Controller
     {
         $student = User::find($request->subscriber_id);
         $plan = Plan::find($request->plan_id);
-        $student->subscribeTo($plan, expiration: today()->addMonth());
-
+        $student->subscribeTo($plan, expiration: today()->addMonth(), startDate: null);
         $feature_id = app('App\Http\Controllers\FeaturesController')->getFeatureId($plan['name']);
 
         $plan_id = app('App\Http\Controllers\PlaneController')->getPlanId($plan['name']);
 
         $charge = app('App\Http\Controllers\FeaturesController')->getChargeByName($plan['name']);
 
-        app('App\Http\Controllers\FeaturePlanController')->store($feature_id,$plan_id,$charge                                                   );
-        $subscriber_id = Subscription::where("subscriber_id",$request->subscriber_id)
-        ->where('was_switched', 0)->first();
+        app('App\Http\Controllers\FeaturePlanController')->store($feature_id, $plan_id, $charge);
+        $subscriber_id = Subscription::where("subscriber_id", $request->subscriber_id)
+            ->where('was_switched', 0)->first();
         $featurePlan = FeaturePlan::findOrFail($student['id']);
         $charges = Plan::findOrFail($featurePlan['plan_id']);
         app('App\Http\Controllers\FeatureTicketController')
-        ->store(
-            $charges['periodicity'],
-            $featurePlan['id'],
-            $subscriber_id['subscriber_id'],
-            $charges['name'],
-        );
+            ->store(
+                $charges['periodicity'],
+                $featurePlan['id'],
+                $subscriber_id['subscriber_id'],
+                $charges['name'],
+            );
 
-        return response()->json(['msg'=>'subscribe successful']);
+        return response()->json(['msg' => 'subscribe successful']);
     }
 
     public function show($id)
@@ -61,14 +60,14 @@ class SubscribeController extends Controller
         // $oldPlan =  Plan::where('subscriber_id',$request->subscriber_id)
         // ->where('was_switched',0)->get();
         $plan = Plan::find($request->plan_id);
-        $oldSub = Subscription::where('subscriber_id',$request->subscriber_id)
-        ->where('was_switched',0)->get();
+        $oldSub = Subscription::where('subscriber_id', $request->subscriber_id)
+            ->where('was_switched', 0)->get();
         $newSub = Subscription::findOrFail($oldSub[0]['id']);
         $newSub->was_switched = true;
         $newSub->update();
-        $this->store( $request);
+        $this->store($request);
 
-        return response()->json(['msg'=>'subscribe successful']);
+        return response()->json(['msg' => 'subscribe successful']);
     }
 
 
@@ -77,7 +76,7 @@ class SubscribeController extends Controller
         $subscriber = Subscription::findOrFail($id);
         $subscriber->canceled_at = Carbon::now()->toDayDateTimeString();
         $subscriber->save();
-      
+
     }
 
 
@@ -86,7 +85,7 @@ class SubscribeController extends Controller
         return User::with(['Subscribsion'])->where('id', $id)->first();
     }
 
-    public function  userTrail(Request $request)
+    public function userTrail(Request $request)
     {
         $subscribsion = new Subscription();
         $feature = Feature::find(1);
@@ -135,11 +134,22 @@ class SubscribeController extends Controller
     public function addDays($sub_id)
     {
         $sub = Subscription::findOrFail($sub_id);
-        $sub->expired_at = $sub->expired_at->addDays(30+$sub->expired_at->format('d') );
+        $sub->expired_at = $sub->expired_at->addDays(30 + $sub->expired_at->format('d'));
         $sub->update();
-        return response()->json(['mg'=>'renewal successfully']);
+        return response()->json(['smg' => 'renewal successfully']);
     }
 
-
+    public function setSubToExpired()
+    {
+        $sub_id = Subscription::where("active", 1)->get();
+        $curret_date = Carbon::now();
+        foreach ($sub_id as $item) {
+            $sub_update = Subscription::findOrFail($item['id']);
+            if (date('y-m-d', strtotime($item['expired_at'])) == date('y-m-d', strtotime($item->created_at->addDays(30)))) {
+                $sub_update->active = 0;
+                $sub_update->update();
+            }
+        }
+    }
 
 }

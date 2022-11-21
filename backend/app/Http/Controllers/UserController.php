@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::with(['jobsposter', 'subscribsion'])->where('role', 'user')->get();
+        return User::with(['jobsposter'])->get();
     }
 
     public function register(Request $request)
@@ -29,7 +29,9 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
         $user->subscription = $request->subscription;
-        $user->role = 'Admine';
+        if ($user->role != null) {
+            $user->role = $request->role;
+        }
         $user->save();
         return response()->json(['msg' => 'success']);
     }
@@ -59,7 +61,9 @@ class UserController extends Controller
         }
         $user->gender = $request->gender;
         $user->password = bcrypt($request->password);
-        $user->role = 'Admine';
+        if ($user->role != null) {
+            $user->role = $request->role;
+        }
         $user->save();
         return response()->json(['msg' => 'success']);
     }

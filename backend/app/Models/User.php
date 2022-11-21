@@ -10,11 +10,8 @@ use LucasDotVin\Soulbscription\Models\Concerns\HasSubscriptions;
 
 class User extends Model
 {
-    use HasApiTokens, HasFactory,HasSubscriptions;
-    public function Subscribsion()
-    {
-        return $this->hasMany(Subscribe::class);
-    }
+    use HasApiTokens, HasFactory, HasSubscriptions;
+
     public function Jobsposter()
     {
         return $this->hasMany(JobsPoster::class);

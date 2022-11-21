@@ -12,14 +12,15 @@ use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\RestorePostController;
 use App\Http\Controllers\SubRenewalsController;
 use App\Http\Controllers\JobsPosterController;
+use Stripe\Subscription;
 
-    // Api on user: by id, gender,count
-    // Api on job: by id, title, job-type, count, 
-    // List down from supervisor to do on this.
-    // Ask him about subscriptions, continue or not.
-    // ==He will demo: 
-    
-    // Create api
+// Api on user: by id, gender,count
+// Api on job: by id, title, job-type, count,
+// List down from supervisor to do on this.
+// Ask him about subscriptions, continue or not.
+// ==He will demo:
+
+// Create api
 
 
 Route::post('/register', [UserController::class, 'register']);
@@ -40,7 +41,7 @@ Route::apiResource('/plane', PlaneController::class);
 Route::apiResource('/restorePost', RestorePostController::class);
 
 Route::get('/restoreCharge', [PlaneController::class, 'restoreCharge']);
-Route::get('/expiredSubscribe', [PlaneController::class, 'expiredSubscribe']);
+Route::post('/setSubToExpired', [SubscribeController::class, 'setSubToExpired']);
 
 // get all not expire jobs
 Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);
@@ -58,6 +59,9 @@ Route::post("/payment", [PaymentController::class, 'stripePost']);
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);
 Route::get('/UserJob/{id}', [UserController::class, 'getUserJob']);
+
+// get user plan
+Route::apiResource('/plan', PlaneController::class);
 
 //========
 //login vai google forma
