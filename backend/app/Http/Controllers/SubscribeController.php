@@ -27,7 +27,6 @@ class SubscribeController extends Controller
         $plan = Plan::find($request->plan_id);
         $student->subscribeTo($plan, expiration: today()->addMonth(), startDate: null);
         $feature_id = app('App\Http\Controllers\FeaturesController')->getFeatureId($plan['name']);
-
         $plan_id = app('App\Http\Controllers\PlaneController')->getPlanId($plan['name']);
 
         $charge = app('App\Http\Controllers\FeaturesController')->getChargeByName($plan['name']);
@@ -35,7 +34,7 @@ class SubscribeController extends Controller
         app('App\Http\Controllers\FeaturePlanController')->store($feature_id, $plan_id, $charge);
         $subscriber_id = Subscription::where("subscriber_id", $request->subscriber_id)
             ->where('was_switched', 0)->first();
-        $featurePlan = FeaturePlan::findOrFail($student['id']);
+        $featurePlan = FeaturePlan::where('feature_id', $feature_id)->orderBy('id')->get()->first();
         $charges = Plan::findOrFail($featurePlan['plan_id']);
         app('App\Http\Controllers\FeatureTicketController')
             ->store(
@@ -142,7 +141,6 @@ class SubscribeController extends Controller
     public function setSubToExpired()
     {
         $sub_id = Subscription::where("active", 1)->get();
-        $curret_date = Carbon::now();
         foreach ($sub_id as $item) {
             $sub_update = Subscription::findOrFail($item['id']);
             if (date('y-m-d', strtotime($item['expired_at'])) == date('y-m-d', strtotime($item->created_at->addDays(30)))) {
@@ -150,6 +148,14 @@ class SubscribeController extends Controller
                 $sub_update->update();
             }
         }
+    }
+
+    public function cancelSubscribe(Request $request)
+    {
+        $sub_update = Subscription::findOrFail($request->sub_id);
+        $sub_update->canceled_at = Carbon::now();
+        $sub_update->active = 0;
+        return response()->json(['msg' => "cancel successfully"]);
     }
 
 }

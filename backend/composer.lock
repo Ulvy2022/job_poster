@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "970c51d42f0d882e31905961f030579b",
+    "content-hash": "5254cfcc116ec61b33f85b5fa1df8cbe",
     "packages": [
         {
             "name": "brick/math",
@@ -2318,6 +2318,50 @@
                 }
             ],
             "time": "2022-08-01T11:03:24+00:00"
+        },
+        {
+            "name": "payway/payway",
+            "version": "v1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shah-shreya/payway-test-package.git",
+                "reference": "77f6fab9eae4dd20d78a7c47b13748a77b57e02d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shah-shreya/payway-test-package/zipball/77f6fab9eae4dd20d78a7c47b13748a77b57e02d",
+                "reference": "77f6fab9eae4dd20d78a7c47b13748a77b57e02d",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "payway\\payway\\PaywayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "payway\\payway\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "payway",
+                    "email": "author@test.com"
+                }
+            ],
+            "description": "This will allow you to integrate payway in your laravel based shopping cart application.",
+            "support": {
+                "issues": "https://github.com/shah-shreya/payway-test-package/issues",
+                "source": "https://github.com/shah-shreya/payway-test-package/tree/master"
+            },
+            "time": "2019-03-26T08:21:48+00:00"
         },
         {
             "name": "phpoption/phpoption",

@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\FeaturesController;
+use App\Http\Controllers\FeatureTicketController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PlaneController;
@@ -38,6 +39,7 @@ Route::post('/switchTo', [SubscribeController::class, 'switchTo']);
 
 // user plane
 Route::apiResource('/plane', PlaneController::class);
+Route::apiResource('/tickets', FeatureTicketController::class);
 Route::apiResource('/restorePost', RestorePostController::class);
 
 Route::get('/restoreCharge', [PlaneController::class, 'restoreCharge']);

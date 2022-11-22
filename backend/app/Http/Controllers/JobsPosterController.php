@@ -8,6 +8,7 @@ use LucasDotVin\Soulbscription\Models\Plan;
 use LucasDotVin\Soulbscription\Models\FeaturePlan;
 use LucasDotVin\Soulbscription\Models\Subscription;
 use LucasDotVin\Soulbscription\Models\FeatureTicket;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 
@@ -59,31 +60,21 @@ class JobsPosterController extends Controller
         }
 
         // find user id in suscribtion table
-        $subscriber_id = Subscription::where("subscriber_id", $request->user_id)->orderBy('id', 'desc')->first();
-        ;
         // =====Conditions =====
         $role = User::where('id', $request->user_id)->get();
-        $featurePlan = FeaturePlan::findOrFail($subscriber_id['id']);
-        $charges = Plan::findOrFail($featurePlan['plan_id']);
-        // app('App\Http\Controllers\FeatureTicketController')
-        // ->store(
-        //     $charges['periodicity'],
-        //     $featurePlan['id'],
-        //     $subscriber_id['id'],
-        //     $charges['name'],
-        // );
         // Above code, use to get the whole info by id
-        $ticketID = FeatureTicket::where("subscriber_id", $request->user_id)->orderBy('id', 'desc')->first();
         if ($role[0]['role'] == 'Admine') {
             $job->save();
             return response()->json(['msg' => 'Admine have stored job successfully']);
         } else {
+            $ticketID = app('App\Http\Controllers\FeatureTicketController')->show($request->user_id);
+            // return $ticketID;
             $job->save();
-            $updateTicket = app('App\Http\Controllers\FeatureTicketController')
+            return app('App\Http\Controllers\FeatureTicketController')
                 ->update(
-                    $ticketID['id']
+                    $ticketID->id
                 );
-            return $updateTicket;
+            // return response()->json(['msg' => 'User have stored job successfully']);
         }
     }
 
