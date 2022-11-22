@@ -55,10 +55,6 @@ class SubscribeController extends Controller
 
     public function switchTo(Request $request)
     {
-        $student = User::find($request->subscriber_id);
-        // $oldPlan =  Plan::where('subscriber_id',$request->subscriber_id)
-        // ->where('was_switched',0)->get();
-        $plan = Plan::find($request->plan_id);
         $oldSub = Subscription::where('subscriber_id', $request->subscriber_id)
             ->where('was_switched', 0)->get();
         $newSub = Subscription::findOrFail($oldSub[0]['id']);
@@ -86,20 +82,15 @@ class SubscribeController extends Controller
 
     public function userTrail(Request $request)
     {
-        $subscribsion = new Subscription();
-        $feature = Feature::find(1);
-        $subscribsion->user_id = $request->user_id;
-        $subscribsion->features_id = $request->features_id;
-        $subscribsion->charge = $this->setChargeBySubName($feature['name']);
-        $subscribsion->leftCharge = $this->setChargeBySubName($feature['name']);
-        $subscribsion->save();
-        $user = User::find($request->user_id);
-        $user->subscription = $subscribsion->name;
-        $user->update();
-        $subscribes_id = Subscription::where('user_id', $request->user_id)->get()->last();
-        app('App\Http\Controllers\RestorePostController')->store($subscribes_id['id'], $subscribes_id['user_id'], );
-        app('App\Http\Controllers\PlaneController')->store($request);
-        return response()->json(['msg' => 'success']);
+        $user = User::find($request->subscriber_id);
+        $this->store($request);
+        if ($user->ifTrail == false) {
+            $user->ifTrail = true;
+            $user->update();
+            return response()->json(['msg' => 'success']);
+        }
+        return response()->json(['msg' => 'failed']);
+
     }
 
 

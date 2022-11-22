@@ -59,4 +59,23 @@ class FeaturesController extends Controller
         $feature = Feature::where("name", $name)->get();
         return $feature[0]['id'];
     }
+
+    public function getNameByFeatureId($id)
+    {
+        return Feature::findOrFail($id);
+    }
+
+    public function dateToRestoreCharge($name)
+    {
+        if ($name == 'trail' or $name == 'silver') {
+            return 15;
+        } else if ($name == 'gold' or $name == 'diamond') {
+            return 30;
+        }
+    }
+
+    public function getChargeByFeatureId($id)
+    {
+
+    }
 }

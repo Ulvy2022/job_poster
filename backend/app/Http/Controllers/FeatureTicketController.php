@@ -16,6 +16,16 @@ class FeatureTicketController extends Controller
     public function index()
     {
         return $this->ToObject(DB::select('SELECT * from users order by id desc '));
+        // $sub = FeatureTicket::where("expired_at", ">=", time() - (24 * 60 * 60))->get();
+        // foreach ($sub as $job) {
+        //     // return date("Y-m-d");
+        //     return date('Y-m-d', strtotime($job['restoreChrage_at']));
+        //     if (date('Y-m-d', strtotime($job['restoreChrage_at'])) == date("Y-m-d")) {
+        //         $charge = FeatureTicket::findOrFail($job['id']);
+        //         $charge->charges = $charge->full_charge;
+        //         $charge->update();
+        //     }
+        // }
     }
 
     public function update($id)
@@ -55,11 +65,19 @@ class FeatureTicketController extends Controller
     {
         $featurePlan = new FeatureTicket();
         $featurePlan->charges = $charges;
+        $featurePlan->full_charge = $charges;
         $featurePlan->feature_id = $feature_id;
         $featurePlan->expired_at = Carbon::now()->addMonth();
         $featurePlan->subscriber_type = $subscriber_type;
         $featurePlan->subscriber_id = $subscriber_id;
-        $featurePlan->expired_at = date('m/d/Y H:i:s', time());
+
+        $chrageName = app('App\Http\Controllers\FeaturesController')
+            ->getNameByFeatureId($feature_id);
+
+        $dayToAdd = app('App\Http\Controllers\FeaturesController')
+            ->dateToRestoreCharge($chrageName['name']);
+
+        $featurePlan->restoreChrage_at = Carbon::now()->addDays($dayToAdd);
         $featurePlan->save();
         return response()->json(['id' => $featurePlan['id']]);
 
@@ -69,5 +87,17 @@ class FeatureTicketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function restoreCharge()
+    {
+        $sub = FeatureTicket::where("expired_at", ">=", time() - (24 * 60 * 60))->get();
+        foreach ($sub as $job) {
+            if (date('Y-m-d', strtotime($job['restoreChrage_at'])) == date("Y-m-d")) {
+                $charge = FeatureTicket::findOrFail($job['id']);
+                $charge->charges = $charge->full_charge;
+                $charge->update();
+            }
+        }
     }
 }

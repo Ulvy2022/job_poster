@@ -49,6 +49,9 @@ Route::post('/setSubToExpired', [SubscribeController::class, 'setSubToExpired'])
 Route::get('/setJobToExpired', [JobsPosterController::class, 'setJobToExpired']);
 Route::get('/mail', [MailController::class, 'mailToNotifyUserSub']);
 
+// user trail
+Route::post('/trail', [SubscribeController::class, 'userTrail']);
+
 // get all job title
 Route::get('/jobTitle', [JobsPosterController::class, 'getAllJobsTitle']);
 Route::get('/companyName', [JobsPosterController::class, 'getAllCompanyName']);

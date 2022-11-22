@@ -68,7 +68,6 @@ class JobsPosterController extends Controller
             return response()->json(['msg' => 'Admine have stored job successfully']);
         } else {
             $ticketID = app('App\Http\Controllers\FeatureTicketController')->show($request->user_id);
-            // return $ticketID;
             $checkCharge = app('App\Http\Controllers\FeatureTicketController')
                 ->update(
                     $ticketID->id

@@ -16,7 +16,7 @@ return new class extends Migration {
                 $table->string('phoneNumber')->nullable();
                 $table->string('companyName')->nullable();
                 $table->string('gender')->nullable();
-                $table->string('ifTrail')->default('No');
+                $table->boolean('ifTrail')->default(0);
                 $table->string('password');
                 $table->string('role')->default('user');
                 $table->string('verify_code')->nullable();
