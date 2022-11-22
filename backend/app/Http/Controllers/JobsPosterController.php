@@ -69,11 +69,15 @@ class JobsPosterController extends Controller
         } else {
             $ticketID = app('App\Http\Controllers\FeatureTicketController')->show($request->user_id);
             // return $ticketID;
-            $job->save();
-            return app('App\Http\Controllers\FeatureTicketController')
+            $checkCharge = app('App\Http\Controllers\FeatureTicketController')
                 ->update(
                     $ticketID->id
                 );
+            if ($checkCharge == 'Job posted') {
+                $job->save();
+            }
+            return $checkCharge;
+
             // return response()->json(['msg' => 'User have stored job successfully']);
         }
     }

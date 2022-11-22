@@ -24,9 +24,9 @@ class FeatureTicketController extends Controller
         $minusCharge = $featurePlan->charges - 1;
         if ($minusCharge > -1) {
             DB::update('UPDATE feature_tickets set charges =' . $minusCharge . ' where id=' . $id);
-            return response()->json(['msg' => 'Job posted']);
+            return 'Job posted';
         }
-        return response()->json(['msg' => "You have used all your charges"]);
+        return "You have used all your charges";
     }
 
     public function show($id)
