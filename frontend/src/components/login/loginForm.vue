@@ -1,14 +1,11 @@
 <template>
-    <section class="h-screen bg-gray-200">
-        <div class="container px-6 py-12 h-full">
-            <p class="flex justify-center mb-5 mt-0 text-blue-800 items-center">
-                You can see jobs without login.<br> But you cannot post job without login. <br> You can post only one time if you didn't subscribe
-            </p>
-
+    <section class=" bg-gray-200 " style="height:89vh;">
+        <div class="container px-6 py-12 h-full animate__zoomIn animate__animated">
             <!-- <p>Welcome to my codepen profile</p> -->
             <div class="flex justify-center items-center flex-wrap g-6 text-gray-800">
                 <div class=" w-full lg:w-5/12  lg:ml-20  bg-white p-5 rounded-lg ">
-                    <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4">Welcome back</p>
+                    <p class="w-full flex justify-center items-center text-2xl text-blue-500 mb-4 ">
+                        Welcome back</p>
                     <div class="relative mb-5">
                         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
@@ -24,7 +21,8 @@
 
                     <div class="mb-2">
                         <div class="flex">
-                            <span v-if="isEmptyEmail" class="text-red-700">Email cannot be empty</span>
+                            <span v-if="isEmptyEmail" class="text-red-700 animate__headShake animate__animated">Email
+                                cannot be empty</span>
                         </div>
                     </div>
 
@@ -42,12 +40,14 @@
                     </div>
                     <div class=" mt-4 mb-2">
                         <div class="flex" v-if="isEmptyPassword">
-                            <span class="text-red-700">Password cannot be empty</span>
+                            <span class="text-red-700 animate__headShake animate__animated">Password cannot be
+                                empty</span>
                         </div>
                     </div>
                     <div class=" -mt-4 mb-2">
                         <div class="flex" v-if="showInvalid">
-                            <span class="text-red-700">Invalid Password or Email!</span>
+                            <span class="text-red-700 animate__headShake animate__animated">Invalid Password or
+                                Email!</span>
                         </div>
                     </div>
 
@@ -294,7 +294,7 @@ export default {
             isFirstNameEmpty: false,
             email: '',
             password: '',
-           
+
 
             // ==========Register=======
             showPass: false,
@@ -462,37 +462,36 @@ export default {
 
 
 <style scoped>
-    .input {
-        transition: border 0.2s ease-in-out;
-        min-width: 280px
-    }
+.input {
+    transition: border 0.2s ease-in-out;
+    min-width: 280px
+}
 
-    .input:focus+.label,
-    .input:active+.label,
-    .input.filled+.label {
-        font-size: .75rem;
-        transition: all 0.2s ease-out;
-        top: -0.9rem;
-        background-color: #fff;
-        color: #1a73e8;
-        padding: 0 5px 0 5px;
-        margin: 0 5px 0 5px;
-    }
+.input:focus+.label,
+.input:active+.label,
+.input.filled+.label {
+    font-size: .75rem;
+    transition: all 0.2s ease-out;
+    top: -0.9rem;
+    background-color: #fff;
+    color: #1a73e8;
+    padding: 0 5px 0 5px;
+    margin: 0 5px 0 5px;
+}
 
-    .label {
-        transition: all 0.2s ease-out;
-        top: 0.1rem;
-        left: 0;
-    }
+.label {
+    transition: all 0.2s ease-out;
+    top: 0.1rem;
+    left: 0;
+}
 
-    input[type=email]:not(:placeholder-shown):invalid {
-        color: red;
-        outline-color: red;
-    }
+input[type=email]:not(:placeholder-shown):invalid {
+    color: red;
+    outline-color: red;
+}
 
-    input[type=email]:not(:placeholder-shown):valid {
-        color: green;
-        outline-color: green;
-    }
-
+input[type=email]:not(:placeholder-shown):valid {
+    color: green;
+    outline-color: green;
+}
 </style>

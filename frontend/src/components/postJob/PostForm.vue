@@ -1,51 +1,26 @@
 <template>
   <section>
-    <div>
+    <div class="">
       <div>
-        <label
-          v-if="subscription == 'undefined' && role == 'user' && id != 'undefined' && job != 'undefined'"
-          disabled
-          for="my-modal-3"
-          class="btn bg-blue-500 btn-circle"
-        >
-          <svg
-            class="h-8 w-8 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 4v16m8-8H4"
-            />
+        <label v-if="subscription == 'undefined' && role == 'user' && id != 'undefined' && job != 'undefined'" disabled
+          for="my-modal-3" class="btn bg-blue-500 btn-circle">
+          <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
         </label>
 
         <label v-else for="my-modal-3" class="btn bg-blue-500 btn-circle">
-          <svg
-            class="h-8 w-8 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 4v16m8-8H4"
-            />
+          <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
         </label>
       </div>
 
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-      <div class="modal">
-        <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto">
+      <div class="modal ">
+        <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto ">
           <form @submit.prevent="createJob">
-            <h1
-              class="
+            <h1 class="
                 text-center
                 bg-blue-600
                 text-white
@@ -53,28 +28,19 @@
                 p-2
                 mb-1
                 text-lg
-              "
-            >
+              ">
               CREATE JOB
             </h1>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
               <div>
-                <label
-                  for="job-title"
-                  class="
+                <label for="job-title" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Title</label
-                >
-                <input
-                  v-model="jobTitle"
-                  type="text"
-                  id="job-title"
-                  class="
+                  ">Job Title</label>
+                <input v-model="jobTitle" type="text" id="job-title" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -89,29 +55,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Web Developer"
-                  required=""
-                />
+                  " placeholder="Web Developer" required="" />
               </div>
 
               <div>
-                <label
-                  for="job-location"
-                  class="
+                <label for="job-location" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Location</label
-                >
-                <input
-                  v-model="jobLocation"
-                  type="text"
-                  id="job-location"
-                  class="
+                  ">Job Location</label>
+                <input v-model="jobLocation" type="text" id="job-location" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -126,28 +81,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Phnom Penh or Province"
-                  required=""
-                />
+                  " placeholder="Phnom Penh or Province" required="" />
               </div>
 
               <div>
-                <label
-                  for="job-type"
-                  class="
+                <label for="job-type" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Type</label
-                >
-                <select
-                  v-model="jobType"
-                  id="job-type"
-                  class="
+                  ">Job Type</label>
+                <select v-model="jobType" id="job-type" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -162,10 +107,7 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Flowbite"
-                  required=""
-                >
+                  " placeholder="Flowbite" required="">
                   <option disabled>Job Type</option>
                   <option value="Full-Time">Full-Time</option>
                   <option value="Part-Time">Part-Time</option>
@@ -174,22 +116,14 @@
               </div>
 
               <div>
-                <label
-                  for="closing-date"
-                  class="
+                <label for="closing-date" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Closing Date</label
-                >
-                <input
-                  v-model="jobClosedate"
-                  type="date"
-                  id="closing-date"
-                  class="
+                  ">Job Closing Date</label>
+                <input v-model="jobClosedate" type="date" id="closing-date" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -204,28 +138,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  required=""
-                />
+                  " required="" />
               </div>
 
               <div>
-                <label
-                  for="salary"
-                  class="
+                <label for="salary" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Salary(per month)</label
-                >
-                <input
-                  v-model="salary"
-                  type="number"
-                  id="salary"
-                  class="
+                  ">Salary(per month)</label>
+                <input v-model="salary" type="number" id="salary" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -240,28 +164,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Salary"
-                />
+                  " placeholder="Salary" />
               </div>
 
               <div>
-                <label
-                  for="contact-name"
-                  class="
+                <label for="contact-name" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Contact Name</label
-                >
-                <input
-                  v-model="contactName"
-                  type="text"
-                  id="contact-name"
-                  class="
+                  ">Contact Name</label>
+                <input v-model="contactName" type="text" id="contact-name" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -276,29 +190,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Name"
-                  required=""
-                />
+                  " placeholder="Name" required="" />
               </div>
 
               <div>
-                <label
-                  for="contact-email"
-                  class="
+                <label for="contact-email" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Contact Email</label
-                >
-                <input
-                  v-model="contactEmail"
-                  type="email"
-                  id="contact-email"
-                  class="
+                  ">Contact Email</label>
+                <input v-model="contactEmail" type="email" id="contact-email" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -313,28 +216,18 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Email"
-                />
+                  " placeholder="Email" />
               </div>
 
               <div>
-                <label
-                  for="company-name"
-                  class="
+                <label for="company-name" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Company Name</label
-                >
-                <input
-                  v-model="companyName"
-                  type="text"
-                  id="company-name"
-                  class="
+                  ">Company Name</label>
+                <input v-model="companyName" type="text" id="company-name" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -349,30 +242,20 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Company Name"
-                />
+                  " placeholder="Company Name" />
               </div>
             </div>
 
             <div class="grid w-full gap-4 mb-6 grid-cols-1">
               <div class="mb-1 w-full">
-                <label
-                  for="jobAddress"
-                  class="
+                <label for="jobAddress" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Company Address</label
-                >
-                <textarea
-                  v-model="companyAddress"
-                  name=""
-                  cols="30"
-                  class="
+                  ">Company Address</label>
+                <textarea v-model="companyAddress" name="" cols="30" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -387,30 +270,19 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Job Address"
-                  required=""
-                >
+                  " placeholder="Job Address" required="">
                 </textarea>
               </div>
 
               <div class="mb-1 w-full">
-                <label
-                  for="job-description"
-                  class="
+                <label for="job-description" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Description</label
-                >
-                <textarea
-                  v-model="jobDescription"
-                  name=""
-                  cols="30"
-                  class="
+                  ">Job Description</label>
+                <textarea v-model="jobDescription" name="" cols="30" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -425,30 +297,19 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Job Description"
-                  required=""
-                >
+                  " placeholder="Job Description" required="">
                 </textarea>
               </div>
 
               <div class="mb-1">
-                <label
-                  for="job-requirement"
-                  class="
+                <label for="job-requirement" class="
                     font-semibold
                     block
                     mb-1
                     text-sm text-gray-900
                     dark:text-gray-300
-                  "
-                  >Job Requirement</label
-                >
-                <textarea
-                  v-model="jobRequirement"
-                  name=""
-                  cols="30"
-                  class="
+                  ">Job Requirement</label>
+                <textarea v-model="jobRequirement" name="" cols="30" class="
                     bg-gray-50
                     border border-gray-300
                     text-gray-900 text-sm
@@ -463,18 +324,13 @@
                     dark:text-white
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
-                  "
-                  placeholder="Job Requirement"
-                  required=""
-                >
+                  " placeholder="Job Requirement" required="">
                 </textarea>
               </div>
 
               <div class="grid gap-12 grid-cols-2">
                 <div class="modal-action">
-                  <label
-                    for="my-modal-3"
-                    class="
+                  <label for="my-modal-3" class="
                       text-white
                       w-full
                       bg-blue-700
@@ -490,16 +346,11 @@
                       dark:bg-blue-600
                       dark:hover:bg-blue-700
                       dark:focus:ring-blue-800
-                    "
-                    >Cancel</label
-                  >
+                    ">Cancel</label>
                 </div>
 
                 <div class="modal-action">
-                  <label
-                    for="my-modal-3"
-                    @click="createJob"
-                    class="
+                  <label for="my-modal-3" @click="createJob" class="
                       text-white
                       w-full
                       bg-blue-700
@@ -515,9 +366,7 @@
                       dark:bg-blue-600
                       dark:hover:bg-blue-700
                       dark:focus:ring-blue-800
-                    "
-                    >Add</label
-                  >
+                    ">Add</label>
                 </div>
               </div>
             </div>
@@ -634,4 +483,5 @@ export default {
 };
 </script>
 <style scoped>
+
 </style>>

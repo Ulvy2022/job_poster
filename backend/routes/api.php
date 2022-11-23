@@ -58,6 +58,9 @@ Route::get('/companyName', [JobsPosterController::class, 'getAllCompanyName']);
 // get specific jobs
 Route::get('/job/{id}', [JobsPosterController::class, 'getSpecificJobs']);
 
+Route::get('/getAllUsers', [UserController::class, 'getAllUsers']);
+
+
 // payment route==================
 Route::post("/payment", [PaymentController::class, 'stripePost']);
 

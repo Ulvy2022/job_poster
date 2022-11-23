@@ -7,7 +7,8 @@ use App\Mail\setUserToAdmine;
 use App\Mail\mailToNotifyUserSub;
 use App\Mail\registerMail;
 use App\Models\User;
-use App\Models\Subscribe;
+use Carbon\Carbon;
+use LucasDotVin\Soulbscription\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailable;
@@ -86,13 +87,10 @@ class MailController extends Controller
     public function mailToNotifyUserSub()
     {
         $date = date("Y-m-d");
-        $allSubscribers = Subscribe::get();
+        $allSubscribers = Subscription::where("active", true)->get();
         foreach ($allSubscribers as $sub) {
-            $user = User::findOrFail($sub['user_id']);
-            if (strtotime($sub['expired_at']) == strtotime(date('D j M Y', strtotime($date . ' + 7 days')))) {
-                $user->ifTrail = "Yes";
-                $user->subscription = null;
-                $user->update();
+            $user = User::findOrFail($sub['subscriber_id']);
+            if (date('Y-m-d', strtotime($sub['expired_at'])) == date('Y-m-d', strtotime($sub['expired_at']->addDays(-7)))) {
                 $body = [
                     'username' => $user['fullName'],
                     'sub' => $sub['subscribed_at'],

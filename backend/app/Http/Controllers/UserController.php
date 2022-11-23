@@ -13,6 +13,11 @@ class UserController extends Controller
         return User::with(['jobsposter'])->get();
     }
 
+    public function getAllUsers()
+    {
+        return User::with(["jobsposter"])->where('role', 'user')->get();
+    }
+
     public function register(Request $request)
     {
         $validated = $request->validateWithBag(
@@ -71,7 +76,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        return User::with(['jobsposter', 'subscribsion'])->where('id', $id)->get();
+        return User::with(['jobsposter'])->where('id', $id)->get();
     }
 
 

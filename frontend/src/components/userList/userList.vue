@@ -64,7 +64,7 @@ export default {
             }
         },
         getAllUser() {
-            axios.get("http://localhost:8000/api/user")
+            axios.get("http://localhost:8000/api/getAllUsers")
                 .then((res) => {
                     this.allUsers = res.data
                     this.numberOfUsers = this.allUsers.length
@@ -131,13 +131,14 @@ export default {
         filterUser() {
             for (let user of this.allUsers) {
                 var ele = document.getElementById(user.id);
-                var elementText = document.getElementById(user.id + 'name').textContent;
+                var elementText = document.getElementById(user.id + 'name').textContent.toLowerCase();
                 if (elementText.search(this.search) > -1) {
+                    ele.classList.add("animate__animated", "animate__fadeIn")
                     ele.style.display = '';
                 } else {
+                    ele.classList.remove("animate__animated", "animate__fadeIn")
                     ele.style.display = 'none'
                 }
-
             }
         },
 
@@ -160,9 +161,11 @@ export default {
                     var elementText = document.getElementById(user.id + 'subscriber');
                     if (document.body.contains(elementText)) {
                         if (elementText.textContent.search(this.selected) > -1) {
+                            element.classList.add("animate__animated", "animate__fadeIn")
                             element.style.display = '';
                             numberOfDisplay += 1;
                         } else {
+                            element.classList.remove("animate__animated", "animate__fadeIn")
                             element.style.display = 'none'
                         }
                     }
@@ -172,7 +175,8 @@ export default {
                 this.numberOfUsers = this.allUsers.length
                 for (let user of this.allUsers) {
                     var el = document.getElementById(user.id);
-                    if (document.body.contains(el)) {
+                    if (document.body.contains(el) && user.subscription == 'Yes') {
+                        el.classList.add("animate__animated", "animate__fadeIn")
                         el.style.display = '';
                     }
                 }
@@ -183,7 +187,7 @@ export default {
             this.getAllUser();
             this.timeOut = setTimeout(() => {
                 this.isShowTable += 1;
-                if (this.isShowTable == 3) {
+                if (this.isShowTable == 2) {
                     clearTimeout(this.timeOut);
                 }
             }, 1000);
@@ -212,7 +216,7 @@ export default {
     },
     watch: {
         isShowTable() {
-            if (this.isShowTable < 3) {
+            if (this.isShowTable < 2) {
                 this.showTable()
             }
         }
@@ -262,8 +266,8 @@ export default {
         </div>
 
         <!-- end of action and earch bar -->
-        <div class="grid grid-cols-1 gap-y-4  rounded-md p-4  w-full mx-auto " v-if="isShowTable < 3">
-            <div class="animate-pulse flex space-x-2 " v-for="user of allUsers" :key="user">
+        <div class="grid grid-cols-1 gap-y-4  rounded-md p-4  w-full mx-auto " v-if="isShowTable < 2">
+            <div class=" flex space-x-2 " v-for="user of allUsers" :key="user">
                 <div class="rounded-full bg-slate-200 h-14 w-14"></div>
                 <div class="flex-1 space-y-3 py-1">
                     <div class="h-4 bg-slate-200 rounded w-24"></div>
@@ -281,7 +285,8 @@ export default {
                 </div>
             </div>
         </div>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 " v-show="isShowTable == 3">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400  animate__animated animate__zoomIn "
+            v-show="isShowTable == 2">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-4">

@@ -41,14 +41,14 @@
                                 class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white">
                                 Login
                             </router-link>
-                            
+
                         </div>
                     </div>
                 </div>
 
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                     <!-- Profile dropdown -->
-                    <Menu as="div" class="relative ml-5 " v-if="img != '' ">
+                    <Menu as="div" class="relative ml-5 " v-if="img != ''">
                         <div class="w-full">
                             <MenuButton class="flex rounded-full text-sm">
                                 <span class="sr-only">Open user menu</span>
@@ -106,7 +106,7 @@
                                         </svg>
                                         Sign Out
                                     </a>
-                                    
+
                                 </p>
                                 </MenuItem>
 
@@ -162,7 +162,7 @@ export default {
             img: '',
             fullName: '',
             userId: localStorage.getItem("userId"),
-            
+
         }
     },
 
@@ -179,6 +179,7 @@ export default {
                     this.role = res.data[0].role;
                     this.img = res.data[0].img;
                     this.fullName = res.data[0].fullName;
+                    console.log(res.data);
                 })
             }
         }

@@ -27,7 +27,7 @@ library.add(faUserSecret);
 import vue3GoogleLogin from 'vue3-google-login';
 
 import './main.css';
-
+import 'animate.css';
 // vue flage
 import VueFlags from "@growthbunker/vueflags";
 
