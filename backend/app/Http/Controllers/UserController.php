@@ -5,17 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use stdClass;
+
 
 class UserController extends Controller
 {
     public function index()
     {
         return User::with(['jobsposter'])->get();
+
     }
 
     public function getAllUsers()
     {
-        return User::with(["jobsposter"])->where('role', 'user')->get();
+        // return DB::select("
+        // SELECT *FROM users
+        // INNER JOIN subscriptions ON users.id = subscriptions.subscriber_id and subscriptions.active=1
+        // INNER JOIN plans ON subscriptions.plan_id = plans.id
+        // ");
+        return User::with(['jobsposter'])->where('role', 'user')->get();
+    }
+
+    public function ToObject($Array)
+    {
+
+        // Create new stdClass object
+        $object = new stdClass();
+
+        // Use loop to convert array into
+        // stdClass object
+        foreach ($Array as $key => $value) {
+            if (is_array($value)) {
+                $value = $this->ToObject($value);
+            }
+            $object->$key = $value;
+        }
+        return $object;
     }
 
     public function register(Request $request)

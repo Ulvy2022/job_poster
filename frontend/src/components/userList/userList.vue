@@ -160,7 +160,7 @@ export default {
                     var element = document.getElementById(user.id);
                     var elementText = document.getElementById(user.id + 'subscriber');
                     if (document.body.contains(elementText)) {
-                        if (elementText.textContent.search(this.selected) > -1) {
+                        if (elementText.textContent.search(this.selected.toLowerCase()) > -1) {
                             element.classList.add("animate__animated", "animate__fadeIn")
                             element.style.display = '';
                             numberOfDisplay += 1;
@@ -169,6 +169,8 @@ export default {
                             element.style.display = 'none'
                         }
                     }
+                    console.log(this.selected);
+                    console.log(elementText.textContent);
                 }
                 this.numberOfUsers = numberOfDisplay;
             } if (this.selected == 'All Subscribers') {

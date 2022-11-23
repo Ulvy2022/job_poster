@@ -26,7 +26,7 @@ class SubscribeController extends Controller
         $student = User::find($request->subscriber_id);
         $plan = Plan::find($request->plan_id);
         $student->subscribeTo($plan, expiration: today()->addMonth(), startDate: null);
-        $student->subscription = "Yes";
+        $student->subscription = $plan['name'];
         $student->update();
         $feature_id = app('App\Http\Controllers\FeaturesController')->getFeatureId($plan['name']);
         $plan_id = app('App\Http\Controllers\PlaneController')->getPlanId($plan['name']);
