@@ -27,7 +27,7 @@
                                 Job List
                             </router-link>
 
-                            <router-link to="/subscribe" v-if="role == 'user'"
+                            <router-link to="/subscribe" v-if="role != null"
                                 class="text-white block mt-4 lg:inline-block active lg:mt-0 hover:text-white mr-4">
                                 Subscribe
                             </router-link>

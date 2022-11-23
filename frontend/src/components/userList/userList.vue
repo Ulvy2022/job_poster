@@ -177,7 +177,7 @@ export default {
                 this.numberOfUsers = this.allUsers.length
                 for (let user of this.allUsers) {
                     var el = document.getElementById(user.id);
-                    if (document.body.contains(el) && user.subscription == 'Yes') {
+                    if (document.body.contains(el) && user.subscription != 'No') {
                         el.classList.add("animate__animated", "animate__fadeIn")
                         el.style.display = '';
                     }
