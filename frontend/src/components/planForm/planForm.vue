@@ -1,8 +1,15 @@
 <template>
-    <div class="w-full lg:w-11/12 bg-white h-full lg:p-10 animate__animated animate__fadeIn">
+    <div class="w-full  animate__animated animate__fadeIn grid gap-y-10 lg:mt-0 mt-10 ml-20 lg:ml-48"
+        v-if="userSub.length == 0 || userPayments.length == 0">
+        <p class="text-red-400 text-lg  lg:ml-10">You don't have any plan yet!</p>
+        <img class="w-3/5 " src="../../assets/images/undraw_page_not_found_re_e9o6.svg" alt="">
+    </div>
+
+    <div class="w-full lg:w-11/12 bg-white h-full lg:p-10 animate__animated animate__fadeIn" v-else>
         <p class="p-3 bg-blue-500 text-white">Your Plan History</p>
         <div class="w-full ">
-            <!-- trail -->
+            <!-- subscription -->
+
             <div class="w-full bg-white flex justify-between p-3 shadow-sm" v-for="sub of userSub" :key="sub">
                 <!-- check sign -->
                 <div class="flex gap-3 items-center">
@@ -51,6 +58,9 @@ export default {
             var now = new Date(date);
             return now.toDateString();
         }
+    },
+    mounted() {
+        console.log(this.userPayments == {});
     }
 }
 </script>

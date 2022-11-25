@@ -1,6 +1,6 @@
 <template>
 
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 animate__animated animate__fadeIn">
         <div class="container mx-auto my-5 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
