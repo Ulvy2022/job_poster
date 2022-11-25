@@ -120,22 +120,31 @@ export default {
                 mm_yy: '12/13',
                 exp_month: 8,
                 exp_year: 2025,
-                purchased_at: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT")
+                purchased_at: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
+                merchant_id: 'ec002543',
+                hash: '$2y$10$DGmVfi7LtF2RfMosXcXNieyZ4ndHM3NrapCm9MrRIDnck9cUFyQKi',
+                payment_option: 'abapay',
+                tran_id: '24os-pr0001',
+                req_time: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
             }
-            axios.post("http://localhost:8000/api/payment/", cardInfo).then((res) => {
-                console.log(res.data);
-                Swal.fire(
-                    'Success',
-                    'Your Payment Success',
-                    'success'
-                )
-            }).catch((err) => {
-                console.log(err);
-                Swal.fire(
-                    'Failed',
-                    'Your Payment failed',
-                    'error'
-                )
+            axios.post("https://checkout.payway.com.kh/api/payment-gateway/v1/payments/purchase", cardInfo).then(() => [
+                axios.post("http://localhost:8000/api/payment/", cardInfo).then((res) => {
+                    console.log(res.data);
+                    Swal.fire(
+                        'Success',
+                        'Your Payment Success',
+                        'success'
+                    )
+                }).catch((err) => {
+                    console.log(err);
+                    Swal.fire(
+                        'Failed',
+                        'Your Payment failed',
+                        'error'
+                    )
+                })
+            ]).catch((error) => {
+                console.log(error);
             })
         }
 

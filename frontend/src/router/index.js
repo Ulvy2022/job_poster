@@ -87,18 +87,7 @@ const routes = [
   {
     path: '/payment',
     name: 'payment',
-    // component: () => import('@/views/payment/paymentView.vue'),
-    // beforeEnter() {
-    //   const userId = localStorage.getItem('userId');
-    //   if (userId == null) {
-    //     return { name: 'notFound' };
-    //   }
-    // }
-  },
-  {
-    path: '/payment',
-    name: 'payment',
-    component: () => import('@/views/googlePay/googlePayView.vue'),
+    component: () => import('@/views/cardPayment/cardPayment.vue'),
     beforeEnter() {
       const userId = localStorage.getItem('userId');
       if (userId == null) {
@@ -106,6 +95,17 @@ const routes = [
       }
     }
   },
+  // {
+  //   path: '/payment',
+  //   name: 'payment',
+  //   component: () => import('@/views/googlePay/googlePayView.vue'),
+  //   beforeEnter() {
+  //     const userId = localStorage.getItem('userId');
+  //     if (userId == null) {
+  //       return { name: 'notFound' };
+  //     }
+  //   }
+  // },
   
   {
     path: '/changePassword',

@@ -72,7 +72,7 @@
                 </p>
                 <ul class="list-disc list-inside p-3 text-base">
                     <li class="text-sm">
-                        {{jobDetails.contact_email}}
+                        {{ jobDetails.contact_email }}
                     </li>
                 </ul>
             </div>
@@ -93,20 +93,20 @@ export default {
     },
 
     methods: {
-        getAlljobDetails() {
-            axios.get('http://localhost:8000/api/jobposter/' + parseInt(localStorage.getItem("jobId"))).then((res) => {
-                this.jobDetails = res.data
+        getJobDetails() {
+            axios.get('http://localhost:8000/api/job/' + parseInt(localStorage.getItem("jobId"))).then((res) => {
+                this.jobDetails = res.data[0]
             })
 
-            const dateString = '12/03/2022';
-            var date = new Date(dateString);
-            console.log(date);
-            console.log('Sat 3 Dec 2022');
+            // const dateString = '12/03/2022';
+            // var date = new Date(dateString);
+            // console.log(date);
+            // console.log('Sat 3 Dec 2022');
 
         }
     },
     mounted() {
-        this.getAlljobDetails()
+        this.getJobDetails()
     }
 
 

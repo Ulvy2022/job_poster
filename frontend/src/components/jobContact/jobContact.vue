@@ -3,7 +3,7 @@
         <div class="flex  items-center cursor-pointer bg-slate-100 p-3">
             <div class="avatar placeholder ml-2">
                 <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
-                    <span class="text-xl">{{ companyName }}</span>
+                    <span class="text-3xl">{{ firstLetter(companyName) }}</span>
                 </div>
             </div>
             <p class="text-2xl text-blue-500 ml-4">{{ jobDetails.company_name }}</p>
@@ -81,8 +81,8 @@ export default {
 
     methods: {
         getJobDetail() {
-            axios.get('http://localhost:8000/api/jobposter/' + localStorage.getItem('jobId')).then((res) => {
-                this.jobDetails = res.data
+            axios.get('http://localhost:8000/api/job/' + localStorage.getItem('jobId')).then((res) => {
+                this.jobDetails = res.data[0]
                 this.fname = this.jobDetails.contact_name;
                 this.phone = '';
                 this.email = this.jobDetails.contact_email;
