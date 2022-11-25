@@ -10,15 +10,12 @@
         </div>
         <!-- job details -->
         <div class="lg:flex md:grid md:w-full ">
-            <div class="grid">
-                <div class="grid md:w-full shadow-lg shadow-gray-200">
-                    <div>
+            <div class="grid w-full">
+                <div class="grid md:w-full shadow-lg shadow-gray-200 ">
+                    <div class="w-full">
                         <p class="p-3 bg-blue-400 text-white text-xl w-full">Contact details</p>
-                        <p class="p-3 text-sm"><b>{{ jobDetails.company_name }} Address</b> - #9AB,
-                            St. 446, Sangkat Tuol Tumpung Ti Muoy,
-                            Khan Chamkar Mon, Phnom Penh, Cambodia
-                            St. 78, 7 Makara, Labansiek Sangkat, Ban Lung
-                            Municipality, Ratanak Kiri Province, Cambodia
+                        <p class="p-3 text-sm w-full"><b>{{ jobDetails.company_name }} Address</b> - #9AB,
+                            {{ jobDetails.company_address }}
                         </p>
                     </div>
                     <!-- contact person name -->
@@ -45,7 +42,6 @@
 
                         </div>
                     </div>
-                    <!-- email -->
                     <div class="grid p-3">
                         <b class="">Email</b>
                         <div class="flex">
