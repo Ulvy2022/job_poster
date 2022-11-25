@@ -37,9 +37,15 @@ Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 Route::post('/switchTo', [SubscribeController::class, 'switchTo']);
 
+// transaction controller
+Route::apiResource('/payment', TransactionController::class);
+
 // user plane
 Route::apiResource('/plane', PlaneController::class);
+
+
 Route::apiResource('/tickets', FeatureTicketController::class);
+Route::get('/userSubInfo/{sub_id}', [FeatureTicketController::class, 'userSubInfo']);
 Route::apiResource('/restorePost', RestorePostController::class);
 
 Route::get('/restoreCharge', [PlaneController::class, 'restoreCharge']);
@@ -62,7 +68,6 @@ Route::get('/getAllUsers', [UserController::class, 'getAllUsers']);
 
 
 // payment route==================
-Route::post("/payment", [PaymentController::class, 'stripePost']);
 
 // user subscription
 Route::apiResource('/subscription', SubscribeController::class);

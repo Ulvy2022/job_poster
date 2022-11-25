@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -15,60 +15,35 @@ class TransactionController extends Controller
     }
 
 
-    //public function store(Request $request)
-    //{
-
-    //}
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
+    public function store(Request $request)
     {
-        //
+        $tran = new Transaction();
+        $tran->user_id = $request->user_id;
+        $tran->tran_id = $request->tran_id;
+        $tran->payment_option = $request->payment_option;
+        $tran->hash = $request->hash;
+        $tran->status = $request->status;
+        $tran->currency = $request->currency;
+        $tran->amount = $request->amount;
+        $tran->save();
+        return response()->json(['msg' => 'payment success']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
+
+    public function show($id)
     {
-        //
+        return Transaction::where("user_id", $id)->get();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Transaction $transaction)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Transaction $transaction)
     {
         //
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->all();
-        $data['transaction_date'] = Carbon::createFromFormat('m/d/Y', $request->transaction_date)->format('Y-m-d');
-        $transaction = Transaction::create($data);
     }
 }

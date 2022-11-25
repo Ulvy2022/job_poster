@@ -19,11 +19,6 @@ class UserController extends Controller
 
     public function getAllUsers()
     {
-        // return DB::select("
-        // SELECT *FROM users
-        // INNER JOIN subscriptions ON users.id = subscriptions.subscriber_id and subscriptions.active=1
-        // INNER JOIN plans ON subscriptions.plan_id = plans.id
-        // ");
         return User::with(['jobsposter'])->where('role', 'user')->get();
     }
 

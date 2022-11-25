@@ -69,6 +69,17 @@ const routes = [
     }
   },
   {
+    path: '/setting',
+    name: 'setting',
+    component: () => import('@/views/settingView/settingView.vue'),
+    beforeEnter() {
+      const userId = localStorage.getItem('userId');
+      if (userId == null) {
+        return { name: 'notFound' };
+      }
+    }
+  },
+  {
     path: '/subscribe',
     name: 'subscribe',
     component: () => import('@/views/plane/planeView.vue'),

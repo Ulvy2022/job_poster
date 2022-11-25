@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use LucasDotVin\Soulbscription\Models\FeatureTicket;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use LucasDotVin\Soulbscription\Models\Feature;
+use LucasDotVin\Soulbscription\Models\Subscription;
 use stdClass;
 
 
@@ -99,5 +101,12 @@ class FeatureTicketController extends Controller
                 $charge->update();
             }
         }
+    }
+
+    public function userSubInfo($sub_id)
+    {
+        return DB::select("SELECT * FROM subscriptions
+                                    INNER JOIN plans ON plans.id = subscriptions.plan_id
+                                    INNER JOIN features ON features.name = plans.name");
     }
 }

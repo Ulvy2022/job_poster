@@ -83,7 +83,7 @@ class JobsPosterController extends Controller
 
     public function show($id)
     {
-        return JobsPoster::where('id', $id)->first();
+        return JobsPoster::where('user_id', $id)->get();
     }
 
     public function update(Request $request, $id)
@@ -156,4 +156,6 @@ class JobsPosterController extends Controller
     {
         return JobsPoster::where('id', $id)->get();
     }
+
+
 }

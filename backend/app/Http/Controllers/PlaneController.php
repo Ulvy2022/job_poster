@@ -19,13 +19,13 @@ class PlaneController extends Controller
     {
         $plan = Plan::find($request->plan_id);
         $user = User::find($request->plan_id);
-        $user->subscribeTo($plan,expiration: today()->addMonth());
-        return response()->json(['msg'=>'subscribe successful']);
+        $user->subscribeTo($plan, expiration: today()->addMonth());
+        return response()->json(['msg' => 'subscribe successful']);
     }
 
     public function expiredSubscribe()
     {
-        $sub = Plan::where("expired","No")->get();
+        $sub = Plan::where("expired", "No")->get();
         foreach ($sub as $job) {
 
             if ($job['expired_at'] == date("D j M Y")) {
@@ -73,9 +73,16 @@ class PlaneController extends Controller
         // return (Subscribe::where('user_id', $id)->get());
     }
 
-    public function getPlanId($name){
+    public function getPlanId($name)
+    {
         $plan = Plan::where("name", $name)->get();
         return $plan[0]['id'];
+    }
+
+    public function getPlanName($id)
+    {
+        $plan = Plan::where("id", $id)->get();
+        return $plan[0]['name'];
     }
 
 

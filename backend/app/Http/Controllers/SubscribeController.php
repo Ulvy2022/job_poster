@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use LucasDotVin\Soulbscription\Models\Subscription;
-use LucasDotVin\Soulbscription\Models\Feature;
+use LucasDotVin\Soulbscription\Models\FeatureTicket;
 use LucasDotVin\Soulbscription\Models\FeaturePlan;
 
 use LucasDotVin\Soulbscription\Models\Plan;
@@ -95,8 +95,6 @@ class SubscribeController extends Controller
 
     }
 
-
-
     public function getCostOfSub($name)
     {
         if ($name == "Trailer") {
@@ -150,5 +148,7 @@ class SubscribeController extends Controller
         $sub_update->active = 0;
         return response()->json(['msg' => "cancel successfully"]);
     }
+
+
 
 }
