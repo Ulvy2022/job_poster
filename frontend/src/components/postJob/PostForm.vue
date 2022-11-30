@@ -17,7 +17,7 @@
       </div>
 
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-      <div class="modal ">
+      <div class="modal overflow-auto">
         <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto ">
           <form @submit.prevent="createJob">
             <h1 class="
