@@ -161,7 +161,6 @@ const navigationAdmine = [
     { name: 'Job List', href: '/', current: false },
     { name: 'Subscribe Plan', href: '/subscribe', current: false },
     { name: 'Users List', href: '/userList', current: false },
-    { name: 'Login', href: '/login', current: false },
 ]
 </script>
 

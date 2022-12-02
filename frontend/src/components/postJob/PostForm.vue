@@ -1,15 +1,8 @@
 <template>
   <section>
     <div class="">
-      <div>
-        <label v-if="subscription == 'undefined' && role == 'user' && id != 'undefined' && job != 'undefined'" disabled
-          for="my-modal-3" class="btn bg-blue-500 btn-circle">
-          <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-        </label>
-
-        <label v-else for="my-modal-3" class="btn bg-blue-500 btn-circle">
+      <div class="flex justify-center lg:justify-start ">
+        <label v-if="role.length > 0" for="my-modal-3" class="btn bg-blue-500 btn-circle">
           <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
@@ -18,7 +11,7 @@
 
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
       <div class="modal overflow-auto">
-        <div class="mt-8 lg:w-[40%] w-full p-3 bg-white rounded-lg m-auto ">
+        <div class="mt-8 lg:w-[40%] w-full p-3 lg:m-auto ml-3 bg-white rounded-lg m-auto ">
           <form @submit.prevent="createJob">
             <h1 class="
                 text-center

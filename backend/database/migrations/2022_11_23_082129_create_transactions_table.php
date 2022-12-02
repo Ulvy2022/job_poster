@@ -13,7 +13,6 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            // $table->id()->unique();
             $table->increments('id')->startingValue(31);
             $table->foreignId('user_id')->constrained()->onDelete("CASCADE");
             $table->string('payment_option');

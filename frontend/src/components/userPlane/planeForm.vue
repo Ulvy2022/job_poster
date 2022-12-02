@@ -67,13 +67,11 @@
 </template>
 
 <script>
+// import { loadScript } from "vue-plugin-load-script";
 import axios from "axios";
-
 export default {
     data() {
         return {
-            merchant_id: "ec002497",
-            btnBuy: "Buy Now",
             typePlane: null,
             link: 'https://buy.stripe.com/test_5kA6sjfSWdSUcwgeUW',
             feature_benifits: [

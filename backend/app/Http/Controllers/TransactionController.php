@@ -19,6 +19,7 @@ class TransactionController extends Controller
     {
         $tran = new Transaction();
         $tran->user_id = $request->user_id;
+        $tran->tran_id = $request->tran_id;
         $tran->payment_option = $request->payment_option;
         $tran->hash = $request->hash;
         $tran->status = $request->status;

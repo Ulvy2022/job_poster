@@ -5,6 +5,8 @@
             <div class="content w-full ">
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize" v-for="job of listJobs" :key="job"
                     @click.prevent="selectedValue(job)">{{ job }}</p>
+                <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize text-red-500" v-if="(jobList.length == 0)">
+                    Not Found</p>
             </div>
         </div>
         <div class="mt-5 lg:block hidden w-full">
