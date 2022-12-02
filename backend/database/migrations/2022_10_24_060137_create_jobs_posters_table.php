@@ -13,7 +13,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create(
-            'jobs_posters', function (Blueprint $table) {
+            'jobs_posters',
+            function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
                 $table->string('job_title');
@@ -31,6 +32,7 @@ return new class extends Migration {
                 $table->string('expired_at')->nullable();
                 $table->string('post_at')->nullable();
                 $table->string('active')->default('No');
+                $table->timestamps();
             }
         );
 
