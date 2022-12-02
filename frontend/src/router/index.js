@@ -95,6 +95,18 @@ const routes = [
       }
     }
   },
+
+  {
+    path: '/successpay',
+    name: '/successpay',
+    component: () => import('@/views/successPayView/successPayView.vue'),
+    beforeEnter() {
+      const userId = localStorage.getItem('userId');
+      if (userId == null) {
+        return { name: 'notFound' };
+      }
+    }
+  },
   
   {
     path: '/changePassword',

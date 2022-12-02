@@ -60,14 +60,13 @@
             <input type="hidden" name="hash" id="hash" :value="hash">
             <input type="hidden" name="tran_id" id="tran_id" :value="tran_id">
             <input type="hidden" name="amount" :value="amount">
-            <input type="hidden" name="continue_success_url" value="">
+            <input type="hidden" name="continue_success_url" value="http://localhost:8080/successpay">
             <input type="hidden" value="true" name="is_plugin_js">
         </form>
     </div>
 </template>
 
 <script>
-// import { loadScript } from "vue-plugin-load-script";
 import axios from "axios";
 
 export default {
@@ -109,46 +108,20 @@ export default {
             axios.post("http://localhost:8000/api/transaction", tranInfo);
         },
 
-        buyNow() {
-            var tranInfo = {
-                tran_id: this.tran_id,
-                merchant_id: 'ec002497',
-                hash: this.hash,
-                plan_id: this.plan_id,
-                subscriber_id: 2
-            }
-            var newHash = "";
-            axios.get("http://localhost:8000/api/getNewHash/" + this.req_time).then((res) => {
-                newHash = res.data;
-                console.log("new hash: " + newHash);
-                console.log("old hash: " + this.hash);
-            })
-            axios.post("http://localhost:8000/api/payDetails",
-                {
-                    req_time: this.req_time,
-                    merchant_id: this.merchant_id,
-                    tran_id: this.tran_id,
-                    hash: newHash,
-                }
-            )
-                .then((res) => {
-                    console.log(res.data);
-                    if (res.data.status != 0) {
-                        this.buyNow();
-                    } else {
-                        axios.post("http://localhost:8000/api/subscription", tranInfo);
-                        // this.buyNow();
-                        this.createTransaction()
-                    }
-                })
-        },
-
         callAbaForm() {
-            setTimeout(async function () {
+            setTimeout(function () {
                 // eslint-disable-next-line no-undef
-                await AbaPayway.checkout();
+                AbaPayway.checkout();
             }, 1000);
-            this.buyNow()
+            localStorage.removeItem("hash")
+            localStorage.removeItem("amount")
+            localStorage.removeItem("plan_id")
+            localStorage.removeItem("tran_id")
+
+            localStorage.setItem("hash", this.hash)
+            localStorage.setItem("amount", this.amount)
+            localStorage.setItem("plan_id", this.plan_id)
+            localStorage.setItem("tran_id", this.tran_id)
 
         },
 

@@ -36,6 +36,8 @@ Route::get('/getUser/{id}', [UserController::class, 'getUserById']);
 Route::put('/updateImg/{id}', [UserController::class, 'updateImg']);
 Route::put('/changePassword/{id}', [UserController::class, 'changePassword']);
 Route::post('/switchTo', [SubscribeController::class, 'switchTo']);
+Route::put('/deActiveSub/{id}', [SubscribeController::class, 'deActiveSub']);
+
 
 // transaction controller
 Route::apiResource('/payment', TransactionController::class);
@@ -88,8 +90,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 //get all balance transfer history
 Route::get("/paymentHistory", [PaymentController::class, 'getAllBalanceTransfer']);
 
-//get all transaction
-Route::apiResource('/allTransaction', TransactionController::class);
+
 
 // Job
 Route::apiResource('/jobposter', JobsPosterController::class);
@@ -103,3 +104,14 @@ Route::put('/resetPsw/{id}', [UserController::class, 'resetPassword']);
 Route::get('/userBy/{email}', [UserController::class, 'getUserByEmail']);
 Route::post('/sendCode/{email}', [MailController::class, 'sendVerifyCode']);
 Route::put('/setUserToAdmine/{email}', [MailController::class, 'setUserToAdmine']);
+Route::put('/toAdmine/{id}', [UserController::class, 'setUserToAdmine']);
+
+Route::get("/hash/{amount}", [TransactionController::class, "getHash"]);
+Route::get("/getTranID", [TransactionController::class, 'getTranID']);
+Route::get("/timestamp", [TransactionController::class, 'getTimestamp']);
+
+Route::apiResource('/transaction', TransactionController::class);
+
+Route::post("/payDetails", [TransactionController::class, 'getPyamentResponse']);
+Route::get("/getNewHash/{req_time}", [TransactionController::class, 'getNewHash']);
+Route::post("/QRcode", [TransactionController::class, 'QRcode']);

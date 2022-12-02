@@ -21,9 +21,9 @@ class FeaturesController extends Controller
     }
 
 
-    public function show($name)
+    public function show($id)
     {
-
+        return Feature::findOrFail($id);
     }
 
 

@@ -60,11 +60,7 @@ class MailController extends Controller
     }
 
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+
     public function registerEmail($email)
     {
         $user = User::where('email', $email)->first();

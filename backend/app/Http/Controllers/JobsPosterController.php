@@ -157,5 +157,4 @@ class JobsPosterController extends Controller
         return JobsPoster::where('id', $id)->get();
     }
 
-
 }
