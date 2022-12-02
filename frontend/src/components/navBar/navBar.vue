@@ -131,7 +131,16 @@
         </div>
 
         <DisclosurePanel class="sm:hidden">
-            <div class="space-y-1 px-2 pt-2 pb-3">
+            <div class="space-y-1 px-2 pt-2 pb-3" v-if="role == 'Admine'">
+                <DisclosureButton v-for="item in navigationAdmine" :key="item.name" as="a"
+                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium']"
+                    :aria-current="item.current ? 'page' : undefined">
+                    <router-link class="w-full" :to="item.href">
+                        {{ item.name }}
+                    </router-link>
+                </DisclosureButton>
+            </div>
+            <div class="space-y-1 px-2 pt-2 pb-3" v-else>
                 <DisclosureButton v-for="item in navigation" :key="item.name" as="a"
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">
@@ -151,6 +160,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 const navigation = [
     { name: 'Job List', href: '/', current: false },
     { name: 'Subscribe Plan', href: '/subscribe', current: false },
+]
+const navigationAdmine = [
+    { name: 'Job List', href: '/', current: false },
+    { name: 'Subscribe Plan', href: '/subscribe', current: false },
+    { name: 'Users List', href: '/userList', current: false },
 ]
 </script>
 
@@ -180,7 +194,6 @@ export default {
                     this.role = res.data[0].role;
                     this.img = res.data[0].img;
                     this.fullName = res.data[0].fullName;
-                    console.log(res.data);
                 })
             }
             if (this.role == "Admine") {

@@ -1,3 +1,5 @@
+
+
 <template>
     <div
         class="m-auto lg:w-5/12 mb-5 grid grid-cols-1 justify-center place-items-center mt-10 w-full shadow-md rounded-md">
@@ -55,13 +57,18 @@
         </div>
         <button type="button" @click="purchaseSub"
             class="text-black  border border-black hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Buy
-            Now</button>
+            Now {{ amount }}$</button>
     </div>
-    <!-- <settingForm /> -->
+    <div id="aba_main_modal" class="aba-modal">
+        <!-- Modal content -->
+    </div>
+
 </template>
 
 
+
 <script>
+import { useRoute } from 'vue-router';
 import axios from "axios";
 import dateFormat from "dateformat";
 import Swal from 'sweetalert2'
@@ -80,7 +87,9 @@ export default {
             card_number: '',
             address: "",
             countryFlag: '',
-            countryName: ''
+            countryName: '',
+            plan_id: 0,
+            amount: 0
         };
     },
 
@@ -111,22 +120,25 @@ export default {
             var now = new Date();
 
             var cardInfo = {
-                card_number: '4000002500003155',
-                user_id: 2,
+                // card_number: '4000002500003155',
+                // user_id: 2,
                 amount: 1000,
-                cvc: 411,
-                zip_code: 12345,
-                nameOnCard: 'ulvy',
-                mm_yy: '12/13',
-                exp_month: 8,
-                exp_year: 2025,
-                purchased_at: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
-                merchant_id: 'ec002543',
+                // cvc: 411,
+                // zip_code: 12345,
+                // nameOnCard: 'ulvy',
+                // mm_yy: '12/13',
+                // exp_month: 8,
+                // exp_year: 2025,
+                // purchased_at: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
+                merchant_id: 'ec002497',
                 hash: '$2y$10$DGmVfi7LtF2RfMosXcXNieyZ4ndHM3NrapCm9MrRIDnck9cUFyQKi',
                 payment_option: 'abapay',
                 tran_id: '24os-pr0001',
                 req_time: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
             }
+            axios.get("http://localhost:8000/api/hash").then((res) => {
+                cardInfo.hash = res.data
+            })
             axios.post("https://checkout.payway.com.kh/api/payment-gateway/v1/payments/purchase", cardInfo).then(() => [
                 axios.post("http://localhost:8000/api/payment/", cardInfo).then((res) => {
                     console.log(res.data);
@@ -146,12 +158,29 @@ export default {
             ]).catch((error) => {
                 console.log(error);
             })
+        },
+
+        getPlanPrice(id) {
+            axios.get("http://localhost:8000/api/features/" + id).then((res) => {
+                this.amount = res.data.postpaid;
+            })
         }
 
     },
 
     mounted() {
         this.getUserAddress()
+        const route = useRoute();
+        const id = route.params.id; // read parameter id (it is reactive) 
+        this.plan_id = id;
+        this.getPlanPrice(id)
     }
 }
 </script>
+
+
+
+
+
+
+

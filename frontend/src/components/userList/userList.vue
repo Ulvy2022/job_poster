@@ -210,9 +210,23 @@ export default {
             return false;
         },
         userDetail(id) {
-            localStorage.removeItem('jobId')
-            localStorage.setItem('jobId', id)
-            this.$router.push('/userDetail');
+            axios.get("http://localhost:8000/api/jobposter/" + id).then((res) => {
+                localStorage.removeItem("subId")
+                localStorage.setItem("subId", res.data[0].user_id)
+                localStorage.removeItem('jobId')
+                localStorage.setItem('jobId', id)
+                this.$router.push('/userDetail');
+            })
+        },
+
+        setUserToAdmine() {
+            console.log(this.idToUpdate);
+            axios.put("http://localhost:8000/api/setUserToAdmine/" + this.idToUpdate).then(() => {
+                this.getAllUser()
+                Swal.fire('Updated', '', 'success');
+            }).catch(() => {
+                Swal.fire('error!', '', 'success')
+            })
         }
 
     },
@@ -417,7 +431,8 @@ export default {
                     </div>
                 </div>
             </form>
-            <div class="modal-action">
+            <div class="modal-action flex justify-between">
+                <label for="my-modal-5" @click="setUserToAdmine" class="btn">Make as Admin</label>
                 <label for="my-modal-5" @click="updateProfile" class="btn">Edit!</label>
             </div>
         </div>
