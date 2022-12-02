@@ -85,7 +85,7 @@ const routes = [
     component: () => import('@/views/plane/planeView.vue'),
   },
   {
-    path: '/payment',
+    path: '/payment/:id',
     name: 'payment',
     component: () => import('@/views/cardPayment/cardPayment.vue'),
     beforeEnter() {
@@ -95,17 +95,6 @@ const routes = [
       }
     }
   },
-  // {
-  //   path: '/payment',
-  //   name: 'payment',
-  //   component: () => import('@/views/googlePay/googlePayView.vue'),
-  //   beforeEnter() {
-  //     const userId = localStorage.getItem('userId');
-  //     if (userId == null) {
-  //       return { name: 'notFound' };
-  //     }
-  //   }
-  // },
   
   {
     path: '/changePassword',

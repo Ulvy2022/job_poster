@@ -210,9 +210,27 @@ export default {
             return false;
         },
         userDetail(id) {
-            localStorage.removeItem('jobId')
-            localStorage.setItem('jobId', id)
-            this.$router.push('/userDetail');
+            axios.get("http://localhost:8000/api/jobposter/" + id).then((res) => {
+                if (res.data.length > 0) {
+                    localStorage.removeItem("subId")
+                    localStorage.setItem("subId", res.data[0].user_id)
+                    localStorage.removeItem('jobId')
+                    localStorage.setItem('jobId', id)
+                    this.$router.push('/userDetail');
+                    return false;
+                }
+                return true;
+            })
+        },
+
+        setUserToAdmine() {
+            console.log(this.idToUpdate);
+            axios.put("http://localhost:8000/api/setUserToAdmine/" + this.idToUpdate).then(() => {
+                this.getAllUser()
+                Swal.fire('Updated', '', 'success');
+            }).catch(() => {
+                Swal.fire('error!', '', 'success')
+            })
         }
 
     },
@@ -339,8 +357,9 @@ export default {
                         <label for="my-modal-5" @click="getSpecificUser(user.id)"
                             class=" bg-white text-blue-500 hover:underline hover:underline-offset-auto cursor-pointer">Edit
                             User</label>
-                        <label for="my-modal-5" @click="userDetail(user.id)"
-                            class=" bg-white text-black hover:underline hover:underline-offset-auto cursor-pointer">User
+                        <label for="" @click="userDetail(user.id)"
+                            class=" bg-white text-black hover:underline hover:underline-offset-auto cursor-pointer"
+                            :class="{ 'cursor-not-allowed hover:no-underline': !userDetail(user.id) }">User
                             Details</label>
                         <label
                             class="ml-5 bg-white text-red-500 hover:underline  hover:underline-offset-auto cursor-pointer"
@@ -417,7 +436,8 @@ export default {
                     </div>
                 </div>
             </form>
-            <div class="modal-action">
+            <div class="modal-action flex justify-between">
+                <label for="my-modal-5" @click="setUserToAdmine" class="btn">Make as Admin</label>
                 <label for="my-modal-5" @click="updateProfile" class="btn">Edit!</label>
             </div>
         </div>

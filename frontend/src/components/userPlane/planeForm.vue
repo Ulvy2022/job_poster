@@ -1,52 +1,203 @@
 <template>
-    <section class=" dark:bg-gray-900 bg-gray-200">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6  md:grid ">
-            <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Subscribe your
-                    favourite plan</h2>
+    <section class="text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-24 mx-auto ">
+            <div class="flex flex-col text-center w-full mb-20">
+                <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Planning</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-500">Choose your favourite plan</p>
+                <!-- <div class="flex mx-auto border-2 border-indigo-500 rounded overflow-hidden mt-6">
+                    <button class="py-1 px-4 bg-indigo-500 text-white focus:outline-none">Monthly</button>
+                    <button class="py-1 px-4 focus:outline-none">Annually</button>
+                </div> -->
             </div>
-            <div class=" lg:ml-40 space-y-8 grid lg:grid-cols-2 md:grid-cols-1 sm:gap-6 xl:gap-10 lg:space-y-0 ">
-                <div v-for="plane of typePlane" :key="plane"
-                    class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                    <h3 class="mb-4 text-2xl font-semibold ">{{ plane.plane_type }}</h3>
-                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">{{ plane.description }}</p>
-                    <div class="flex justify-center items-baseline my-8">
-                        <span class="mr-2 text-5xl font-extrabold">${{ plane.price }}</span>
-                        <span class="text-gray-500 dark:text-gray-400">/month</span>
-                    </div>
-                    <ul role="list" class="mb-8 space-y-4 text-left">
-                        <li class="flex items-center space-x-3 " v-for="feature of plane.features" :key="feature">
-                            <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
-                                v-if="feature != ''" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
+            <div class="flex flex-wrap w-full items-center  lg:grid lg:grid-cols-2">
+                <div class="p-4 w-full " v-for="(plan, index) in typePlane" :key="plan">
+                    <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
+                        <h2 class="text-sm tracking-widest title-font mb-1 font-medium">START</h2>
+                        <h1 class="text-5xl text-gray-900 pb-4 mb-4 border-b border-gray-200 leading-none capitalize">
+                            {{
+                                    plan.name
+                            }}
+                        </h1>
+                        <p class="flex items-center text-gray-600 mb-2" v-for="benfits of feature_benifits[index]"
+                            :key="benfits">
+                            <span
+                                class="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5" class="w-3 h-3" viewBox="0 0 24 24">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                            </span>{{ benfits }}
+                        </p>
+                        <p class="flex items-center text-gray-600 mb-2">
+                            <span
+                                class="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 text-white rounded-full flex-shrink-0">
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2.5" class="w-3 h-3" viewBox="0 0 24 24">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                            </span>Price {{ plan.postpaid }}$/m
+                        </p>
+                        <button :id="plan.id" @click="getPrice(plan.postpaid, plan.id)"
+                            class="flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full  focus:outline-none hover:bg-blue-500 rounded">
+                            {{ btnBuy }}
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
                             </svg>
-                            <span>{{ feature }}</span>
-                        </li>
-                    </ul>
-                    <button type="button"
-                        class="text-black  border border-black hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">Buy
-                        Now</button>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="aba-modal-content">
+        <form method="POST" target="aba_webservice"
+            action="https://checkout-sandbox.payway.com.kh/api/payment-gateway/v1/payments/purchase"
+            id="aba_merchant_request" name="aba_merchant_request">
+            <input type="hidden" name="req_time" :value="req_time" id="req_time">
+            <input type="hidden" name="merchant_id" :value="merchant_id" id="merchant_id">
+            <input type="hidden" name="api_version" value="v1">
+            <input type="hidden" name="hash" id="hash" :value="hash">
+            <input type="hidden" name="tran_id" id="tran_id" :value="tran_id">
+            <input type="hidden" name="amount" :value="amount">
+            <input type="hidden" name="continue_success_url" value="">
+            <input type="hidden" value="true" name="is_plugin_js">
+        </form>
+    </div>
 </template>
 
 <script>
+// import { loadScript } from "vue-plugin-load-script";
 import axios from "axios";
+
 export default {
     data() {
         return {
+            merchant_id: "ec002497",
+            btnBuy: "Buy Now",
             typePlane: null,
-            link: 'https://buy.stripe.com/test_5kA6sjfSWdSUcwgeUW'
+            link: 'https://buy.stripe.com/test_5kA6sjfSWdSUcwgeUW',
+            feature_benifits: [
+                ['Post 1 job for 15 days'],
+                ['Post 3 jobs for 15 days'],
+                ['Post 10 jobs for 30 days'],
+                ['Unlimited post jobs for 30 days'],
+            ],
+            hash: "",
+            amount: 0,
+            tran_id: '',
+            wordsList: "",
+            req_time: '',
+            paywayScript: '',
+            plan_id: 0
         }
+    },
+
+    methods: {
+
+        createTransaction() {
+            var tranInfo = {
+                user_id: 2,
+                tran_id: this.tran_id,
+                payment_option: "VISA",
+                hash: this.hash,
+                status: 1,
+                currency: "USD",
+                amount: this.amount,
+
+            }
+            axios.post("http://localhost:8000/api/transaction", tranInfo);
+        },
+
+        buyNow() {
+            var tranInfo = {
+                tran_id: this.tran_id,
+                merchant_id: 'ec002497',
+                hash: this.hash,
+                plan_id: this.plan_id,
+                subscriber_id: 2
+            }
+            var newHash = "";
+            axios.get("http://localhost:8000/api/getNewHash/" + this.req_time).then((res) => {
+                newHash = res.data;
+                console.log("new hash: " + newHash);
+                console.log("old hash: " + this.hash);
+            })
+            axios.post("http://localhost:8000/api/payDetails",
+                {
+                    req_time: this.req_time,
+                    merchant_id: this.merchant_id,
+                    tran_id: this.tran_id,
+                    hash: newHash,
+                }
+            )
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data.status != 0) {
+                        this.buyNow();
+                    } else {
+                        axios.post("http://localhost:8000/api/subscription", tranInfo);
+                        // this.buyNow();
+                        this.createTransaction()
+                    }
+                })
+        },
+
+        callAbaForm() {
+            setTimeout(async function () {
+                // eslint-disable-next-line no-undef
+                await AbaPayway.checkout();
+            }, 1000);
+            this.buyNow()
+
+        },
+
+        getHasCode() {
+            axios.get("http://localhost:8000/api/hash/" + this.amount).then((res) => {
+                this.hash = res.data;
+                this.callAbaForm();
+            }).catch((err) => {
+                console.log(err);
+            })
+        },
+
+        randomize() {
+            return this.wordsList[Math.floor(Math.random() * (this.wordsList.length))];
+        },
+
+        getTranId() {
+            axios.get("http://localhost:8000/api/getTranID").then((res) => {
+                this.tran_id = res.data
+            })
+        },
+
+        getPrice(price, id) {
+            this.plan_id = id;
+            this.amount = price;
+            this.getHasCode();
+
+        },
+
+        getTimestamp() {
+            axios.get("http://localhost:8000/api/timestamp").then((res) => {
+                this.req_time = res.data;
+            })
+        },
+
+
     },
     mounted() {
         axios.get('http://localhost:8000/api/features').then((res) => {
             this.typePlane = res.data;
+            this.getTranId();
+            this.getTimestamp();
         })
+        const recaptchaScript = document.createElement("script");
+        recaptchaScript.setAttribute(
+            "src",
+            "https://checkout.payway.com.kh/plugins/checkout2-0.js"
+        );
+        document.head.appendChild(recaptchaScript);
     }
 }
 </script>

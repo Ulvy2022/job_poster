@@ -37,5 +37,7 @@ import VueCountryCode from "vue-country-code";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import LoadScript from "vue-plugin-load-script";
 
-createApp(App).use(router, vue3GoogleLogin, VueSweetalert2, VueFlags, VueCountryCode).component('font-awesome-icon', FontAwesomeIcon).mount('#app');
+createApp(App).use(router, vue3GoogleLogin, VueSweetalert2, VueFlags, VueCountryCode, LoadScript)
+    .component('font-awesome-icon', FontAwesomeIcon).mount('#app');

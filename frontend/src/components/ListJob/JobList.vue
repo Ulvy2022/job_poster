@@ -12,6 +12,7 @@
                 <p class="bg-blue-500 rounded-2xl p-3 text-white capitalize">{{ title }}</p>
                 <li v-for="job of listJobs" :key="job" @click.prevent="selectedValue(job)"><a class="capitalize">{{ job
                 }}</a> </li>
+                <li v-if="(jobList.length == 0)"><a class="capitalize text-red-500">Not Found</a></li>
             </ul>
         </div>
     </div>
@@ -32,7 +33,7 @@ export default {
             this.listJobs = this.jobList
         }
     },
-    
+
     methods: {
         showHideCollapse() {
             var coll = document.getElementsByClassName("collapsible");

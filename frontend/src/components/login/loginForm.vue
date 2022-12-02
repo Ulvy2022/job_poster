@@ -405,6 +405,7 @@ export default {
                 this.isEmptyPassword = false
                 axios.post('http://localhost:8000/api/login/',
                     { email: this.email, password: this.password }).then((res) => {
+                        console.log(res.data)
                         if (res.data.sms == 'Invaliid password') {
                             this.showInvalid = !this.showInvalid
                             this.isClickSigIn = !this.isClickSigIn

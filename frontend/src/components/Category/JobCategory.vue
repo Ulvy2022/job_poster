@@ -4,17 +4,17 @@
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- equal undefined no button, add one more condition (subscribe or not yet.) -->
                 <div v-if="userId != 'undefined' || role == 'Admine'" class="cusor">
-                    <PostForm/>
+                    <PostForm />
                 </div>
-                
+
                 <!-- job type -->
-                <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs"/>
+                <JobList @selectedValue="selectedValue" :title="jobTitle" :jobList="jobs" />
 
                 <!-- quick link -->
                 <JobList @selectedValue="selectedValue" :title="linkTitle" :jobList="quickLink" />
 
                 <!-- company list -->
-                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList"/>
+                <JobList @selectedValue="selectedValue" :title="comapnyTitle" :jobList="companyList" />
             </div>
             <div class="w-full mt-10 gap-10 overflow-x-hidden ">
                 <div class="form-control w-full mb-2">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="w-full flex justify-between ">
-                    <p class="w-2/4 text-xl  ml-2">Latest Jobs</p>
+                    <p class="w-2/4 text-xl  ml-2"> Jobs List</p>
                     <p class="w-2/4 text-xl  ml-2 word-break capitalize">{{ selected }}</p>
                 </div>
                 <div class="w-full grid place-items-center mt-5" v-if="!isShowEle">
@@ -54,8 +54,8 @@
 
 
                         <div class="p-3  w-full">
-                            <p class="text-ellipsis text-sm text-gray-500 " :id="job.id + 'jobTitle'">
-                                {{ job.job_title }} 
+                            <p class="text-ellipsis text-sm text-gray-500 capitalize" :id="job.id + 'jobTitle'">
+                                {{ job.job_title }}
                                 Position
                             </p>
 
@@ -123,7 +123,7 @@ export default {
             tenJobPerPage: [],
             isShowEle: true,
             numberOfAllJobs: 0,
-            userId : localStorage.getItem("userId"),
+            userId: localStorage.getItem("userId"),
             subscription: localStorage.getItem("subscription")
         }
     },
@@ -179,7 +179,7 @@ export default {
             this.selected = value;
             if (value.toLowerCase().search("company") != -1) {
                 this.filterJobByCompanyName(value)
-            } 
+            }
             else (
                 this.filterJobs(value)
             )
@@ -206,7 +206,7 @@ export default {
             })
         },
 
-        
+
 
         getAllCompanyName() {
             axios.get("http://localhost:8000/api/companyName").then((res) => {
@@ -231,7 +231,7 @@ export default {
                         ele.style.display = ''
                         isSomeEleShowed += 1;
                     }
-                   
+
                     else {
                         ele.style.display = 'none'
                     }

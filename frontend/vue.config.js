@@ -4,6 +4,7 @@ module.exports = defineConfig({
 
   chainWebpack: config => {
     config.resolve.symlinks(false);
+    // config.module.rules.delete('eslint');
   },
 
   pluginOptions: {
