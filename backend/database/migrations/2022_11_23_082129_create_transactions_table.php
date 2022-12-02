@@ -13,9 +13,9 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id()->unique();
+            // $table->id()->unique();
+            $table->increments('id')->startingValue(10);
             $table->foreignId('user_id')->constrained()->onDelete("CASCADE");
-            $table->string('tran_id');
             $table->string('payment_option');
             $table->string('hash');
             $table->string('status');

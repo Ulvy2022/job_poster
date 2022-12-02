@@ -28,6 +28,7 @@ class SubscribeController extends Controller
         $student->subscribeTo($plan, expiration: today()->addMonth(), startDate: null);
         $student->subscription = $plan['name'];
         $student->update();
+        $this->deActiveSub($request->subscriber_id);
         $feature_id = app('App\Http\Controllers\FeaturesController')->getFeatureId($plan['name']);
         $plan_id = app('App\Http\Controllers\PlaneController')->getPlanId($plan['name']);
 
@@ -51,7 +52,7 @@ class SubscribeController extends Controller
 
     public function show($id)
     {
-        return Subscription::where('id', $id)->get();
+        return Subscription::where('subscriber_id', $id)->get();
     }
 
 
@@ -149,6 +150,19 @@ class SubscribeController extends Controller
         return response()->json(['msg' => "cancel successfully"]);
     }
 
-
+    public function deActiveSub($id)
+    {
+        $subCount = count($this->show($id));
+        $subs = $this->show($id);
+        if ($subCount > 1) {
+            foreach ($subs as $key => $value) {
+                if ($key < $subCount - 1) {
+                    $subUpdate = Subscription::findOrFail($value->id);
+                    $subUpdate->active = 0;
+                    $subUpdate->update();
+                }
+            }
+        }
+    }
 
 }
