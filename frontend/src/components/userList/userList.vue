@@ -229,17 +229,7 @@ export default {
             return false;
         },
         userDetail(id) {
-            axios.get("http://localhost:8000/api/jobposter/" + id).then((res) => {
-                if (res.data.length > 0) {
-                    localStorage.removeItem("subId")
-                    localStorage.setItem("subId", res.data[0].user_id)
-                    localStorage.removeItem('jobId')
-                    localStorage.setItem('jobId', id)
-                    this.$router.push('/userDetail');
-                    return false;
-                }
-                return true;
-            })
+            this.$router.push('/userDetail/' + id);
         },
 
         setUserToAdmine() {
@@ -379,8 +369,7 @@ export default {
                             class=" bg-white text-blue-500 hover:underline hover:underline-offset-auto cursor-pointer">Edit
                             User</label>
                         <label for="" @click="userDetail(user.id)"
-                            class=" bg-white text-black hover:underline hover:underline-offset-auto cursor-pointer"
-                            :class="{ 'cursor-not-allowed hover:no-underline': !userDetail(user.id) }">User
+                            class=" bg-white text-black hover:underline hover:underline-offset-auto cursor-pointer">User
                             Details</label>
                         <label
                             class="ml-5 bg-white text-red-500 hover:underline  hover:underline-offset-auto cursor-pointer"

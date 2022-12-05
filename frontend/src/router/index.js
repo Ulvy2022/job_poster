@@ -126,7 +126,7 @@ const routes = [
     }
   },
   {
-    path: '/userDetail',
+    path: '/userDetail/:id',
     name: 'userDetail',
     component: () => import('@/views/userPost/userPostView.vue'),
     beforeEnter() {
