@@ -1,5 +1,5 @@
 <template>
-    <div class="lg:w-1/2 w-full mt-5 gap-10 mb-5 m-auto animate__animated animate__fadeIn">
+    <div class="lg:w-2/4 w-full mt-5 gap-10 mb-5 m-auto animate__animated animate__fadeIn">
         <div class="w-full ">
             <th scope="row"
                 class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white border-t-2 w-full rounded-2xl">
@@ -11,11 +11,9 @@
                     <div class="font-normal text-gray-500">{{ email }} </div>
                 </div>
             </th>
-            <p class="text-xl text-blue-500 ml-5">Job Posted</p>
         </div>
-
-
         <div class="w-full">
+            <p class="text-xl text-blue-500">Job Posted</p>
             <div v-for="job of allJobs" :key="job" :id="job.id"
                 class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2 border-2">
                 <div>
@@ -27,7 +25,7 @@
                 </div>
                 <div class="p-3  w-full">
                     <p class="text-blue-600 text-xl text-ellipsis lg:text-xs word-break">{{ job.job_title }}</p>
-                    <p class="text-ellipsis mb-1 text-gray-500">{{ job.company_name }}</p>
+                    <p class="text-ellipsis mb-1 text-gray-500">{{ job.comp_name }}</p>
                     <div class="flex lg:gap-24 gap-7">
                         <div class="w-full grid grid-cols-1 lg:grid-cols-2">
                             <div class="flex gap-2 lg:w-full">
@@ -42,7 +40,7 @@
                                     <path
                                         d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
                                 </svg>
-                                <p>3 days</p>
+                                <p>{{ compareDate(job.created_at) }} days app.config.isCustomElement = </p>
                             </div>
                         </div>
 
@@ -219,8 +217,8 @@ export default {
     },
 
     methods: {
-        getUserPost(id) {
-            axios.get("http://localhost:8000/api/UserJob/" + id).then((res) => {
+        getUserPost() {
+            axios.get("http://localhost:8000/api/UserJob/" + this.$route.params.id).then((res) => {
                 if (res.data.length > 0) {
                     this.allJobs = res.data[0].jobsposter
                     this.fullName = res.data[0].fullName
@@ -325,12 +323,43 @@ export default {
                         document.getElementById(id).remove()
                     }
                 })
-        }
+        },
+        formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        },
+
+        compareDate(ed) {
+            console.log(this.formatDate(new Date(ed)));
+            const startDate = this.formatDate(new Date())
+            const endDate = this.formatDate(new Date(ed));
+            const diffInMs = new Date(endDate) - new Date(startDate)
+            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+            // console.log(diffInDays);
+            return diffInDays;
+        },
+
+
     },
 
     mounted() {
-        this.getUserPost(localStorage.getItem("jobId"))
-        this.getUserPostById()
+        this.getUserPost()
+        this.getUserPostById();
+        this.compareDate();
+        console.log(this.compareDate('2022-12-17 02:07:47'));
+        const dat = new Date('2022-12-17 02:07:47');
+        console.log(dat.getFullYear() + "-" + dat.getMonth() + "-" + dat.getDate()
+            + " " + dat.getHours() + ":" + dat.getMinutes() + ":" + dat.getSeconds());
+
     }
 }
 </script>

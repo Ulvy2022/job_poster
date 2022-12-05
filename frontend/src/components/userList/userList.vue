@@ -229,7 +229,8 @@ export default {
             return false;
         },
         userDetail(id) {
-            this.$router.push('/userDetail/' + id);
+            // this.$router.push('/userDetail/');
+            this.$router.push({ name: 'userDetail', params: { id } });
         },
 
         setUserToAdmine() {
