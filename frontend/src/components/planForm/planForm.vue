@@ -87,7 +87,7 @@ export default {
             setTimeout(() => {
                 this.count += 1;
                 this.isShowForm = false;
-            }, 1000)
+            }, 1500)
         },
 
 
