@@ -2,7 +2,7 @@
   <section>
     <div class="">
       <div class="flex justify-center lg:justify-start ">
-        <label v-if="role.length > 0" for="my-modal-3" class="btn bg-blue-500 btn-circle">
+        <label v-if="(isSubscription == 1)" for="my-modal-3" class="btn bg-blue-500 btn-circle">
           <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
@@ -377,7 +377,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      userId: "",
+      userId: localStorage.getItem("userId"),
       jobTitle: "",
       jobLocation: "",
       jobType: "",
@@ -404,7 +404,8 @@ export default {
       role: localStorage.getItem("role"),
       id: localStorage.getItem("userId"),
       job: localStorage.getItem("jobId"),
-      subscription: localStorage.getItem("subscription")
+      subscription: localStorage.getItem("subscription"),
+      isSubscription: 0,
 
     };
   },
@@ -472,7 +473,19 @@ export default {
         }
       });
     },
+
+    get_current_user_subscription() {
+      axios.get("http://localhost:8000/api/current_scubscribe/" + this.userId).then((res) => {
+        this.isSubscription = res.data;
+        console.log(res.data);
+      })
+    },
   },
+
+  mounted() {
+    this.get_current_user_subscription()
+  }
+
 };
 </script>
 <style scoped>

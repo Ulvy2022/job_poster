@@ -47,10 +47,17 @@
                     </MenuItem>
                 </div>
                 <div class="py-1">
+                    <MenuItem v-slot="{ active }" @click="valueSelected('All Users')">
+                    <a href="#"
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">All
+                        Users</a>
+                    </MenuItem>
+                </div>
+                <div class="py-1">
                     <MenuItem v-slot="{ active }">
                     <a href="#"
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']"
-                        @click="deleteUser">Delete</a>
+                        @click="deleteUser">Delete Multiple Users</a>
                     </MenuItem>
                 </div>
             </MenuItems>

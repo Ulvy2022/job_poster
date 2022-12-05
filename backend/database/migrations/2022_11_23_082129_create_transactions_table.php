@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete("CASCADE");
             $table->string('payment_option');
             $table->string('hash');
+            $table->string('tran_id');
             $table->string('status');
             $table->string('currency')->default('USD');
             $table->integer('amount');

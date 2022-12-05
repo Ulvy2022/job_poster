@@ -165,4 +165,13 @@ class SubscribeController extends Controller
         }
     }
 
+    public function user_current_scubscribe($id)
+    {
+        $current_sub = Subscription::where('active', 1)->where('subscriber_id', $id)->get();
+        if (count($current_sub) > 0) {
+            return $current_sub[0]->active;
+        }
+        return 0;
+    }
+
 }

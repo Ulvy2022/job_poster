@@ -1,8 +1,10 @@
 <template>
     <div class=" max-h-64 overflow-y-auto ">
         <div class="mt-2 md:block lg:hidden">
-            <button class="collapsible bg-blue-400 text-white" @click="showHideCollapse">{{ title }} </button>
+            <button class="collapsible bg-gray-500 text-white" @click="showHideCollapse">{{ title }} </button>
             <div class="content w-full ">
+
+
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize" v-for="job of listJobs" :key="job"
                     @click.prevent="selectedValue(job)">{{ job }}</p>
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize text-red-500" v-if="(jobList.length == 0)">
@@ -11,10 +13,12 @@
         </div>
         <div class="mt-5 lg:block hidden w-full">
             <ul class="menu bg-base-100 rounded-box drop-shadow-lg w-11/12">
-                <p class="bg-blue-500 rounded-2xl p-3 text-white capitalize">{{ title }}</p>
-                <li v-for="job of listJobs" :key="job" @click.prevent="selectedValue(job)"><a class="capitalize">{{ job
+                <p class="bg-gray-600 rounded-2xl p-3 text-white capitalize">{{ title }}</p>
+                <!-- spin -->
+
+                <li v-for="job of listJobs" :key="job" @click.prevent="selectedValue(job)"><a class="capitalize ">{{ job
                 }}</a> </li>
-                <li v-if="(jobList.length == 0)"><a class="capitalize text-red-500">Not Found</a></li>
+                <li v-if="(jobList.length == 0 && !isShowForm)"><a class="capitalize text-red-500">Not Found</a></li>
             </ul>
         </div>
     </div>
@@ -27,6 +31,8 @@ export default {
         return {
             titles: this.title,
             listJobs: this.jobList,
+            isShowForm: true,
+            count: 0
         }
     },
 
@@ -54,8 +60,17 @@ export default {
 
         selectedValue(value) {
             this.$emit('selectedValue', value)
+        },
+
+        showForm() {
+            setTimeout(() => {
+                this.isShowForm = false;
+            }, 1500)
         }
     },
+    mounted() {
+        this.showForm();
+    }
 
 }
 </script>

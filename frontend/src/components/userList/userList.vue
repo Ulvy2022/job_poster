@@ -153,7 +153,17 @@ export default {
         filterBySubscriber() {
             var numberOfDisplay = 0;
             if (this.selected == 'Non Subscribers') {
-                this.selected = 'No'
+                for (let user of this.allUsers) {
+                    var elNone = document.getElementById(user.id + "subscriber");
+                    if (document.body.contains(el) && user.subscription == null) {
+                        elNone.classList.add("animate__animated", "animate__fadeIn")
+                        elNone.style.display = '';
+                        numberOfDisplay++;
+                    } else {
+                        elNone.classList.remove("animate__animated", "animate__fadeIn")
+                        elNone.style.display = 'none'
+                    }
+                }
             }
             if (this.selected != 'Option') {
                 for (let user of this.allUsers) {
@@ -169,20 +179,29 @@ export default {
                             element.style.display = 'none'
                         }
                     }
-                    console.log(this.selected);
-                    console.log(elementText.textContent);
+
                 }
                 this.numberOfUsers = numberOfDisplay;
             } if (this.selected == 'All Subscribers') {
                 this.numberOfUsers = this.allUsers.length
                 for (let user of this.allUsers) {
+                    // eslint-disable-next-line no-redeclare
                     var el = document.getElementById(user.id);
-                    if (document.body.contains(el) && user.subscription != 'No') {
+                    if (document.body.contains(el) && user.subscription != null) {
                         el.classList.add("animate__animated", "animate__fadeIn")
                         el.style.display = '';
                     }
                 }
+            } if (this.selected == 'All Users') {
+                this.numberOfUsers = this.allUsers.length
+                for (let user of this.allUsers) {
+                    // eslint-disable-next-line no-redeclare
+                    var el = document.getElementById(user.id);
+                    el.classList.add("animate__animated", "animate__fadeIn")
+                    el.style.display = '';
+                }
             }
+
         },
 
         showTable() {
@@ -253,9 +272,10 @@ export default {
 
 
 <template>
-    <div class="overflow-auto relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-7  lg:h-[83vh]">
+    <div class=" relative shadow-md sm:rounded-lg lg:w-11/12 lg:m-auto top-7  lg:h-[83vh] overflow-auto"
+        style="min-height:87.5vh;">
         <!-- action and search bar -->
-        <div class="lg:flex lg:justify-between lg:items-center pb-4 grid gap-y-4 bg-white dark:bg-gray-900">
+        <div class="lg:flex lg:justify-between lg:items-center pb-4 grid gap-y-4  bg-white ">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative w-11/12 m-auto lg:w-1/3">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -276,7 +296,8 @@ export default {
                         @deleteUser="popUpDelete(vlaueCheckbox)" />
                 </div>
             </div>
-            <div class="lg:w-1/4 w-4/5   border-gray-400 ml-5 lg:mr-3 flex place-items-end justify-center">
+            <div
+                class="lg:w-1/4 w-4/5   border-gray-400 ml-5 lg:mr-3 flex lg:place-items-end lg:justify-center justify-start">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 fill-blue-500" viewBox="0 0 640 512">
                     <path
                         d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
@@ -328,7 +349,7 @@ export default {
                 </tr>
             </thead>
             <tbody>
-                <tr class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
+                <tr class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     v-for="user of allUsers" :key="user" :id="user.id">
                     <td class="p-4 w-4">
                         <div class="flex items-center">

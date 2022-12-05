@@ -1,12 +1,14 @@
 <template>
     <div class="w-full m-auto grid p-3 ">
-        <div class="flex  items-center cursor-pointer bg-slate-100 p-3">
-            <div class="avatar placeholder ml-2">
+        <div class="flex  justify-between cursor-pointer bg-slate-100 p-3">
+            <div class="avatar placeholder ml-2 flex justify-start items-center">
                 <div class="bg-neutral-focus text-neutral-content rounded-full w-16">
                     <span class="text-3xl">{{ firstLetter(companyName) }}</span>
                 </div>
+                <p class="text-2xl text-blue-500 ml-4">{{ jobDetails.company_name }}</p>
             </div>
-            <p class="text-2xl text-blue-500 ml-4">{{ jobDetails.company_name }}</p>
+            <button class="rounded-3xl text-lg w-1/4 bg-blue-500 text-white lg:w-24 lg:h-12 lg:rounded-none"
+                @click="backToJob">Back</button>
         </div>
         <!-- job details -->
         <div class="lg:flex md:grid md:w-full ">
@@ -76,6 +78,9 @@ export default {
     },
 
     methods: {
+        backToJob() {
+            this.$router.push('/');
+        },
         getJobDetail() {
             axios.get('http://localhost:8000/api/job/' + localStorage.getItem('jobId')).then((res) => {
                 this.jobDetails = res.data[0]

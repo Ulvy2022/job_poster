@@ -45,7 +45,7 @@
                         class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
                         <div>
                             <div class="avatar placeholder ml-2">
-                                <div class="bg-gray-500 text-neutral-content rounded-full w-16">
+                                <div class="bg-gray-600 text-neutral-content rounded-full w-16">
                                     <span class="text-3xl">{{ firstLetter(job.company_name) }} </span>
                                 </div>
                             </div>
@@ -68,15 +68,15 @@
                                 {{ job.job_type }}
                                 Job
                             </p>
-                            <div class="flex lg:gap-24 gap-7">
+                            <div class="flex lg:gap-24 gap-7 mt-2">
                                 <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-y-1">
-                                    <div class="flex gap-2 lg:w-full">
+                                    <div class="flex gap-2 lg:w-full justify-start place-items-end">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                             class="h-5 w-5 fill-blue-500">
                                             <path
                                                 d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z" />
                                         </svg>
-                                        <p class="text-sm">{{ job.post_at }}</p>
+                                        <p class="text-sm text-blue-500">{{ tsToReadable(job.created_at) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,6 @@ import JobList from "../ListJob/JobList.vue"
 import PostForm from '../../components/postJob/PostForm.vue'
 import paginationPage from "../pagination/paginationPage.vue"
 import axios from 'axios';
-// import { log } from "console";
 export default {
     emits: ['selectedValue', 'addJob'],
     components: {
@@ -124,7 +123,7 @@ export default {
             isShowEle: true,
             numberOfAllJobs: 0,
             userId: localStorage.getItem("userId"),
-            subscription: localStorage.getItem("subscription")
+            subscription: localStorage.getItem("subscription"),
         }
     },
     methods: {
@@ -151,8 +150,12 @@ export default {
             localStorage.setItem('jobId', id)
             this.$router.push('/job_detail')
         },
+        tsToReadable(timestamp) {
+            return new Date(timestamp).toString().substring(4, 15)
+        },
 
         getAllJobs() {
+            this.isShowEle = true;
             this.allJobs = []
             var j = []
             var index = 0;

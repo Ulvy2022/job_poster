@@ -13,7 +13,6 @@ use App\Http\Controllers\PlaneController;
 use App\Http\Controllers\RestorePostController;
 use App\Http\Controllers\SubRenewalsController;
 use App\Http\Controllers\JobsPosterController;
-use Stripe\Subscription;
 
 // Api on user: by id, gender,count
 // Api on job: by id, title, job-type, count,
@@ -115,3 +114,6 @@ Route::apiResource('/transaction', TransactionController::class);
 Route::post("/payDetails", [TransactionController::class, 'getPyamentResponse']);
 Route::get("/getNewHash/{req_time}", [TransactionController::class, 'getNewHash']);
 Route::post("/QRcode", [TransactionController::class, 'QRcode']);
+
+// get only active status only
+Route::get("current_scubscribe/{id}", [SubscribeController::class, 'user_current_scubscribe']);

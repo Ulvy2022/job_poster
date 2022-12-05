@@ -39,7 +39,7 @@
                         </p>
                         <button :id="plan.id" @click="getPrice(plan.postpaid, plan.id)"
                             class="flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full  focus:outline-none hover:bg-blue-500 rounded">
-                            {{ btnBuy }}
+                            Buy Now
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -55,7 +55,7 @@
             action="https://checkout-sandbox.payway.com.kh/api/payment-gateway/v1/payments/purchase"
             id="aba_merchant_request" name="aba_merchant_request">
             <input type="hidden" name="req_time" :value="req_time" id="req_time">
-            <input type="hidden" name="merchant_id" :value="merchant_id" id="merchant_id">
+            <input type="hidden" name="merchant_id" value="ec002497" id="merchant_id">
             <input type="hidden" name="api_version" value="v1">
             <input type="hidden" name="hash" id="hash" :value="hash">
             <input type="hidden" name="tran_id" id="tran_id" :value="tran_id">
