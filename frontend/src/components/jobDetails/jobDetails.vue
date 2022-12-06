@@ -73,14 +73,7 @@
                     <b class="text-lg">Job Requirements</b>
                     <p class="text-sm"> {{ jobDetails.job_requirement }} </p>
                 </div>
-                <!-- <p class="p-3">To do on this position please submit us your CV Cover using
-                    Email contact person above
-                </p>
-                <ul class="list-disc list-inside p-3 text-base">
-                    <li class="text-sm">
-                        {{ jobDetails.contact_email }}
-                    </li>
-                </ul> -->
+
             </div>
         </div>
     </div>

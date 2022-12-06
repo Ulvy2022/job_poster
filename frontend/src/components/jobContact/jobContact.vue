@@ -7,8 +7,7 @@
                 </div>
                 <p class="text-2xl text-blue-500 ml-4">{{ jobDetails.company_name }}</p>
             </div>
-            <button class="rounded-3xl text-lg w-1/4 bg-blue-500 text-white lg:w-24 lg:h-12 lg:rounded-none"
-                @click="backToJob">Back</button>
+
         </div>
         <!-- job details -->
         <div class="lg:flex md:grid md:w-full ">
@@ -78,9 +77,6 @@ export default {
     },
 
     methods: {
-        backToJob() {
-            this.$router.push('/');
-        },
         getJobDetail() {
             axios.get('http://localhost:8000/api/job/' + localStorage.getItem('jobId')).then((res) => {
                 this.jobDetails = res.data[0]

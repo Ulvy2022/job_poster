@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full ml-10">
+    <div class="w-full lg:ml-10">
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- equal undefined no button, add one more condition (subscribe or not yet.) -->
@@ -99,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full flex justify-center">
+                    <div class="w-full flex justify-center" v-if="(allJobs.length > 0)">
                         <paginationPage @previousPage="previousPage" @nextpage="nextPage" :allPages="allPages"
                             :currentPage="currentPage" />
                     </div>
@@ -195,6 +195,7 @@ export default {
                 }
                 this.tenJobPerPage = []
                 this.allPages = this.allJobs.length;
+                console.log(this.allJobs[0].length);
             })
         },
 

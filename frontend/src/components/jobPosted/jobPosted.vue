@@ -12,7 +12,7 @@
             <div class="w-full flex justify-center items-center" v-if="userJobs == null">
                 <img class="w-3/5 " src="../../assets/images/undraw_page_not_found_re_e9o6.svg" alt="">
             </div>
-            <div class="grid grid-cols-3 p-3 bg-blue-500 border-t-2 border-white">
+            <div class="flex justify-between p-3 bg-blue-500 border-t-2 border-white">
                 <p class="text-white">Job Title</p>
                 <p class="text-white">Salary/m</p>
                 <p class="text-white">Posted at</p>
