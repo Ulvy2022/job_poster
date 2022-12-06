@@ -60,7 +60,7 @@ export default {
             userPayments: [],
             userJobs: [],
             showJobPosted: false,
-            userId: localStorage.getItem("userId"),
+            // userId: localStorage.getItem("userId"),
         }
     },
 
@@ -94,8 +94,9 @@ export default {
         },
 
         getUserSub() {
-            axios.get("http://localhost:8000/api/userSubInfo/" + this.userId).then((response) => {
+            axios.get("http://localhost:8000/api/userSubInfo/" + localStorage.getItem("userId")).then((response) => {
                 this.userSub = response.data;
+                console.log(response.data);
             })
         },
 

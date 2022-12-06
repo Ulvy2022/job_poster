@@ -155,13 +155,12 @@ export default {
             if (this.selected == 'Non Subscribers') {
                 for (let user of this.allUsers) {
                     var elNone = document.getElementById(user.id + "subscriber");
-                    if (document.body.contains(el) && user.subscription == null) {
+                    if (user.subscription != null) {
                         elNone.classList.add("animate__animated", "animate__fadeIn")
-                        elNone.style.display = '';
+                        elNone.style.display = 'none';
                         numberOfDisplay++;
                     } else {
-                        elNone.classList.remove("animate__animated", "animate__fadeIn")
-                        elNone.style.display = 'none'
+                        elNone.style.display = '';
                     }
                 }
             }

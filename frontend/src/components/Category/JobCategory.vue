@@ -167,11 +167,7 @@ export default {
             this.$router.push('/job_detail')
         },
         tsToReadable(timestamp) {
-            const monthNames = ["January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            const date = new Date(timestamp);
-            return + date.getDay() + "-" + monthNames[date.getMonth()] + "-" + date.getFullYear();
+            return new Date(timestamp).toDateString();
         },
 
         getAllJobs() {
