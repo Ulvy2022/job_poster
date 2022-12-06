@@ -176,17 +176,12 @@
                 </div>
             </div>
         </div>
-        <userPost />
     </div>
 </template>
 
 <script >
-import userPost from "../PostEachuser/PostEachuser.vue"
 import axios from "axios"
 export default {
-    components: {
-        userPost
-    },
     data() {
         return {
             showBtnProgress: false,
