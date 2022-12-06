@@ -42,7 +42,7 @@ const routes = [
   },
 
   {
-    path: '/job_detail',
+    path: '/job_detail/:id',
     name: 'job_detail',
     component: () => import('@/views/jobView/jobView.vue'),
   },

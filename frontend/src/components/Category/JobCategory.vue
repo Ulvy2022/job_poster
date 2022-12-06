@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full ml-10">
         <div class="lg:flex lg:w-4/5 lg:m-auto justify-between">
             <div class="lg:w-2/3 mt-5 mb-2">
                 <!-- equal undefined no button, add one more condition (subscribe or not yet.) -->
@@ -216,9 +216,7 @@ export default {
         },
 
         deatilJob(id) {
-            localStorage.removeItem('jobId');
-            localStorage.setItem('jobId', id);
-            this.$router.push('/job_detail');
+            this.$router.push({ name: 'job_detail', params: { id } });
         },
 
         getAllJobsTitle() {
@@ -318,7 +316,6 @@ export default {
         },
 
         compareDate(ed) {
-            console.log(this.formatDate(new Date(ed)));
             const startDate = this.formatDate(new Date(ed))
             const endDate = this.formatDate(new Date());
             const diffInMs = new Date(endDate) - new Date(startDate)

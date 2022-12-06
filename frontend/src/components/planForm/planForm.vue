@@ -21,7 +21,7 @@
         v-if="(userSub.length > 0 && !isShowForm)">
         <p class="p-3 bg-blue-500 text-white">Your Plan History</p>
         <div class="p-3 bg-blue-500 text-white flex justify-between border-t-2 border-white">
-            <p>Status</p>
+            <p>Status/Name</p>
             <p>Price</p>
             <p>subscribe at</p>
         </div>
@@ -44,7 +44,7 @@
             <!-- billing -->
             <p class="p-3 bg-blue-500 text-white">Your Billing History</p>
             <div class="p-3 bg-blue-500 text-white flex justify-between border-t-2 border-white">
-                <p>Status</p>
+                <p>Status/Name</p>
                 <p>Price</p>
                 <p>subscribe at</p>
             </div>

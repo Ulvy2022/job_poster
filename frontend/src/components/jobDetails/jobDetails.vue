@@ -100,7 +100,7 @@ export default {
 
     methods: {
         getJobDetails() {
-            axios.get('http://localhost:8000/api/job/' + parseInt(localStorage.getItem("jobId"))).then((res) => {
+            axios.get('http://localhost:8000/api/job/' + this.$route.params.id).then((res) => {
                 this.jobDetails = res.data[0]
             })
         },
