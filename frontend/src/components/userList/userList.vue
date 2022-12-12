@@ -152,18 +152,16 @@ export default {
 
         filterBySubscriber() {
             var numberOfDisplay = 0;
-            if (this.selected == 'Non Subscribers') {
-                for (let user of this.allUsers) {
-                    var elNone = document.getElementById(user.id + "subscriber");
-                    if (user.subscription != null) {
-                        elNone.classList.add("animate__animated", "animate__fadeIn")
-                        elNone.style.display = 'none';
-                        numberOfDisplay++;
-                    } else {
-                        elNone.style.display = '';
-                    }
-                }
-            }
+            // if (this.selected == 'Non Subscribers') {
+            //     for (let user of this.allUsers) {
+            //         var elNone = document.getElementById(user.id + "subscriber");
+            //         if (user.subscription == null) {
+            //             // elNone.classList.add("animate__animated", "animate__fadeIn")
+            //             numberOfDisplay++;
+            //             elNone.style.display = '';
+            //         }
+            //     }
+            // }
             if (this.selected != 'Option') {
                 for (let user of this.allUsers) {
                     var element = document.getElementById(user.id);

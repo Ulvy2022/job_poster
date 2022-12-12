@@ -13,7 +13,8 @@
                 <div class="p-4 w-full " v-for="(plan, index) in typePlane" :key="plan">
                     <div class="h-full p-6 rounded-lg border-2 border-gray-300 flex flex-col relative overflow-hidden">
                         <h2 class="text-sm tracking-widest title-font mb-1 font-medium">START</h2>
-                        <h1 class="text-5xl text-gray-900 pb-4 mb-4 border-b border-gray-200 leading-none capitalize">
+                        <h1 class="text-5xl text-gray-900 pb-4 mb-4 border-b border-gray-200 leading-none capitalize"
+                            @click="subName(plan.name)">
                             {{
                                     plan.name
                             }}
@@ -37,7 +38,7 @@
                                 </svg>
                             </span>Price {{ plan.postpaid }}$/m
                         </p>
-                        <button :id="plan.id" @click="getPrice(plan.postpaid, plan.id)"
+                        <button :id="plan.id" @click="getPrice(plan.postpaid, plan.id, plan.name)"
                             class="flex items-center mt-auto text-white bg-gray-400 border-0 py-2 px-4 w-full  focus:outline-none hover:bg-blue-500 rounded">
                             Buy Now
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-// import { loadScript } from "vue-plugin-load-script";
+import Swal from "sweetalert2"
 import axios from "axios";
 export default {
     data() {
@@ -86,7 +87,7 @@ export default {
             wordsList: "",
             req_time: '',
             paywayScript: '',
-            plan_id: 0
+            plan_id: 0,
         }
     },
 
@@ -122,6 +123,15 @@ export default {
             localStorage.setItem("tran_id", this.tran_id)
 
         },
+        userTrail() {
+            axios.post("http://localhost:8000/api/trail", { subscriber_id: localStorage.getItem('userId'), plan_id: this.plan_id }).then(() => {
+                Swal.fire(
+                    'Success',
+                    'Your Trail was success',
+                    'success'
+                )
+            })
+        },
 
         getHasCode() {
             axios.get("http://localhost:8000/api/hash/" + this.amount).then((res) => {
@@ -142,10 +152,14 @@ export default {
             })
         },
 
-        getPrice(price, id) {
+        getPrice(price, id, name) {
             this.plan_id = id;
             this.amount = price;
-            this.getHasCode();
+            if (name.toLowerCase() == "trail") {
+                this.userTrail()
+            } else {
+                this.getHasCode();
+            }
 
         },
 

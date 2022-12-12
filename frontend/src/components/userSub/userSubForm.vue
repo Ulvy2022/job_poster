@@ -44,7 +44,8 @@ export default {
                 this.userSubs = res.data
                 console.log(res.data);
             })
-        }
+        },
+
     },
 
     mounted() {

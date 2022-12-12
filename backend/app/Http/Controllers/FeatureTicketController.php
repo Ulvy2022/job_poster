@@ -18,16 +18,6 @@ class FeatureTicketController extends Controller
     public function index()
     {
         return $this->ToObject(DB::select('SELECT * from users order by id desc '));
-        // $sub = FeatureTicket::where("expired_at", ">=", time() - (24 * 60 * 60))->get();
-        // foreach ($sub as $job) {
-        //     // return date("Y-m-d");
-        //     return date('Y-m-d', strtotime($job['restoreChrage_at']));
-        //     if (date('Y-m-d', strtotime($job['restoreChrage_at'])) == date("Y-m-d")) {
-        //         $charge = FeatureTicket::findOrFail($job['id']);
-        //         $charge->charges = $charge->full_charge;
-        //         $charge->update();
-        //     }
-        // }
     }
 
     public function update($id)
@@ -38,7 +28,7 @@ class FeatureTicketController extends Controller
             DB::update('UPDATE feature_tickets set charges =' . $minusCharge . ' where id=' . $id);
             return 'Job posted';
         }
-        return "You have used all your charges";
+        return "You have used all your charges. You can post job again at " . date('Y M D', strtotime($featurePlan->restoreChrage_at));
     }
 
     public function show($id)
@@ -99,16 +89,23 @@ class FeatureTicketController extends Controller
                 $charge = FeatureTicket::findOrFail($job['id']);
                 $charge->charges = $charge->full_charge;
                 $charge->update();
+                // return $charge;
             }
         }
     }
 
     public function userSubInfo($sub_id)
     {
-        return DB::select("SELECT * FROM subscriptions
-                                    inner  join plans on plans.id = subscriptions.plan_id and subscriptions.subscriber_id=$sub_id
-                                    inner join feature_plan on feature_plan.plan_id = plans.id
-                                    inner join features on features.id = feature_Plan.feature_id
-                                    ");
+        return DB::select("SELECT DISTINCT subscriptions.*,
+                    plans.id,
+                    features.postpaid,
+                    features.name,
+                    feature_plan.plan_id,
+                    feature_plan.feature_id,
+                    feature_plan.charges
+                    FROM subscriptions
+                    inner  join plans on plans.id = subscriptions.plan_id and subscriptions.subscriber_id=$sub_id
+                    inner join feature_plan on feature_plan.plan_id = plans.id
+                    inner join features on features.id = feature_Plan.feature_id ORDER BY feature_plan.id DESC");
     }
 }

@@ -6,7 +6,6 @@ module.exports = defineConfig({
     config.resolve.symlinks(false);
     // config.module.rules.delete('eslint');
   },
-
   pluginOptions: {
     vuetify: {
 			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader

@@ -28,10 +28,19 @@
                         </svg>
                         <p class="text-sm">Contact Info</p>
                     </div>
+                    <!-- candidate's CV -->
+                    <div class="flex   p-3 gap-2 cursor-pointer  " @click="showCvForm" id="showCV">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-5 h-5 fill-blue-500">
+                            <path
+                                d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+                        </svg>
+                        <p class="text-sm">Candidate CV</p>
+                    </div>
                 </div>
                 <planForm v-if="showPlan" :userSub="userSub" :userPayments="userPayments" />
                 <contactForm v-if="showContact" :userInfo="userInfo" @updateUserInfo="updateUserInfo" />
                 <jobPosted v-if="showJobPosted" :userJobs="userJobs" />
+                <candidateCV v-if="showCV" :userCV="userCV" />
             </div>
         </div>
     </div>
@@ -42,17 +51,20 @@ import axios from "axios"
 import Swal from "sweetalert2";
 import planForm from "../../components/planForm/planForm.vue";
 import contactForm from "../../components/contactForm/contactForm.vue";
-import jobPosted from "../../components/jobPosted/jobPosted.vue"
+import jobPosted from "../../components/jobPosted/jobPosted.vue";
+import candidateCV from "../../components/candidateCV/candidateCV.vue";
 export default {
     emits: ['updateUserInfo'],
     components: {
         planForm,
         contactForm,
-        jobPosted
+        jobPosted,
+        candidateCV
     },
 
     data() {
         return {
+            showCV: false,
             userSub: [],
             userInfo: [],
             showPlan: true,
@@ -60,9 +72,11 @@ export default {
             userPayments: [],
             userJobs: [],
             showJobPosted: false,
-            // userId: localStorage.getItem("userId"),
+            userId: localStorage.getItem("userId"),
+            userCV: []
         }
     },
+
 
     methods: {
 
@@ -70,33 +84,49 @@ export default {
             this.showJobPosted = false;
             this.showContact = false;
             this.showPlan = true;
+            this.showCV = false;
             document.getElementById('showPlanForm').classList.add("active");
             document.getElementById('showContactForm').classList.remove("active");
             document.getElementById('showJobForm').classList.remove("active");
+            document.getElementById('showCV').classList.remove("active");
         },
 
         showContactForm() {
             this.showJobPosted = false;
             this.showPlan = false;
             this.showContact = true;
+            this.showCV = false;
             document.getElementById('showPlanForm').classList.remove("active");
             document.getElementById('showContactForm').classList.add("active");
             document.getElementById('showJobForm').classList.remove("active");
+            document.getElementById('showCV').classList.remove("active");
         },
 
         showJobForm() {
+            this.showJobPosted = true;
             this.showContact = false;
             this.showPlan = false;
-            this.showJobPosted = true;
+            this.showCV = false;
             document.getElementById('showPlanForm').classList.remove("active");
             document.getElementById('showContactForm').classList.remove("active");
             document.getElementById('showJobForm').classList.add("active");
+            document.getElementById('showCV').classList.remove("active");
+        },
+
+        showCvForm() {
+            this.showContact = false;
+            this.showPlan = false;
+            this.showJobPosted = false;
+            this.showCV = true;
+            document.getElementById('showPlanForm').classList.remove("active");
+            document.getElementById('showContactForm').classList.remove("active");
+            document.getElementById('showJobForm').classList.remove("active");
+            document.getElementById('showCV').classList.add("active");
         },
 
         getUserSub() {
             axios.get("http://localhost:8000/api/userSubInfo/" + localStorage.getItem("userId")).then((response) => {
                 this.userSub = response.data;
-                console.log(response.data);
             })
         },
 
@@ -118,7 +148,7 @@ export default {
         },
 
         paymentHistory() {
-            axios.get("http://localhost:8000/api/payment/" + this.userId).then((res) => {
+            axios.get("http://localhost:8000/api/transaction/" + this.userId).then((res) => {
                 this.userPayments = res.data;
             })
         },
@@ -127,7 +157,13 @@ export default {
             axios.get("http://localhost:8000/api/jobposter/" + this.userId).then((res) => {
                 this.userJobs = res.data;
             })
-        }
+        },
+
+        getUserCV() {
+            axios.get("http://localhost:8000/api/cv/" + localStorage.getItem("userId")).then((res) => {
+                this.userCV = res.data;
+            })
+        },
     },
 
     mounted() {
@@ -135,6 +171,7 @@ export default {
         this.getUserSub();
         this.getUserJobs();
         this.getUserInfo();
+        this.getUserCV();
     }
 
 }

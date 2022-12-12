@@ -40,11 +40,11 @@
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">All
                         Subscribers</a>
                     </MenuItem>
-                    <MenuItem v-slot="{ active }" @click="valueSelected('Non Subscribers')">
+                    <!-- <MenuItem v-slot="{ active }" @click="valueSelected('Non Subscribers')">
                     <a href="#"
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Non
                         Subscribers</a>
-                    </MenuItem>
+                    </MenuItem> -->
                 </div>
                 <div class="py-1">
                     <MenuItem v-slot="{ active }" @click="valueSelected('All Users')">
@@ -57,7 +57,7 @@
                     <MenuItem v-slot="{ active }">
                     <a href="#"
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']"
-                        @click="deleteUser">Delete Multiple Users</a>
+                        @click="deleteUser">Delete Selected Users</a>
                     </MenuItem>
                 </div>
             </MenuItems>

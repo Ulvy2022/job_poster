@@ -3,8 +3,6 @@
         <div class="mt-2 md:block lg:hidden">
             <button class="collapsible bg-gray-500 text-white" @click="showHideCollapse">{{ title }} </button>
             <div class="content w-full ">
-
-
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize" v-for="job of listJobs" :key="job"
                     @click.prevent="selectedValue(job)">{{ job }}</p>
                 <p class=" cursor-pointer p-3  hover:bg-slate-100 capitalize text-red-500" v-if="(jobList.length == 0)">

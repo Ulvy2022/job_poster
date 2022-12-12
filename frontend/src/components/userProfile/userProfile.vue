@@ -10,7 +10,8 @@
                         <div class="image overflow-hidden ">
                             <img class="h-60 w-auto mx-auto" v-if="img == null && role == 'Admine'"
                                 src="../../assets/images/software-engineer.png" />
-                            <img class="h-60 w-auto mx-auto" v-else-if="img != null" :src="img" />
+                            <img class="h-60 w-auto mx-auto" v-else-if="img != null"
+                                :src="'http://localhost:8000/' + img" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'F'"
                                 src="../../assets/images/woman.png" />
                             <img class="h-60 w-auto mx-auto" v-else-if="img == null && gender == 'M'"
@@ -20,7 +21,7 @@
                         </div>
                         <label class="block ">
                             <span class="sr-only">Upload Picture</span>
-                            <input type="file" @change="onFileChange"
+                            <input type="file" @change="onFileChange" enctype="multipart/form-data"
                                 class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                         </label>
 
@@ -252,8 +253,9 @@ export default {
             var formData = new FormData();
             formData.append('img', file);
             formData.append('_method', "PUT");
-            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData).then(() => {
-                location.reload()
+            axios.post('http://localhost:8000/api/updateImg/' + localStorage.getItem('userId') + '/', formData).then((res) => {
+                // location.reload()
+                console.log(res.data);
             })
         },
 

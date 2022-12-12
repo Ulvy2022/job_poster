@@ -10,9 +10,9 @@
       </div>
 
       <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-      <div class="modal overflow-auto">
+      <div class="modal overflow-auto" id="form">
         <div class="mt-8 lg:w-[40%] w-full p-3 lg:m-auto ml-3 bg-white rounded-lg m-auto ">
-          <form @submit.prevent="createJob">
+          <form>
             <h1 class="
                 text-center
                 bg-blue-600
@@ -49,6 +49,9 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Web Developer" required="" />
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationFiveWords(jobTitle) && isClikcAdd)">Please Input
+                  Job Title</span>
               </div>
 
               <div>
@@ -75,6 +78,9 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Phnom Penh or Province" required="" />
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationFiveWords(jobLocation) && isClikcAdd)">Please Input
+                  contactEmail</span>
               </div>
 
               <div>
@@ -106,6 +112,10 @@
                   <option value="Part-Time">Part-Time</option>
                   <option value="Training Workshop">Training Workshop</option>
                 </select>
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationFiveWords(jobType) && isClikcAdd)">Please Input
+                  Job Type</span>
+
               </div>
 
               <div>
@@ -158,6 +168,7 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Salary" />
+                <span class="text-sm text-red-500" v-if="(salary < 100 && isClikcAdd)">Please Input Salary</span>
               </div>
 
               <div>
@@ -184,6 +195,9 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Name" required="" />
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationFiveWords(jobType) && isClikcAdd)">Please Input
+                  Contact Name</span>
               </div>
 
               <div>
@@ -210,6 +224,9 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Email" />
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationTenWords(contactEmail) && isClikcAdd)">Please Input
+                  contactEmail</span>
               </div>
 
               <div>
@@ -236,6 +253,9 @@
                     dark:focus:ring-blue-500
                     dark:focus:border-blue-500
                   " placeholder="Company Name" />
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationFiveWords(companyName) && isClikcAdd)">Please Input
+                  Company Name</span>
               </div>
             </div>
 
@@ -265,6 +285,9 @@
                     dark:focus:border-blue-500
                   " placeholder="Job Address" required="">
                 </textarea>
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationTenWords(companyAddress) && isClikcAdd)">Please Input
+                  Company Name</span>
               </div>
 
               <div class="mb-1 w-full">
@@ -292,6 +315,9 @@
                     dark:focus:border-blue-500
                   " placeholder="Job Description" required="">
                 </textarea>
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationTenWords(jobDescription) && isClikcAdd)">Please Input
+                  Job Description</span>
               </div>
 
               <div class="mb-1">
@@ -319,6 +345,9 @@
                     dark:focus:border-blue-500
                   " placeholder="Job Requirement" required="">
                 </textarea>
+                <span class="text-red-500 text-sm animate__animated animate__shakeX"
+                  v-if="(!validationTenWords(jobRequirement) && isClikcAdd)">Please Input
+                  Job Requirement</span>
               </div>
 
               <div class="grid gap-12 grid-cols-2">
@@ -342,8 +371,8 @@
                     ">Cancel</label>
                 </div>
 
-                <div class="modal-action">
-                  <label for="my-modal-3" @click="createJob" class="
+                <div class="modal-action cursor-pointer">
+                  <label @click="postJob" class="
                       text-white
                       w-full
                       bg-blue-700
@@ -359,6 +388,7 @@
                       dark:bg-blue-600
                       dark:hover:bg-blue-700
                       dark:focus:ring-blue-800
+                      cursor-pointer
                     ">Add</label>
                 </div>
               </div>
@@ -377,6 +407,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
+      isClikcAdd: false,
       userId: localStorage.getItem("userId"),
       jobTitle: "",
       jobLocation: "",
@@ -411,75 +442,101 @@ export default {
   },
 
   methods: {
-    createJob() {
-      Swal.fire({
-        title: "Do you want to save the changes?",
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "Save",
-        denyButtonText: "Don't save",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (
-            !this.jobTitle.trim() == "" &&
-            !this.jobLocation.trim() == "" &&
-            !this.jobClosedate.trim() == "" &&
-            !this.jobType.trim() == "" &&
-            !this.salary == "" &&
-            !this.contactName.trim() == "" &&
-            !this.companyAddress.trim() == "" &&
-            !this.contactEmail.trim() == "" &&
-            !this.jobDescription.trim() == "" &&
-            !this.jobRequirement.trim() == ""
-          ) {
-            axios
-              .post("http://127.0.0.1:8000/api/jobposter/", {
-                user_id: localStorage.getItem("userId"),
-                job_title: this.jobTitle,
-                company_location: this.jobLocation,
-                job_type: this.jobType,
-                job_closedate: this.jobClosedate,
-                company_name: this.companyName,
-                salary: this.salary,
-                contact_name: this.contactName,
-                contact_email: this.contactEmail,
-                job_description: this.jobDescription,
-                company_address: this.companyAddress,
-                job_requirement: this.jobRequirement,
-              })
-              .then(() => {
-                this.jobs;
-                (this.jobTitle = ""),
-                  (this.jobLocation = ""),
-                  (this.jobType = ""),
-                  (this.jobClosedate = ""),
-                  (this.companyName = ""),
-                  (this.salary = ""),
-                  (this.contactName = ""),
-                  (this.contactEmail = ""),
-                  (this.companyAddress = ""),
-                  (this.jobDescription = ""),
-                  (this.jobRequirement = ""),
-                  // $router.go() make page refresh by itself.
-                  this.$router.go();
-              });
-            // User need to subscribe first.
-          } else if (this.role == "user") {
-            Swal.fire("You need to subscribe first!");
-          } else
+
+    postJob() {
+      this.isClikcAdd = true;
+      if (this.validationTenWords(this.jobDescription) && this.validationFiveWords(this.jobLocation) && this.validationFiveWords(this.contactName) && this.validationFiveWords(this.jobType) &&
+        this.validationFiveWords(this.jobTitle) && this.validationTenWords(this.companyAddress) && this.validationTenWords(this.jobRequirement) &&
+        this.validationTenWords(this.contactEmail) && this.salary > 100) {
+        axios.post("http://127.0.0.1:8000/api/jobposter/", {
+          user_id: localStorage.getItem("userId"),
+          job_title: this.jobTitle,
+          company_location: this.jobLocation,
+          job_type: this.jobType,
+          job_closedate: this.jobClosedate,
+          company_name: this.companyName,
+          salary: this.salary,
+          contact_name: this.contactName,
+          contact_email: this.contactEmail,
+          job_description: this.jobDescription,
+          company_address: this.companyAddress,
+          job_requirement: this.jobRequirement,
+        }).then((res) => {
+          if (res.data.msg == 'job posted') {
+            this.jobTitle = "";
+            this.jobLocation = "";
+            this.jobType = "";
+            this.jobClosedate = "";
+            this.companyName = "";
+            this.salary = "";
+            this.contactName = "";
+            this.contactEmail = "";
+            this.companyAddress = "";
+            this.jobDescription = "";
+            this.jobRequirement = "";
             Swal.fire(
-              'Please complete all information before click button "Add"!!!'
-            );
-        }
-      });
+              'Job Posted!',
+              // 'You clicked the button!',
+              'success'
+            )
+            // document.getElementById("form").style.display = 'none';
+            this.$router.go();
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed to posted job',
+              text: res.data.msg,
+            })
+          }
+        }).catch((err) => {
+          this.jobTitle = "";
+          this.jobLocation = "";
+          this.jobType = "";
+          this.jobClosedate = "";
+          this.companyName = "";
+          this.salary = "";
+          this.contactName = "";
+          this.contactEmail = "";
+          this.companyAddress = "";
+          this.jobDescription = "";
+          this.jobRequirement = "";
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to posted job',
+            text: err.data,
+          })
+        })
+      } else {
+        this.validationTenWords(this.jobDescription)
+        this.validationFiveWords(this.jobLocation)
+        this.validationFiveWords(this.contactName)
+        this.validationFiveWords(this.jobType)
+        this.validationFiveWords(this.jobTitle)
+        this.validationTenWords(this.companyAddress)
+        this.validationTenWords(this.jobRequirement)
+        this.validationTenWords(this.contactEmail)
+      }
     },
 
     get_current_user_subscription() {
       axios.get("http://localhost:8000/api/current_scubscribe/" + this.userId).then((res) => {
         this.isSubscription = res.data;
-        console.log(res.data);
       })
     },
+
+    validationTenWords(value) {
+      if (value.length > 9) {
+        return true;
+      }
+      return false;
+    },
+
+    validationFiveWords(value) {
+      if (value.length > 2) {
+        return true;
+      }
+      return false;
+    }
   },
 
   mounted() {

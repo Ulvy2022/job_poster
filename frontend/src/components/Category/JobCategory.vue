@@ -28,6 +28,23 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="m-auto w-11/12 lg:w-full lg:flex justify-between mb-3 grid grid-cols-1 gap-y-2 mt-5">
+                        <div class="w-full flex items-end gap-2">
+                            <input @click="getRadionValue('All Jobs')" type="radio" name="radio-4"
+                                class="radio radio-accent" checked />
+                            <p>All Jobs</p>
+                        </div>
+                        <div class="w-full flex items-end gap-2">
+                            <input @click="getRadionValue('Closed Jobs')" type="radio" name="radio-4"
+                                class="radio radio-accent" />
+                            <p>Closed Jobs</p>
+                        </div>
+                        <div class="w-full flex items-end gap-2">
+                            <input @click="getRadionValue('Not Closed Jobs')" type="radio" name="radio-4"
+                                class="radio radio-accent" />
+                            <p>Not Closed Jobs</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="w-full flex justify-between ">
                     <p class="w-2/4 text-xl  ml-2"> Jobs List</p>
@@ -39,10 +56,11 @@
                         style="filter: drop-shadow(0 0 0.75rem black);">
                 </div>
 
-                <div class="lg:w-11/12 w-full">
+                <div class="lg:w-11/12 w-full mb-5">
                     <div v-for="job of allJobs[currentPage]" :key="job" :id="job.id + 'parent'"
                         @click="deatilJob(job.id)"
-                        class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2">
+                        class="flex w-full gap-10 items-center bg-base-100 hover:bg-gray-100 cursor-pointer rounded-box mt-2"
+                        :class="{ 'hidden': filterbyJobDate(job.status) }">
                         <div>
                             <div class="avatar placeholder ml-2">
                                 <div class="bg-gray-600 text-neutral-content rounded-full w-16">
@@ -50,9 +68,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div class="p-3  w-full">
                             <p class="text-ellipsis text-sm text-gray-500 capitalize" :id="job.id + 'jobTitle'">
                                 {{ job.job_title }}
@@ -70,7 +85,7 @@
                             </p>
                             <div class="flex lg:gap-24 gap-7 mt-2">
                                 <div class="w-full grid grid-cols-2  lg:grid-cols-2 gap-y-2 gap-x-2 items-center">
-                                    <div class="flex gap-2 lg:w-full justify-start place-items-end">
+                                    <div class="flex gap-2 lg:w-full justify-start ">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
                                             class="h-5 w-5 fill-blue-500">
                                             <path
@@ -140,9 +155,29 @@ export default {
             numberOfAllJobs: 0,
             userId: localStorage.getItem("userId"),
             subscription: localStorage.getItem("subscription"),
+            radioValue: ''
         }
     },
     methods: {
+        getRadionValue(value) {
+            this.filterbyJobDate(true);
+            this.radioValue = value;
+        },
+
+        filterbyJobDate(status) {
+            if (this.radioValue != "All Jobs") {
+                if (this.radioValue == 'Not Closed Jobs') {
+                    return !status;
+                } else if (this.radioValue == 'Closed Jobs') {
+                    return status;
+                } else {
+                    return false;
+                }
+            } else if (this.radioValue == "All Jobs") {
+                return false;
+            }
+        },
+
         previousPage() {
             this.selected = '';
             this.jobName = '';
@@ -191,7 +226,6 @@ export default {
                 }
                 this.tenJobPerPage = []
                 this.allPages = this.allJobs.length;
-                console.log(this.allJobs[0].length);
             })
         },
 

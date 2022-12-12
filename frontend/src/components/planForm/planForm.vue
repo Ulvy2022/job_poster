@@ -19,45 +19,52 @@
 
     <div class="w-full lg:w-11/12 bg-white h-full lg:p-10 animate__animated animate__fadeIn "
         v-if="(userSub.length > 0 && !isShowForm)">
+        <form class="mb-5 w-11/12 m-auto mt-5 lg:w-full">
+            <label for="default-search"
+                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <input type="search" id="default-search"
+                    class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    @keyup="filterJobsByName('ll')" v-model="searchValue" placeholder="Search plans by name..."
+                    required>
+            </div>
+        </form>
         <p class="p-3 bg-blue-500 text-white">Your Plan History</p>
         <div class="p-3 bg-blue-500 text-white flex justify-between border-t-2 border-white">
-            <p>Status/Name</p>
+            <p>Name</p>
             <p>Price</p>
             <p>subscribe at</p>
         </div>
         <div class="w-full ">
             <!-- subscription -->
 
-            <div class="w-full bg-white flex justify-between p-3 shadow-sm" v-for="sub of userSub" :key="sub">
+            <div class="w-full bg-white flex justify-between p-3 shadow-sm animate__animated animate__fadeIn"
+                v-for="sub of userSub" :key="sub" :class="{ 'hidden': !filterJobsByName(sub.name) }">
                 <!-- check sign -->
                 <div class="flex gap-3 items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fill-blue-500 w- h-5">
-                        <path
-                            d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-
-                    <p>{{ sub.name }}</p>
+                    <p class="capitalize">{{ sub.name }}</p>
                 </div>
                 <p>{{ sub.postpaid }}$/m</p>
                 <p>{{ timestampToDate(sub.created_at) }}</p>
             </div>
             <!-- billing -->
-            <p class="p-3 bg-blue-500 text-white">Your Billing History</p>
+            <p class="p-3 bg-blue-500 text-white mt-5">Your Billing History</p>
             <div class="p-3 bg-blue-500 text-white flex justify-between border-t-2 border-white">
-                <p>Status/Name</p>
+                <p>Status</p>
                 <p>Price</p>
                 <p>subscribe at</p>
             </div>
             <div class="w-full bg-white flex justify-between p-3 shadow-sm " v-for="payment of userPayments"
                 :key="payment">
                 <div class="flex gap-3 items-center">
-                    <svg v-if="(payment.status = 0)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                        class="fill-blue-500 w-5 h-5">
-                        <path
-                            d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                    </svg>
-                    <!-- <p>{{ payment.status }}</p> -->
-                    <p>{{ payment.payment_option }}</p>
+                    <p class="text-green-500">Success</p>
                 </div>
                 <p>{{ payment.amount }}$</p>
                 <p>{{ timestampToDate(payment.created_at) }}</p>
@@ -75,6 +82,7 @@ export default {
         return {
             isShowForm: true,
             count: 0,
+            searchValue: ''
         }
     },
     methods: {
@@ -90,6 +98,16 @@ export default {
             }, 1500)
         },
 
+        filterJobsByName(valueToHS) {
+            this.isClickSearchBtn = true;
+            if (this.searchValue.trim() != '' && valueToHS.toLowerCase().search(this.searchValue.toLowerCase()) > -1) {
+                return true;
+            } else if (this.searchValue.trim() != '' && valueToHS.toLowerCase().search(this.searchValue.toLowerCase()) == -1) {
+                return false;
+            } else {
+                return true;
+            }
+        }
 
 
     },
